@@ -38,7 +38,7 @@ export const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
     setForm({ name: "", email: "", phone: "", message: "" });
@@ -50,11 +50,11 @@ export const Contact = () => {
       {/* Hero banner */}
       <section className="relative h-[260px] overflow-hidden sm:h-[340px] lg:h-[400px]">
         <img
-          className="absolute inset-0 h-full w-full object-cover"
+          className="parallax-media absolute inset-0 h-full w-full object-cover"
           alt="Contact us"
           src={ASSETS.contactBg}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.85)_100%)]" />
+        <div className="hero-overlay absolute inset-0" />
         <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-12 text-center">
           <SectionLabel className="mb-2">GET IN TOUCH</SectionLabel>
           <SectionHeading
@@ -101,7 +101,7 @@ export const Contact = () => {
       {/* Contact form section */}
       <section className="relative z-10 w-full px-4 pb-20 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="flex flex-col gap-4">
+          <div data-reveal="left" className="flex flex-col gap-4">
             <SectionLabel>SEND A MESSAGE</SectionLabel>
             <SectionHeading
               primary="Let's Start"
@@ -117,6 +117,7 @@ export const Contact = () => {
           </div>
 
           <form
+            data-reveal="right"
             onSubmit={handleSubmit}
             className="flex flex-col gap-5 rounded-[24px] border border-white/10 bg-white/5 p-6 sm:p-8"
           >

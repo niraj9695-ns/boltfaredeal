@@ -1,4 +1,5 @@
 import { ChevronDownIcon, PlayCircleIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -12,20 +13,37 @@ import { ScrollIndicator } from "../components/shared/ScrollIndicator";
 import { ASSETS, SERVICES, PORTFOLIO_CASES, STATS } from "../lib/assets";
 
 export const Home = () => {
+  const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
+  const [activeServiceIndex, setActiveServiceIndex] = useState(0);
+
+  useEffect(() => {
+    const syncTheme = () => {
+      setIsLightTheme(document.documentElement.getAttribute("data-theme") === "light");
+    };
+
+    syncTheme();
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const heroImage = isLightTheme ? ASSETS.heroBgLight : ASSETS.heroBgLarge;
+
   return (
     <>
       {/* Hero section */}
       <section className="relative min-h-[100vh] overflow-hidden md:min-h-[809px]">
         {/* Background image */}
-        <img
-          className="absolute left-1/2 top-0 h-full w-full max-w-none -translate-x-1/2 object-cover md:h-[809px] md:w-[1440px]"
-          alt="Printing studio"
-          src={ASSETS.heroBgLarge}
-        />
+<img
+  className="hero-media absolute inset-0 h-full w-full object-cover"
+  alt="Printing studio"
+  src={heroImage}
+/>
         {/* Dark gradient overlay for readability */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0.3)_40%,rgba(0,0,0,0.9)_100%)]"
+          className="hero-overlay pointer-events-none absolute inset-0"
         />
 
         {/* Mobile top spacer for fixed header */}
@@ -89,17 +107,25 @@ export const Home = () => {
             </div>
           </header>
 
-          {/* Service cards - horizontal scroll on mobile, grid on desktop */}
-          <div className="-mx-4 overflow-x-auto px-4 pb-2 md:mx-0 md:overflow-visible md:px-0">
-            <div className="flex gap-5 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6">
-              {SERVICES.map((service) => (
-                <div key={service.title} className="w-[280px] shrink-0 md:w-full md:shrink">
+          {/* Service cards - slider across all screen sizes */}
+          <div className="-mx-4 overflow-x-auto px-4 pb-2 md:mx-0 md:overflow-x-auto md:px-0 md:[&::-webkit-scrollbar]:hidden md:[scrollbar-width:none] md:[-ms-overflow-style:none]">
+            <div className="flex snap-x snap-mandatory gap-5 md:gap-6">
+              {SERVICES.map((service, index) => (
+                <div
+                  key={service.title}
+                  className="w-[280px] shrink-0 snap-start md:w-[320px] md:min-w-[320px]"
+                >
                   <ServiceCard
                     title={service.title}
                     description={service.description}
                     image={service.image}
                     radius={service.radius}
                     overlay={service.overlay}
+                    active={activeServiceIndex === index}
+                    onMouseEnter={() => setActiveServiceIndex(index)}
+                    onMouseLeave={() => setActiveServiceIndex(0)}
+                    onFocus={() => setActiveServiceIndex(index)}
+                    onBlur={() => setActiveServiceIndex(0)}
                   />
                 </div>
               ))}
@@ -111,15 +137,20 @@ export const Home = () => {
       {/* Why Choose Us section */}
       <section className="relative z-10 w-full rounded-[clamp(1rem,4vw,50px)] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(225,222,0,0.11)_100%)] px-4 py-12 sm:px-10 lg:px-[77px] lg:py-[63px]">
         <div className="mx-auto flex w-full max-w-[1027px] flex-col gap-8">
-          <header className="grid gap-8 lg:grid-cols-[339px_minmax(0,502px)] lg:justify-between lg:gap-[100px]">
-            <SectionHeading
-              primary="Why"
-              secondary="Choose Us"
+          <header
+            data-reveal="left"
+            className="grid gap-8 lg:grid-cols-[339px_minmax(0,502px)] lg:justify-between lg:gap-[100px]"
+          >
+            <div data-reveal="left">
+              <SectionHeading
+                primary="Why"
+                secondary="Choose Us"
               className="text-[36px] sm:text-[44px] sm:leading-[50px] lg:text-[55px] lg:leading-[60px]"
               primaryClassName="leading-[1.1]"
-              secondaryClassName="text-[40px] sm:text-[50px] lg:text-[55px] leading-[1.1]"
-            />
-            <div className="flex max-w-full flex-col gap-4">
+                secondaryClassName="text-[40px] sm:text-[50px] lg:text-[55px] leading-[1.1]"
+              />
+            </div>
+            <div data-reveal="right" className="flex max-w-full flex-col gap-4">
               <p className="m-0 [font-family:'Inter',Helvetica] text-base font-light leading-relaxed tracking-[0] text-white">
                 We cover the entire gamut of print needs — from company
                 profiles to brochures and catalogues, coffee-table books to
@@ -143,7 +174,8 @@ export const Home = () => {
           </header>
 
           <div className="grid gap-8 lg:grid-cols-[400px_minmax(0,480px)] lg:items-end lg:gap-[80px]">
-            <Card className="relative h-[260px] w-full max-w-full overflow-hidden rounded-[20px] border-0 bg-transparent p-0 shadow-none sm:h-[308px] lg:max-w-[400px]">
+            <div data-reveal="left">
+              <Card className="relative h-[260px] w-full max-w-full overflow-hidden rounded-[20px] border-0 bg-transparent p-0 shadow-none sm:h-[308px] lg:max-w-[400px]">
               <CardContent className="size-full p-0">
                 <img
                   className="size-full object-cover"
@@ -152,7 +184,7 @@ export const Home = () => {
                   loading="lazy"
                 />
                 <div
-                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.2)_0%,rgba(0,0,0,0.8)_100%)]"
+                  className="video-card-overlay absolute inset-0"
                   aria-hidden="true"
                 />
                 <Button
@@ -166,8 +198,9 @@ export const Home = () => {
                 </Button>
               </CardContent>
             </Card>
+            </div>
 
-            <dl className="grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-12 sm:gap-y-[30px] lg:pb-0">
+            <dl data-reveal="right" className="grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-12 sm:gap-y-[30px] lg:pb-0">
               {STATS.map((stat) => (
                 <StatItem key={stat.label} value={stat.value} label={stat.label} />
               ))}
@@ -179,7 +212,7 @@ export const Home = () => {
       {/* About teaser section */}
       <section className="relative z-10 w-full px-4 py-16 sm:px-6 md:py-20 lg:px-8">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-8 lg:gap-[46px]">
-          <header className="flex max-w-full flex-col gap-1 lg:max-w-[547px]">
+          <header data-reveal="left" className="flex max-w-full flex-col gap-1 lg:max-w-[547px]">
             <SectionLabel>ABOUT US</SectionLabel>
             <SectionHeading
               primary="Printing Expertise."
@@ -188,7 +221,7 @@ export const Home = () => {
               secondaryClassName="text-[40px] sm:text-[55px]"
             />
           </header>
-          <div className="flex w-full max-w-full flex-col gap-6 lg:ml-auto lg:max-w-[682px] lg:gap-[22px]">
+          <div data-reveal="right" className="flex w-full max-w-full flex-col gap-6 lg:ml-auto lg:max-w-[682px] lg:gap-[22px]">
             <p className="[font-family:'Inter',Helvetica] text-base font-light leading-relaxed text-white sm:text-lg sm:leading-[33px]">
               Established in 1990, Fairdeal Print Pack is a one-stop shop that
               can handle all your quality print requirements from structural

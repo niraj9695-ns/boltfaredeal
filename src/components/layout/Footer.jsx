@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { GradientButton } from "../shared/GradientButton";
+import logoImage from "../../assets/images/logo.png";
 
 const services = [
   "Print Solutions",
@@ -27,12 +28,7 @@ export const Footer = () => {
       <div className="mx-auto flex w-full max-w-[1180px] flex-col">
         <div className="flex min-h-[102px] flex-col justify-between gap-8 border-b-[3px] border-white/10 pb-[25px] sm:flex-row sm:items-start">
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold [font-family:'Merriweather',Helvetica]">
-              Fairdeal
-            </span>
-            <span className="rounded bg-white px-2 py-0.5 text-sm font-semibold text-[#1e1e1e]">
-              PP
-            </span>
+            <img src={logoImage} alt="Fairdeal Print Pack" className="h-10 w-auto object-contain" />
           </Link>
           <div className="flex flex-col items-start gap-4 sm:mt-[11px] sm:flex-row sm:items-center sm:gap-[34px]">
             <p className="[font-family:'Inter',Helvetica] text-lg font-normal leading-normal tracking-[-0.3px] sm:text-[22px]">

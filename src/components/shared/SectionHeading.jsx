@@ -1,20 +1,12 @@
 import { cn } from "../../lib/utils";
 
-interface SectionHeadingProps {
-  primary: string;
-  secondary?: string;
-  className?: string;
-  primaryClassName?: string;
-  secondaryClassName?: string;
-}
-
 export const SectionHeading = ({
   primary,
   secondary,
   className,
   primaryClassName,
   secondaryClassName,
-}: SectionHeadingProps) => {
+}) => {
   return (
     <h2
       className={cn(
@@ -23,13 +15,17 @@ export const SectionHeading = ({
       )}
     >
       {primary && (
-        <span className={cn("italic leading-[64px]", primaryClassName)}>
+        <span
+          data-reveal="left"
+          className={cn("italic leading-[64px]", primaryClassName)}
+        >
           {primary}
           {secondary && <br />}
         </span>
       )}
       {secondary && (
         <span
+          data-reveal="right"
           className={cn(
             "text-[55px] italic leading-[64px] text-[#92d1bc]",
             secondaryClassName,

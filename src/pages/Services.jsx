@@ -1,4 +1,5 @@
 import { CheckCircleIcon } from "lucide-react";
+import { useState } from "react";
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { SectionHeading } from "../components/shared/SectionHeading";
@@ -29,16 +30,18 @@ const serviceDetails = [
 ];
 
 export const Services = () => {
+  const [activeServiceIndex, setActiveServiceIndex] = useState(0);
+
   return (
     <>
       {/* Hero banner */}
       <section className="relative h-[260px] overflow-hidden sm:h-[340px] lg:h-[400px]">
         <img
-          className="absolute inset-0 h-full w-full object-cover"
+          className="parallax-media absolute inset-0 h-full w-full object-cover"
           alt="Our printing services"
           src={ASSETS.servicePrint}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.85)_100%)]" />
+        <div className="hero-overlay absolute inset-0" />
         <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-12 text-center">
           <SectionLabel className="mb-2">OUR SERVICES</SectionLabel>
           <SectionHeading
@@ -63,7 +66,7 @@ export const Services = () => {
             />
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.map((service) => (
+            {SERVICES.map((service, index) => (
               <ServiceCard
                 key={service.title}
                 title={service.title}
@@ -71,6 +74,11 @@ export const Services = () => {
                 image={service.image}
                 radius={service.radius}
                 overlay={service.overlay}
+                active={activeServiceIndex === index}
+                onMouseEnter={() => setActiveServiceIndex(index)}
+                onMouseLeave={() => setActiveServiceIndex(0)}
+                onFocus={() => setActiveServiceIndex(index)}
+                onBlur={() => setActiveServiceIndex(0)}
               />
             ))}
           </div>
@@ -87,6 +95,7 @@ export const Services = () => {
             >
               {/* Alternate image side for visual variety */}
               <div
+                data-reveal={idx % 2 === 1 ? "right" : "left"}
                 className={`order-1 ${idx % 2 === 1 ? "lg:order-2" : ""}`}
               >
                 <img
@@ -97,6 +106,7 @@ export const Services = () => {
                 />
               </div>
               <div
+                data-reveal={idx % 2 === 1 ? "left" : "right"}
                 className={`flex flex-col gap-4 ${idx % 2 === 1 ? "lg:order-1" : ""}`}
               >
                 <SectionLabel>{`0${idx + 1}`}</SectionLabel>

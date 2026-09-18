@@ -11,11 +11,11 @@ export const Portfolio = () => {
       {/* Hero banner */}
       <section className="relative h-[260px] overflow-hidden sm:h-[340px] lg:h-[400px]">
         <img
-          className="absolute inset-0 h-full w-full object-cover"
+          className="parallax-media absolute inset-0 h-full w-full object-cover"
           alt="Our portfolio"
           src={PORTFOLIO_CASES[0].image}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.85)_100%)]" />
+        <div className="hero-overlay absolute inset-0" />
         <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-12 text-center">
           <SectionLabel className="mb-2">PORTFOLIO</SectionLabel>
           <SectionHeading

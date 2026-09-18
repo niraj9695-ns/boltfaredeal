@@ -8,7 +8,13 @@ import { Services } from "./pages/Services";
 import { Portfolio } from "./pages/Portfolio";
 import { Contact } from "./pages/Contact";
 
-createRoot(document.getElementById("app") as HTMLElement).render(
+const appElement = document.getElementById("app");
+
+if (!appElement) {
+  throw new Error("App root element not found");
+}
+
+createRoot(appElement).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
