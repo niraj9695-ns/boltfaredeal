@@ -23,7 +23,7 @@ export const Portfolio = () => {
 
   return (
     <div className="bg-[#171923] text-white">
-      <section className="bg-black px-6 pb-14 pt-20 sm:px-10 sm:pb-16 sm:pt-24 lg:px-[7%] lg:pb-[74px] lg:pt-[68px]">
+      <section className="bg-black px-6 pb-14 pt-20 sm:px-10 sm:pb-16 sm:pt-24 lg:px-[7%] lg:pb-[74px] lg:pt-[140px]">
         <div className="mx-auto max-w-[1240px]">
           <p className="mb-3 text-[13px] font-normal uppercase tracking-[0.02em] text-[#92d1bc] sm:text-[15px]">
             Portfolio
