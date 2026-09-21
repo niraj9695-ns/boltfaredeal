@@ -7,17 +7,21 @@ import { GradientButton } from "../shared/GradientButton";
 import logoImage from "../../assets/images/logo.png";
 
 const services = [
-  "Print Solutions",
-  "Paper Distribution",
-  "Packaging Solutions",
-  "Color Printing",
+  "Flexo Printing",
+  "Offset Printing",
+  "Corrugated Packaging",
+  "BOPP Tapes",
+  "Screen Printing",
+  "Labels & Stickers",
 ];
 
 const serviceLinks = [
-  { label: "Print Solutions", to: "/services" },
-  { label: "Paper Distribution", to: "/services" },
-  { label: "Packaging Solutions", to: "/services" },
-  { label: "Color Printing", to: "/services" },
+  { label: "Flexo Printing", to: "/services" },
+  { label: "Offset Printing", to: "/services" },
+  { label: "Corrugated Packaging", to: "/services" },
+  { label: "BOPP Tapes", to: "/services" },
+  { label: "Screen Printing", to: "/services" },
+  { label: "Labels & Stickers", to: "/services" },
 ];
 
 export const Footer = () => {
@@ -42,9 +46,7 @@ export const Footer = () => {
     <footer
       className={[
         "w-full px-4 py-8 sm:px-10 lg:px-[130px]",
-        isLightTheme
-          ? "bg-[#FFFFE9] text-[#1b1b1b]"
-          : "bg-[linear-gradient(0deg,rgba(5,4,5,1)_0%,rgba(216,213,87,0)_100%)] text-white",
+        isLightTheme ? "bg-[#FFFFE9] text-[#1b1b1b]" : "bg-[#05080a] text-white",
       ].join(" ")}
     >
       <div className="mx-auto flex w-full max-w-[1180px] flex-col">

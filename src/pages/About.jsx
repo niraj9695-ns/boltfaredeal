@@ -13,6 +13,11 @@ import interior9 from "../assets/images/Interior/9.png";
 import interior10 from "../assets/images/Interior/10.png";
 import interior11 from "../assets/images/Interior/11.png";
 import interior12 from "../assets/images/Interior/12.png";
+import teamImage from "../assets/images/Team/Team.png";
+import portfolioImage1 from "../assets/images/PortFolioImages/1.png";
+import portfolioImage2 from "../assets/images/PortFolioImages/2.png";
+import portfolioImage3 from "../assets/images/PortFolioImages/3.png";
+import portfolioImage4 from "../assets/images/PortFolioImages/4.png";
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { StatItem } from "../components/shared/StatItem";
@@ -46,8 +51,11 @@ const storyValues = [
   "Customer-focused and cost-effective solutions",
 ];
 
+const strengthSlides = [teamImage, portfolioImage1, portfolioImage2, portfolioImage3, portfolioImage4];
+
 export const About = () => {
   const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     const syncTheme = () => {
@@ -59,6 +67,14 @@ export const About = () => {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % strengthSlides.length);
+    }, 3500);
+
+    return () => window.clearInterval(interval);
   }, []);
 
   return (
@@ -344,51 +360,28 @@ export const About = () => {
             <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
 
               {/* Image */}
-              <div
-                className="relative overflow-hidden rounded-[18px]"
-                data-reveal="left"
-              >
-                <img
-                  src={ASSETS.serviceColor}
-                  alt="Packaging and print production"
-                  className="h-[300px] w-full object-cover sm:h-[390px] lg:h-[440px]"
-                  loading="lazy"
-                />
-
-                {/* Slider arrow */}
-                <div
-                  className="absolute right-[-1px] top-1/2 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border backdrop-blur-sm"
-                  style={{
-                    background: "var(--theme-surface)",
-                    borderColor: "var(--theme-border)",
-                    color: "var(--theme-text)",
-                  }}
-                >
-                  <ChevronDownIcon className="h-4 w-4 -rotate-90" />
+              <div className="space-y-3" data-reveal="left">
+                <div className="overflow-hidden rounded-[18px]">
+                  <img
+                    src={strengthSlides[activeSlide]}
+                    alt="Fairdeal production and team imagery"
+                    className="h-[300px] w-full object-cover sm:h-[390px] lg:h-[440px]"
+                    loading="lazy"
+                  />
                 </div>
 
-                {/* Slider dots */}
-                <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
-                  <span
-                    className="h-1 w-7 rounded-full"
-                    style={{
-                      background: "var(--theme-accent-alt)",
-                    }}
-                  />
-                  <span
-                    className="h-1 w-1 rounded-full"
-                    style={{
-                      background: "var(--theme-text-soft)",
-                      opacity: 0.5,
-                    }}
-                  />
-                  <span
-                    className="h-1 w-1 rounded-full"
-                    style={{
-                      background: "var(--theme-text-soft)",
-                      opacity: 0.5,
-                    }}
-                  />
+                <div className="flex items-center justify-center gap-1.5">
+                  {strengthSlides.map((slide, index) => (
+                    <button
+                      key={slide}
+                      type="button"
+                      aria-label={`Show slide ${index + 1}`}
+                      onClick={() => setActiveSlide(index)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        activeSlide === index ? "w-7 bg-[var(--theme-accent-alt)]" : "w-2 bg-[var(--theme-text-soft)] opacity-50"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
 

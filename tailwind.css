@@ -1009,6 +1009,57 @@ html[data-theme="light"] [class*="bg-\[\#0b0b0b\]"] {
   background-color: var(--theme-bg) !important;
 }
 
+.service-grid-card {
+  background: #111827;
+}
+
+.service-grid-image {
+  opacity: 1;
+  display: block;
+  background: #edf3f7;
+}
+
+.service-grid-overlay {
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.group:hover .service-grid-overlay,
+html[data-theme="light"] .group:hover .service-grid-overlay {
+  background: rgba(15, 23, 42, 0.55) !important;
+}
+
+html[data-theme="light"] .service-grid-card {
+  background: #edf3f7 !important;
+}
+
+html[data-theme="light"] .service-grid-image {
+  background: #edf3f7 !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+html[data-theme="light"] .service-grid-overlay {
+  background: rgba(15, 23, 42, 0.28) !important;
+}
+
+.service-cta-image-panel {
+  background: #05080a;
+}
+
+html[data-theme="light"] .service-cta-image-panel {
+  background: #ffffff !important;
+}
+
+html[data-theme="light"] .service-card-title,
+html[data-theme="light"] .service-card-copy,
+html[data-theme="light"] .service-card-title + span,
+html[data-theme="light"] .service-grid-card h3,
+html[data-theme="light"] .service-grid-card p,
+html[data-theme="light"] .service-grid-card svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
 html[data-theme="light"] [class*="text-white"],
 html[data-theme="light"] [class*="text-\[\#fbfbfb\]"],
 html[data-theme="light"] [class*="text-\[\#f0efeb\]"],
@@ -1075,7 +1126,7 @@ html[data-theme="light"] .service-card-overlay {
 }
 
 html[data-theme="light"] footer {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(196, 183, 25, 0.08) 100%) !important;
+  background: #FFFFE9 !important;
 }
 
 html[data-theme="light"] .shadow-sm,
