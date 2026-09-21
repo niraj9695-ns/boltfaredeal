@@ -32,7 +32,7 @@ export const Layout = () => {
     });
 
     const revealElements = document.querySelectorAll(
-      "[data-reveal], .portfolio-card, .service-card, .stat-item, .magnetic-button, form, .contact-card",
+      "[data-reveal], .portfolio-card, .stat-item, .magnetic-button, form, .contact-card",
     );
 
     if (!revealElements.length) {

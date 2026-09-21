@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -22,19 +22,47 @@ const serviceLinks = [
 
 export const Footer = () => {
   const [email, setEmail] = useState("");
+  const [theme, setTheme] = useState(() => document.documentElement.getAttribute("data-theme") || "dark");
+
+  useEffect(() => {
+    const syncTheme = () => {
+      setTheme(document.documentElement.getAttribute("data-theme") || "dark");
+    };
+
+    syncTheme();
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const isLightTheme = theme === "light";
 
   return (
-    <footer className="w-full bg-[linear-gradient(0deg,rgba(5,4,5,1)_0%,rgba(216,213,87,0)_100%)] px-4 py-8 text-white sm:px-10 lg:px-[130px]">
+    <footer
+      className={[
+        "w-full px-4 py-8 sm:px-10 lg:px-[130px]",
+        isLightTheme
+          ? "bg-[#FFFFE9] text-[#1b1b1b]"
+          : "bg-[linear-gradient(0deg,rgba(5,4,5,1)_0%,rgba(216,213,87,0)_100%)] text-white",
+      ].join(" ")}
+    >
       <div className="mx-auto flex w-full max-w-[1180px] flex-col">
-        <div className="flex min-h-[102px] flex-col justify-between gap-8 border-b-[3px] border-white/10 pb-[25px] sm:flex-row sm:items-start">
+        <div className={[
+          "flex min-h-[102px] flex-col justify-between gap-8 border-b-[3px] pb-[25px] sm:flex-row sm:items-start",
+          isLightTheme ? "border-[#1b1b1b]/10" : "border-white/10",
+        ].join(" ")}>
           <Link to="/" className="flex items-center gap-2">
             <img src={logoImage} alt="Fairdeal Print Pack" className="h-10 w-auto object-contain" />
           </Link>
           <div className="flex flex-col items-start gap-4 sm:mt-[11px] sm:flex-row sm:items-center sm:gap-[34px]">
-            <p className="[font-family:'Inter',Helvetica] text-lg font-normal leading-normal tracking-[-0.3px] sm:text-[22px]">
+            <p className={[
+              "text-lg font-normal leading-normal tracking-[-0.3px] sm:text-[22px]",
+              isLightTheme ? "text-[#1b1b1b]" : "text-white",
+            ].join(" ")}>
               Ready to get started?
             </p>
-            <GradientButton to="/contact" className="h-[52px] px-[35px] [font-family:'Inter',Helvetica] text-base font-medium tracking-[-0.23px] sm:text-[17px]">
+            <GradientButton to="/contact" className="h-[52px] px-[35px] text-base font-medium tracking-[-0.23px] sm:text-[17px]">
               Get started
             </GradientButton>
           </div>
@@ -45,14 +73,17 @@ export const Footer = () => {
             <section aria-labelledby="newsletter-heading">
               <h2
                 id="newsletter-heading"
-                className="[font-family:'Inter',Helvetica] text-xl font-normal leading-normal tracking-[-0.3px] sm:text-[22px]"
+                className="text-xl font-normal leading-normal tracking-[-0.3px] sm:text-[22px]"
               >
                 Subscribe to our
                 <br />
                 newsletter
               </h2>
               <form
-                className="mt-[17px] flex h-[51px] items-start border-b-[3px] border-white/[0.18]"
+                className={[
+                  "mt-[17px] flex h-[51px] items-start border-b-[3px]",
+                  isLightTheme ? "border-[#1b1b1b]/20" : "border-white/[0.18]",
+                ].join(" ")}
                 onSubmit={(e) => {
                   e.preventDefault();
                   setEmail("");
@@ -68,13 +99,19 @@ export const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="h-[50px] flex-1 rounded-none border-0 bg-transparent px-0 [font-family:'Inter',Helvetica] text-sm tracking-[-0.2px] text-white placeholder:text-white/50 focus-visible:ring-0 sm:text-[15px]"
+                  className={[
+                    "h-[50px] flex-1 rounded-none border-0 bg-transparent px-0 text-sm tracking-[-0.2px] focus-visible:ring-0 sm:text-[15px]",
+                    isLightTheme ? "text-[#1b1b1b] placeholder:text-[#1b1b1b]/50" : "text-white placeholder:text-white/50",
+                  ].join(" ")}
                 />
                 <Button
                   type="submit"
                   size="icon"
                   aria-label="Submit email address"
-                  className="h-[50px] w-[50px] shrink-0 rounded-none bg-transparent text-white hover:bg-transparent"
+                  className={[
+                    "h-[50px] w-[50px] shrink-0 rounded-none bg-transparent hover:bg-transparent",
+                    isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                  ].join(" ")}
                 >
                   <ArrowRightIcon className="h-5 w-5" />
                 </Button>
@@ -85,7 +122,7 @@ export const Footer = () => {
               <nav aria-labelledby="services-heading">
                 <h2
                   id="services-heading"
-                  className="[font-family:'Inter',Helvetica] text-base font-medium leading-normal tracking-[-0.23px] text-[#92d1bc] sm:text-[17px]"
+                  className="text-base font-medium leading-normal tracking-[-0.23px] text-[#92d1bc] sm:text-[17px]"
                 >
                   Services
                 </h2>
@@ -94,7 +131,10 @@ export const Footer = () => {
                     <li key={service.label}>
                       <Link
                         to={service.to}
-                        className="block [font-family:'Inter',Helvetica] text-sm font-normal leading-[43px] text-white transition-colors hover:text-[#92d1bc]"
+                        className={[
+                          "block text-sm font-normal leading-[43px] transition-colors hover:text-[#92d1bc]",
+                          isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                        ].join(" ")}
                       >
                         {service.label}
                       </Link>
@@ -105,30 +145,39 @@ export const Footer = () => {
 
               <div className="flex flex-col gap-8">
                 <section>
-                  <h2 className="[font-family:'Inter',Helvetica] text-base font-medium leading-normal tracking-[-0.3px] text-[#92d1bc] sm:text-[17px]">
+                  <h2 className="text-base font-medium leading-normal tracking-[-0.3px] text-[#92d1bc] sm:text-[17px]">
                     Working hours:
                   </h2>
-                  <p className="mt-[9px] [font-family:'Inter',Helvetica] text-sm font-normal leading-[25px] tracking-[-0.3px] text-white">
+                  <p className={[
+                    "mt-[9px] text-sm font-normal leading-[25px] tracking-[-0.3px]",
+                    isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                  ].join(" ")}>
                     Mon - Sun: 9 am - 5 pm
                     <br />
                     Weekly Off: Thursday
                   </p>
                 </section>
                 <section>
-                  <h2 className="[font-family:'Inter',Helvetica] text-base font-medium leading-normal tracking-[-0.3px] text-[#92d1bc] sm:text-[17px]">
+                  <h2 className="text-base font-medium leading-normal tracking-[-0.3px] text-[#92d1bc] sm:text-[17px]">
                     Address:
                   </h2>
-                  <p className="mt-[9px] [font-family:'Inter',Helvetica] text-sm font-normal leading-[25px] tracking-[-0.3px] text-white">
+                  <p className={[
+                    "mt-[9px] text-sm font-normal leading-[25px] tracking-[-0.3px]",
+                    isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                  ].join(" ")}>
                     Fairdeal Print Pack, Mohanagar, Chinchwad 411033
                   </p>
                 </section>
               </div>
 
               <section>
-                <h2 className="[font-family:'Inter',Helvetica] text-base font-medium leading-normal tracking-[-0.3px] text-[#92d1bc] sm:text-[17px]">
+                <h2 className="text-base font-medium leading-normal tracking-[-0.3px] text-[#92d1bc] sm:text-[17px]">
                   Contact us:
                 </h2>
-                <p className="mt-[9px] [font-family:'Inter',Helvetica] text-sm font-normal leading-[25px] tracking-[-0.3px] text-white">
+                <p className={[
+                  "mt-[9px] text-sm font-normal leading-[25px] tracking-[-0.3px]",
+                  isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                ].join(" ")}>
                   020 2747 4888
                   <br />
                   info@fairdealprintpack.com
@@ -137,18 +186,27 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-[17px] h-[5px] w-full bg-white/10" />
+          <div className={[
+            "mt-[17px] h-[5px] w-full",
+            isLightTheme ? "bg-[#1b1b1b]/10" : "bg-white/10",
+          ].join(" ")} />
           <div className="mt-[25px] flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <nav className="flex flex-wrap items-center gap-6 sm:gap-10" aria-label="Legal information">
               <Link
                 to="/contact"
-                className="[font-family:'Inter',Helvetica] text-sm font-normal tracking-[-0.2px] text-white transition-colors hover:text-[#92d1bc] sm:text-[15px]"
+                className={[
+                  "text-sm font-normal tracking-[-0.2px] transition-colors hover:text-[#92d1bc] sm:text-[15px]",
+                  isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                ].join(" ")}
               >
                 Terms &amp; Conditions
               </Link>
               <Link
                 to="/contact"
-                className="[font-family:'Inter',Helvetica] text-sm font-normal tracking-[-0.2px] text-white transition-colors hover:text-[#92d1bc] sm:text-[15px]"
+                className={[
+                  "text-sm font-normal tracking-[-0.2px] transition-colors hover:text-[#92d1bc] sm:text-[15px]",
+                  isLightTheme ? "text-[#1b1b1b]" : "text-white",
+                ].join(" ")}
               >
                 Privacy Policy
               </Link>

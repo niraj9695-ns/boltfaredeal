@@ -1,6 +1,11 @@
 import heroJewelry from "../assets/images/herohome.png";
 import heroLight from "../assets/images/herolight.png";
+import ownerImage from "../assets/images/Owner image.png";
 import whyChooseUsImage from "../assets/images/WhyChooseUs.png";
+import portfolioImage1 from "../assets/images/PortFolioImages/1.png";
+import portfolioImage4 from "../assets/images/PortFolioImages/2.png";
+import portfolioImage3 from "../assets/images/PortFolioImages/3.png";
+import portfolioImage2 from "../assets/images/PortFolioImages/4.png";
 
 export const ASSETS = {
   heroBg: heroJewelry,
@@ -10,13 +15,13 @@ export const ASSETS = {
   servicePaper: "https://images.pexels.com/photos/27967289/pexels-photo-27967289.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
   servicePackaging: "https://images.pexels.com/photos/39351270/pexels-photo-39351270.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
   serviceColor: "https://images.pexels.com/photos/9550363/pexels-photo-9550363.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  portfolio1: "https://images.pexels.com/photos/6648417/pexels-photo-6648417.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  portfolio2: "https://images.pexels.com/photos/4271688/pexels-photo-4271688.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  portfolio3: "https://images.pexels.com/photos/8066785/pexels-photo-8066785.png?auto=compress&cs=tinysrgb&h=650&w=940",
-  portfolio4: "https://images.pexels.com/photos/4464881/pexels-photo-4464881.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  portfolio5: "https://images.pexels.com/photos/35488301/pexels-photo-35488301.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  portfolio6: "https://images.pexels.com/photos/8467583/pexels-photo-8467583.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  aboutImg: "https://images.pexels.com/photos/7598009/pexels-photo-7598009.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+  portfolio1: portfolioImage1,
+  portfolio2: portfolioImage2,
+  portfolio3: portfolioImage3,
+  portfolio4: portfolioImage4,
+  portfolio5: portfolioImage3,
+  portfolio6: portfolioImage4,
+  aboutImg: ownerImage,
   whyChooseUsImg: whyChooseUsImage,
   contactBg: "https://images.pexels.com/photos/19843566/pexels-photo-19843566.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
   teamImg: "https://images.pexels.com/photos/7495291/pexels-photo-7495291.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",

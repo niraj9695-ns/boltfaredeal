@@ -113,14 +113,14 @@ export const Services = () => {
                 <h3 className="[font-family:'Merriweather',Helvetica] text-2xl font-normal italic text-white sm:text-[32px]">
                   {detail.title}
                 </h3>
-                <p className="[font-family:'Inter',Helvetica] text-base font-light leading-relaxed text-white">
+                <p className="text-base font-light leading-relaxed text-white">
                   {detail.description}
                 </p>
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {detail.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-start gap-2 [font-family:'Inter',Helvetica] text-sm font-normal leading-relaxed text-white"
+                      className="flex items-start gap-2 text-sm font-normal leading-relaxed text-white"
                     >
                       <CheckCircleIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#e1de00]" />
                       <span>{feature}</span>

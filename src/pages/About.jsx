@@ -1,17 +1,48 @@
 import { CheckCircleIcon, ChevronDownIcon } from "lucide-react";
 
+import interior1 from "../assets/images/Interior/1.png";
+import interior2 from "../assets/images/Interior/2.png";
+import interior3 from "../assets/images/Interior/3.png";
+import interior4 from "../assets/images/Interior/4.png";
+import interior5 from "../assets/images/Interior/5.png";
+import interior6 from "../assets/images/Interior/6.png";
+import interior7 from "../assets/images/Interior/7.png";
+import interior8 from "../assets/images/Interior/8.png";
+import interior9 from "../assets/images/Interior/9.png";
+import interior10 from "../assets/images/Interior/10.png";
+import interior11 from "../assets/images/Interior/11.png";
+import interior12 from "../assets/images/Interior/12.png";
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { StatItem } from "../components/shared/StatItem";
 import { ASSETS, STATS } from "../lib/assets";
 
+const interiorImages = [
+  interior1,
+  interior2,
+  interior3,
+  interior4,
+  interior5,
+  interior6,
+  interior7,
+  interior8,
+  interior9,
+  interior10,
+  interior11,
+  interior12,
+];
+
+const desktopRowOne = [...interiorImages.slice(0, 6), ...interiorImages.slice(0, 6)];
+const desktopRowTwo = [...interiorImages.slice(6), ...interiorImages.slice(6)];
+const mobileRow = [...interiorImages, ...interiorImages];
+
 const storyValues = [
-  "In-house quality control at every stage",
-  "Faster turnaround with integrated operations",
-  "State-of-the-art printing machines",
-  "One-stop source for all print needs",
-  "From structural design to distribution",
-  "Serving clients since 1990",
+  "Quality and honesty at every stage",
+  "Experienced and dedicated team",
+  "End-to-end printing and packaging solutions",
+  "Modern printing technology and equipment",
+  "Timely delivery with consistent quality",
+  "Customer-focused and cost-effective solutions",
 ];
 
 export const About = () => {
@@ -33,7 +64,7 @@ export const About = () => {
   className="pointer-events-none absolute left-1/2 top-[24px] z-0 w-full -translate-x-1/2 select-none text-center [font-family:'Merriweather',Helvetica] text-[clamp(3.5rem,13.5vw,15rem)] font-black uppercase leading-[0.72] tracking-[-0.09em]"
   style={{
     color: "var(--theme-accent-alt)",
-    opacity: 0.14,
+    opacity: 0.30,
     WebkitMaskImage:
       "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 58%, rgba(0,0,0,0) 100%)",
     maskImage:
@@ -74,13 +105,11 @@ export const About = () => {
             color: "var(--theme-text-soft)",
           }}
         >
-          From a small &amp; humble beginning when I first learned the art of
-          printing while working with a photographer establishing Fairdeal
-          Advertising with a manual screen printing in the year 1990. Today,
-          FAIRDEAL has grown to be a leading organisation in Pune featuring
-          world-class printing technology with a fleet of machines from
-          Heidelberg, Germany. This journey is about perseverance, design
-          thinking mindset and teamwork.
+          Established in 1990, Fairdeal Print Pack India Pvt. Ltd. has grown
+  from a humble printing venture into a comprehensive printing and
+  packaging solution provider. With expertise across offset, flexo,
+  screen printing, labels, cartons and packaging, we bring design,
+  production, finishing and distribution together under one roof.
         </p>
 
         <div className="mt-7">
@@ -88,7 +117,7 @@ export const About = () => {
             to="/contact"
             className="px-7 py-2.5 text-xs font-semibold sm:px-8 sm:py-3 sm:text-sm"
           >
-            Read more
+            Start Your Project
             <ChevronDownIcon className="h-3.5 w-3.5 -rotate-90" />
           </GradientButton>
         </div>
@@ -99,85 +128,73 @@ export const About = () => {
 </section>
 
       {/* =========================================================
-          IMAGE GRID
+          IMAGE MARQUEE
       ========================================================= */}
       <section className="relative px-4 py-3 sm:px-6 sm:py-5 lg:px-8">
         <div className="mx-auto max-w-[1280px]">
 
-          <div className="grid grid-cols-12 gap-3 sm:gap-4">
-
-            {/* Large left image */}
-            <div
-              className="col-span-12 overflow-hidden rounded-[18px] border sm:col-span-5"
-              style={{
-                borderColor: "var(--theme-border)",
-                background: "var(--theme-surface-soft)",
-              }}
-              data-reveal="left"
-            >
-              <img
-                src={ASSETS.servicePackaging}
-                alt="Packaging production"
-                className="h-[190px] w-full object-cover sm:h-[300px] lg:h-[430px]"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Right side */}
-            <div className="col-span-12 grid grid-cols-2 gap-3 sm:col-span-7 sm:gap-4">
-
-              {/* Top left */}
-              <div
-                className="overflow-hidden rounded-[18px] border"
-                style={{
-                  borderColor: "var(--theme-border)",
-                  background: "var(--theme-surface-soft)",
-                }}
-                data-reveal="right"
-              >
-                <img
-                  src={ASSETS.servicePrint}
-                  alt="Print production"
-                  className="h-[135px] w-full object-cover sm:h-[185px] lg:h-[210px]"
-                  loading="lazy"
-                />
+          <div className="space-y-3 overflow-hidden md:hidden">
+            {[
+              { id: "mobile-left", items: [...desktopRowOne, ...desktopRowOne], direction: "left" },
+              { id: "mobile-right", items: [...desktopRowTwo, ...desktopRowTwo], direction: "right" },
+            ].map((row) => (
+              <div key={row.id} className="overflow-hidden">
+                <div
+                  className={`client-marquee-track ${row.direction === "right" ? "client-marquee-track-reverse" : "client-marquee-track-left"} flex w-max items-center gap-2`}
+                >
+                  {row.items.map((image, index) => (
+                    <div
+                      key={`${row.id}-${index}`}
+                      className="client-logo-card shrink-0 overflow-hidden rounded-[14px] border"
+                      style={{
+                        borderColor: "var(--theme-border)",
+                        background: "var(--theme-surface-soft)",
+                        width: "min(38vw, 180px)",
+                      }}
+                    >
+                      <img
+                        src={image}
+                        alt={`Interior project ${index + 1}`}
+                        className="h-[120px] w-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
+            ))}
+          </div>
 
-              {/* Top right */}
-              <div
-                className="overflow-hidden rounded-[18px] border"
-                style={{
-                  borderColor: "var(--theme-border)",
-                  background: "var(--theme-surface-soft)",
-                }}
-                data-reveal="right"
-              >
-                <img
-                  src={ASSETS.teamImg}
-                  alt="Fairdeal team"
-                  className="h-[135px] w-full object-cover sm:h-[185px] lg:h-[210px]"
-                  loading="lazy"
-                />
+          <div className="hidden space-y-4 md:block">
+            {[
+              { id: "left", items: [...desktopRowOne, ...desktopRowOne], direction: "left" },
+              { id: "right", items: [...desktopRowTwo, ...desktopRowTwo], direction: "right" },
+            ].map((row) => (
+              <div key={row.id} className="overflow-hidden">
+                <div
+                  className={`client-marquee-track ${row.direction === "right" ? "client-marquee-track-reverse" : "client-marquee-track-left"} flex w-max items-center gap-3 md:gap-5`}
+                >
+                  {row.items.map((image, index) => (
+                    <div
+                      key={`${row.id}-${index}`}
+                      className="client-logo-card shrink-0 overflow-hidden rounded-[18px] border"
+                      style={{
+                        borderColor: "var(--theme-border)",
+                        background: "var(--theme-surface-soft)",
+                        width: "clamp(180px, 22vw, 360px)",
+                      }}
+                    >
+                      <img
+                        src={image}
+                        alt={`Interior project ${index + 1}`}
+                        className="h-[220px] w-full object-cover lg:h-[280px]"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-
-              {/* Bottom wide image */}
-              <div
-                className="col-span-2 overflow-hidden rounded-[18px] border"
-                style={{
-                  borderColor: "var(--theme-border)",
-                  background: "var(--theme-surface-soft)",
-                }}
-                data-reveal="up"
-              >
-                <img
-                  src={ASSETS.studioImg}
-                  alt="Design and packaging studio"
-                  className="h-[145px] w-full object-cover sm:h-[185px] lg:h-[205px]"
-                  loading="lazy"
-                />
-              </div>
-
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -219,36 +236,46 @@ export const About = () => {
             {/* Story content */}
             <div data-reveal="right">
 
-              <div className="space-y-5">
+             <div className="space-y-5">
+  <p
+    className="[font-family:'Inter',Helvetica] text-[12px] font-light leading-[1.75] sm:text-sm"
+    style={{
+      color: "var(--theme-text-soft)",
+    }}
+  >
+    Fairdeal began its journey in 1990 when Rajesh Yewale started
+    learning the art of printing while working with a photographer
+    and later established Fairdeal Advertising with manual screen
+    printing. The early years brought many challenges, but they
+    built the foundation for a business driven by perseverance,
+    discipline, quality and honest work.
+  </p>
 
-                <p
-                  className="[font-family:'Inter',Helvetica] text-[12px] font-light leading-[1.75] sm:text-sm"
-                  style={{
-                    color: "var(--theme-text-soft)",
-                  }}
-                >
-                  Established in 1990, Fairdeal Print Pack is a one-stop shop
-                  that can handle all your quality print requirements from
-                  structural design to production to distribution. Having the
-                  entire operation in-house ensures tight control over quality
-                  and faster turnaround.
-                </p>
+  <p
+    className="[font-family:'Inter',Helvetica] text-[12px] font-light leading-[1.75] sm:text-sm"
+    style={{
+      color: "var(--theme-text-soft)",
+    }}
+  >
+    Over the years, Fairdeal Print Pack India Pvt. Ltd. has grown
+    into a full-fledged printing and packaging organisation in Pune.
+    Today, the company provides solutions ranging from structural
+    design and pre-press to printing, finishing, packaging and
+    distribution, supported by modern printing technology and an
+    experienced team.
+  </p>
 
-                <p
-                  className="[font-family:'Inter',Helvetica] text-[12px] font-light leading-[1.75] sm:text-sm"
-                  style={{
-                    color: "var(--theme-text-soft)",
-                  }}
-                >
-                  We cover the entire gamut of print needs — from company
-                  profiles to brochures and catalogues, coffee-table books to
-                  calendars, folding cartons and labels to luxury rigid boxes,
-                  as well as point-of-sale material and packaging solutions
-                  built for modern brands.
-                </p>
-
-              </div>
-
+  <p
+    className="[font-family:'Inter',Helvetica] text-[12px] font-light leading-[1.75] sm:text-sm"
+    style={{
+      color: "var(--theme-text-soft)",
+    }}
+  >
+    With a clientele of 1000+ across the country, Fairdeal continues
+    to build long-term relationships by focusing on quality,
+    cost-effectiveness, commitment and customer satisfaction.
+  </p>
+</div>
               {/* Stats */}
               <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-4 lg:mt-12">
 

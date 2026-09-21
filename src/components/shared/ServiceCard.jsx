@@ -53,7 +53,7 @@ export const ServiceCard = ({
         >
           {title}
         </div>
-        <p className="service-card-copy mx-5 mt-auto flex w-[calc(100%-2.5rem)] items-center [font-family:'Inter',Helvetica] text-base font-medium tracking-[0] text-white transition-colors duration-500 sm:text-xl">
+        <p className="service-card-copy mx-5 mt-auto flex w-[calc(100%-2.5rem)] items-center text-base font-medium tracking-[0] text-white transition-colors duration-500 sm:text-xl">
           {description}
         </p>
         <Link

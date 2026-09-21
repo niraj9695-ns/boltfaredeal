@@ -48,15 +48,8 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: [
-          "ui-sans-serif",
-          "system-ui",
-          "sans-serif",
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-          '"Noto Color Emoji"',
-        ],
+        sans: ["Georgia", "Times New Roman", "Times", "serif"],
+        serif: ["Georgia", "Times New Roman", "Times", "serif"],
       },
       keyframes: {
         "accordion-down": {

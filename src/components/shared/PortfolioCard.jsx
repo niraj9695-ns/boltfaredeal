@@ -55,7 +55,7 @@ export const PortfolioCard = ({
           <div className="portfolio-card-overlay absolute inset-0 flex items-end rounded-[clamp(0.5rem,1.7vw,1.25rem)] p-[clamp(0.5rem,1.5vw,1.25rem)]">
             <Link
               to="/portfolio"
-              className="mr-20 flex w-full items-center justify-between gap-3 text-left [font-family:'Inter',Helvetica] font-medium text-white transition-colors hover:text-[#e1de00]"
+              className="mr-20 flex w-full items-center justify-between gap-3 text-left font-medium text-white transition-colors hover:text-[#e1de00]"
             >
               <span className="max-w-[calc(100%-3rem)] text-[clamp(0.55rem,1.5vw,1.125rem)] leading-tight">
                 {title}

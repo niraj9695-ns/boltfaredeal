@@ -1,6 +1,588 @@
+:root {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+html,
+body,
+#root {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body,
+button,
+input,
+textarea,
+select,
+p,
+span,
+li,
+a,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Georgia, "Times New Roman", Times, serif !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.client-marquee-track {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.client-marquee-track-left {
+  animation: client-marquee-left 28s linear infinite;
+}
+
+.client-marquee-track-reverse {
+  animation: client-marquee-right 32s linear infinite;
+}
+
+.client-logo-card {
+  transform: translate3d(0, 0, 0);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.client-logo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(23, 57, 42, 0.12);
+}
+
+.about-interior-marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 6%,
+    rgba(0, 0, 0, 1) 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 6%,
+    rgba(0, 0, 0, 1) 94%,
+    transparent 100%
+  );
+}
+
+.about-interior-track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.about-interior-item {
+  flex: 0 0 auto;
+  width: clamp(180px, 22vw, 360px);
+}
+
+.mobile-interior-carousel {
+  display: none;
+}
+
+.desktop-interior-carousel {
+  display: none;
+}
+
+@media (max-width: 584px) {
+  .mobile-interior-carousel {
+    display: block;
+  }
+
+  .desktop-interior-carousel {
+    display: none;
+  }
+
+  .about-interior-marquee {
+    margin-top: 0;
+  }
+
+  .about-interior-track {
+    gap: 0.625rem;
+  }
+
+  .about-interior-item {
+    width: min(72vw, 280px);
+  }
+
+  .mobile-about-interior-track {
+    animation-duration: 22s;
+  }
+}
+
+@media (min-width: 585px) {
+  .desktop-interior-carousel {
+    display: block;
+  }
+
+  .mobile-interior-carousel {
+    display: none;
+  }
+}
+
+.about-interior-track-left {
+  animation: about-interior-marquee-left 30s linear infinite;
+}
+
+.about-interior-track-right {
+  animation: about-interior-marquee-right 34s linear infinite;
+}
+
+.mobile-about-interior-track {
+  animation: about-interior-marquee-left 26s linear infinite;
+}
+
+@keyframes about-interior-marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes about-interior-marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (hover: hover) {
+  .desktop-interior-marquee:hover .about-interior-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-interior-track {
+    animation: none !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+@keyframes client-marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes client-marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-marquee-track-left,
+  .client-marquee-track-reverse {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* =========================================
+```css
+/* =========================================
+   ABOUT IMAGE DRAWING ANIMATION
+========================================= */
+
+/* Initial hidden state */
+.about-draw-idle .about-draw-image {
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+}
+
+/* Faster image reveal */
+.about-draw-active .about-draw-image {
+  opacity: 1;
+  animation: aboutImageDraw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Reverse animation */
+.about-draw-reverse .about-draw-image {
+  opacity: 1;
+  animation: aboutImageReverse 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Final state */
+.about-draw-complete .about-draw-image {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+
+/* =========================================
+   PROGRESSIVE IMAGE REVEAL
+========================================= */
+
+@keyframes aboutImageDraw {
+  0% {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+    filter: blur(4px);
+  }
+
+  20% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.75;
+    clip-path: inset(45% 0 0 0);
+    filter: blur(1.5px);
+  }
+
+  75% {
+    opacity: 0.95;
+    clip-path: inset(18% 0 0 0);
+    filter: blur(0.4px);
+  }
+
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
+
+@keyframes aboutImageReverse {
+  0% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+
+  35% {
+    opacity: 0.8;
+    clip-path: inset(18% 0 0 0);
+    filter: blur(0.5px);
+  }
+
+  70% {
+    opacity: 0.35;
+    clip-path: inset(55% 0 0 0);
+    filter: blur(1.5px);
+  }
+
+  100% {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+    filter: blur(4px);
+  }
+}
+
+
+/* =========================================
+   DRAWING / PENCIL EDGE
+========================================= */
+
+.about-draw-line {
+  height: 2px;
+  bottom: 0;
+  opacity: 0;
+  filter: blur(0.2px);
+
+  box-shadow:
+    0 0 4px currentColor,
+    0 0 10px currentColor;
+}
+
+.about-draw-active .about-draw-line {
+  opacity: 0.85;
+
+  animation: aboutDrawingLine
+    1.4s
+    cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+.about-draw-reverse .about-draw-line {
+  opacity: 0.85;
+
+  animation: aboutDrawingLineReverse
+    0.8s
+    cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+.about-draw-complete .about-draw-line {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+
+@keyframes aboutDrawingLine {
+  0% {
+    bottom: 0%;
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.9;
+  }
+
+  25% {
+    bottom: 25%;
+  }
+
+  50% {
+    bottom: 50%;
+  }
+
+  75% {
+    bottom: 75%;
+  }
+
+  95% {
+    bottom: 100%;
+    opacity: 0.85;
+  }
+
+  100% {
+    bottom: 100%;
+    opacity: 0;
+  }
+}
+
+
+@keyframes aboutDrawingLineReverse {
+  0% {
+    bottom: 100%;
+    opacity: 0.85;
+  }
+
+  25% {
+    bottom: 75%;
+  }
+
+  50% {
+    bottom: 50%;
+  }
+
+  75% {
+    bottom: 25%;
+  }
+
+  100% {
+    bottom: 0%;
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   SOFT PENCIL GLOW
+========================================= */
+
+.about-draw-glow {
+  height: 18px;
+  bottom: -8px;
+  opacity: 0;
+  filter: blur(12px);
+}
+
+.about-draw-active .about-draw-glow {
+  opacity: 0.25;
+
+  animation: aboutDrawingGlow
+    1.4s
+    cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+.about-draw-reverse .about-draw-glow {
+  opacity: 0.25;
+
+  animation: aboutDrawingGlowReverse
+    0.8s
+    cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+
+@keyframes aboutDrawingGlow {
+  0% {
+    bottom: 0%;
+  }
+
+  100% {
+    bottom: 100%;
+    opacity: 0;
+  }
+}
+
+
+@keyframes aboutDrawingGlowReverse {
+  0% {
+    bottom: 100%;
+    opacity: 0.25;
+  }
+
+  100% {
+    bottom: 0%;
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   SMALL DRAWING DUST / PENCIL PARTICLES
+========================================= */
+
+.about-sketch-particles span {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(0) scale(0);
+}
+
+
+.about-sketch-particles span:nth-child(1) {
+  left: 25%;
+  bottom: 8%;
+}
+
+.about-sketch-particles span:nth-child(2) {
+  left: 38%;
+  bottom: 18%;
+}
+
+.about-sketch-particles span:nth-child(3) {
+  left: 50%;
+  bottom: 30%;
+}
+
+.about-sketch-particles span:nth-child(4) {
+  left: 62%;
+  bottom: 43%;
+}
+
+.about-sketch-particles span:nth-child(5) {
+  left: 31%;
+  bottom: 52%;
+}
+
+.about-sketch-particles span:nth-child(6) {
+  left: 70%;
+  bottom: 65%;
+}
+
+.about-sketch-particles span:nth-child(7) {
+  left: 45%;
+  bottom: 77%;
+}
+
+.about-sketch-particles span:nth-child(8) {
+  left: 58%;
+  bottom: 88%;
+}
+
+
+/* Active particles */
+.about-draw-active .about-sketch-particles span {
+  opacity: 0.5;
+
+  animation:
+    sketchParticle
+    1.1s
+    ease-in-out
+    infinite;
+}
+
+
+/* Reverse particles */
+.about-draw-reverse .about-sketch-particles span {
+  opacity: 0.5;
+
+  animation:
+    sketchParticleReverse
+    0.8s
+    ease-in-out
+    forwards;
+}
+
+
+/* Completed state */
+.about-draw-complete .about-sketch-particles span {
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+
+@keyframes sketchParticle {
+  0% {
+    transform: translateY(8px) scale(0);
+  }
+
+  50% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-8px) scale(0);
+  }
+}
+
+
+@keyframes sketchParticleReverse {
+  0% {
+    transform: translateY(-8px) scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(8px) scale(0);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-draw-image,
+  .about-draw-line,
+  .about-draw-glow,
+  .about-sketch-particles span {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .about-draw-image {
+    opacity: 1 !important;
+    clip-path: inset(0 0 0 0) !important;
+  }
+
+  .about-draw-line,
+  .about-draw-glow,
+  .about-sketch-particles {
+    display: none !important;
+  }
+}
 
 @layer base {
   html {
@@ -62,7 +644,6 @@
 
   [data-reveal],
   .portfolio-card,
-  .service-card,
   .stat-item,
   form,
   .contact-card {
@@ -92,8 +673,6 @@
 
   [data-reveal].is-visible,
   .portfolio-card.is-visible,
-  .service-card.is-visible,
-
   .stat-item.is-visible,
   form.is-visible,
   .contact-card.is-visible,
@@ -102,6 +681,13 @@
   .reveal-up.is-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+
+  .service-card,
+  .service-card.is-visible {
+    opacity: 1;
+    transform: none !important;
+    transition: opacity 300ms ease, box-shadow 300ms ease;
   }
 
   .portfolio-card {
@@ -334,10 +920,10 @@
 }
 
 html[data-theme="light"] {
-  --theme-bg: #f3f1eb;
-  --theme-surface: #ffffff;
-  --theme-card: #f9f7f2;
-  --theme-card-soft: #eef3ef;
+  --theme-bg: #ffffff;
+  --theme-surface: #ffffe9;
+  --theme-card: #ffffff;
+  --theme-card-soft: #f7f7f5;
 
   --theme-text: #171b1f;
   --theme-text-soft: #2d3748;
@@ -459,6 +1045,12 @@ html[data-theme="light"] [class*="border-\[\#1e1e1e\]\/20"] {
 html[data-theme="light"] [class*="text-white\/"],
 html[data-theme="light"] [class*="placeholder:text-white"] {
   color: rgba(17, 24, 39, 0.72) !important;
+}
+
+html[data-theme="light"] .service-card {
+  background: linear-gradient(135deg, #c0e574 0%, #86d9f0 100%) !important;
+  border: 1px solid #dce8e1 !important;
+  box-shadow: 0 10px 24px rgba(23, 57, 42, 0.12) !important;
 }
 
 html[data-theme="light"] .service-card-label {

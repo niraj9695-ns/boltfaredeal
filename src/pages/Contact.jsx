@@ -80,13 +80,13 @@ export const Contact = () => {
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(138deg,rgba(134,217,240,0.3)_0%,rgba(192,229,116,0.3)_100%)]">
                     <Icon className="h-5 w-5 text-[#92d1bc]" />
                   </div>
-                  <h3 className="[font-family:'Inter',Helvetica] text-base font-medium text-[#92d1bc]">
+                  <h3 className="text-base font-medium text-[#92d1bc]">
                     {info.title}
                   </h3>
                   {info.lines.map((line) => (
                     <p
                       key={line}
-                      className="[font-family:'Inter',Helvetica] text-sm font-normal leading-relaxed text-white"
+                      className="text-sm font-normal leading-relaxed text-white"
                     >
                       {line}
                     </p>
@@ -109,7 +109,7 @@ export const Contact = () => {
               className="text-[28px] sm:text-[36px]"
               secondaryClassName="text-[36px] sm:text-[48px]"
             />
-            <p className="[font-family:'Inter',Helvetica] text-base font-light leading-relaxed text-white">
+            <p className="text-base font-light leading-relaxed text-white">
               Whether you have a question about our services, need a quote, or
               want to discuss a custom project, our team is ready to help. Fill
               out the form and we'll get back to you within 24 hours.
