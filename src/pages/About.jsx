@@ -1,4 +1,5 @@
 import { CheckCircleIcon, ChevronDownIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import interior1 from "../assets/images/Interior/1.png";
 import interior2 from "../assets/images/Interior/2.png";
@@ -46,13 +47,36 @@ const storyValues = [
 ];
 
 export const About = () => {
+  const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
+
+  useEffect(() => {
+    const syncTheme = () => {
+      setIsLightTheme(document.documentElement.getAttribute("data-theme") === "light");
+    };
+
+    syncTheme();
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="w-full overflow-x-hidden bg-[var(--theme-bg)] text-[var(--theme-text)]">
 
       {/* =========================================================
           HERO
       ========================================================= */}
-   <section className="relative overflow-hidden px-4 pb-12 pt-[12px] sm:px-6 sm:pb-16 sm:pt-[12px] md:pt-[165px] lg:px-8 lg:pb-20 lg:pt-[165px]">
+   <section
+     className="relative overflow-hidden px-4 pb-12 pt-[12px] sm:px-6 sm:pb-16 sm:pt-[12px] md:pt-[165px] lg:px-8 lg:pb-20 lg:pt-[165px]"
+     style={
+       isLightTheme
+         ? {
+             background: "linear-gradient(180deg, rgba(249,255,205,0.38) 0%, rgba(249,255,205,0.38) 5%, #FFFFFF 100%)",
+           }
+         : undefined
+     }
+   >
   <div className="mx-auto max-w-[1280px]">
     <div
       className="relative overflow-hidden px-5 py-14 text-center sm:px-10 sm:py-16 lg:px-16 lg:py-[72px]"
@@ -66,9 +90,9 @@ export const About = () => {
     color: "var(--theme-accent-alt)",
     opacity: 0.30,
     WebkitMaskImage:
-      "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 58%, rgba(0,0,0,0) 100%)",
+      "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0) 100%)",
     maskImage:
-      "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 58%, rgba(0,0,0,0) 100%)",
+      "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0) 100%)",
   }}
 >
   FAIRDEAL
