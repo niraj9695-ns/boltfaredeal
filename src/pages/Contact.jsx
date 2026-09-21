@@ -91,16 +91,13 @@ export const Contact = () => {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)]">
-      <section className="relative px-5 pb-10 pt-[76px] sm:px-6 sm:pb-12 sm:pt-[92px] lg:px-8 lg:pb-14 lg:pt-[105px]">
-        <div className="mx-auto max-w-[1180px] text-center">
-          <h1
-            data-reveal="up"
-            className="[font-family:'Merriweather',Helvetica] text-[32px] font-normal tracking-[-0.05em] text-[var(--theme-text)] sm:text-[40px] lg:text-[46px]"
-          >
-            Contact Us
-          </h1>
-        </div>
-      </section>
+  <section className="relative px-5 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-6 md:px-8 md:pb-14 md:pt-[150px]">
+    <div className="mx-auto max-w-[1180px] text-center">
+      <SectionLabel className="mt-0 text-center md:mt-4">
+        CONTACT US
+      </SectionLabel>
+    </div>
+  </section>
 
       <section className="relative z-10 px-4 pb-14 sm:px-6 sm:pb-16 lg:px-8 lg:pb-20">
         <div className="mx-auto max-w-[1180px]">

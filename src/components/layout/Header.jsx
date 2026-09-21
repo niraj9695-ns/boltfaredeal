@@ -28,7 +28,7 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
       {/* =========================
           DESKTOP HEADER
       ========================== */}
-      <header className="absolute left-1/2 top-[41px] z-30 hidden w-[min(90%,841px)] -translate-x-1/2 items-center rounded-[100px] bg-white py-2.5 pl-[26px] pr-2.5 text-[#1e1e1e] md:flex">
+      <header className="absolute left-1/2 top-[41px] z-30 hidden w-[min(90%,841px)] -translate-x-1/2 items-center rounded-[100px] bg-white py-2.5 pl-[26px] pr-2.5 text-[#1e1e1e] md:flex dark:border-transparent dark:shadow-none border border-black/10 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
         <Link
           to="/"
           aria-label="Fairdeal Print Pack home"
