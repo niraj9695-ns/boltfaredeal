@@ -1,5 +1,5 @@
 import { ArrowUpRightIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ASSETS } from "../lib/assets";
 
 const FILTERS = ["All", "Diaries", "Labels", "Packaging", "Print", "Manuals", "Bopp tapes"];
@@ -14,24 +14,37 @@ const PROJECTS = [
 ];
 
 export const Portfolio = () => {
+  const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeProject, setActiveProject] = useState(null);
+
+  useEffect(() => {
+    const syncTheme = () => {
+      setIsLightTheme(document.documentElement.getAttribute("data-theme") === "light");
+    };
+
+    syncTheme();
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
 
   const visibleProjects = activeFilter === "All"
     ? PROJECTS
     : PROJECTS.filter((project) => project.category === activeFilter);
 
   return (
-    <div className="bg-[#171923] text-white">
-      <section className="bg-black px-6 pb-14 pt-20 sm:px-10 sm:pb-16 sm:pt-24 lg:px-[7%] lg:pb-[74px] lg:pt-[140px]">
+    <div className={isLightTheme ? "bg-[#ffffe9] text-[#171b1f]" : "bg-black text-white"}>
+      <section className={isLightTheme ? "bg-[#ffffe9] px-6 pb-14 pt-16 sm:px-10 sm:pb-16 sm:pt-40 lg:px-[7%] lg:pb-[74px] lg:pt-[220px]" : "bg-black px-6 pb-14 pt-16 sm:px-10 sm:pb-16 sm:pt-40 lg:px-[7%] lg:pb-[74px] lg:pt-[220px]"}>
         <div className="mx-auto max-w-[1240px]">
-          <p className="mb-3 text-[13px] font-normal uppercase tracking-[0.02em] text-[#92d1bc] sm:text-[15px]">
+          <p className={`mb-3 text-[13px] font-normal uppercase tracking-[0.02em] sm:text-[15px] ${isLightTheme ? "text-[#1a7d6a]" : "text-[#92d1bc]"}`}>
             Portfolio
           </p>
-          <h1 className="font-serif text-[30px] font-normal leading-tight tracking-[-0.04em] text-[#f4f4f2] sm:text-[38px]">
-            Our <span className="text-[#e1de00]">amazing cases</span>
+          <h1 className={`font-serif text-[30px] font-normal leading-tight tracking-[-0.04em] sm:text-[38px] ${isLightTheme ? "text-[#171b1f]" : "text-[#f4f4f2]"}`}>
+            Our <span className={isLightTheme ? "text-[#1a7d6a]" : "text-[#e1de00]"}>amazing cases</span>
           </h1>
-          <p className="mt-5 max-w-[720px] text-[16px] leading-[1.4] text-[#f1f1f1] sm:text-[18px] sm:leading-[1.35]">
+          <p className={`mt-5 max-w-[720px] text-[16px] leading-[1.4] sm:text-[18px] sm:leading-[1.35] ${isLightTheme ? "text-[#2d3748]" : "text-[#f1f1f1]"}`}>
             You may be interested in what we can offer you. More services you can find below. We do everything at a high level.
           </p>
 
@@ -45,12 +58,16 @@ export const Portfolio = () => {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setActiveFilter(filter)}
-                  className={`relative pb-1 text-[16px] leading-none transition-colors duration-200 sm:text-[17px] ${
-                    isActive ? "text-white" : "text-[#f0f0f0]/90 hover:text-[#e1de00]"
+                    className={`relative pb-1 text-[16px] leading-none transition-colors duration-200 sm:text-[17px] ${
+                    isLightTheme
+                      ? isActive
+                        ? "rounded-full bg-[#1a7d6a] px-7 py-2 text-white"
+                        : "text-[#2d3748] hover:text-[#1a7d6a]"
+                      : isActive ? "text-white" : "text-[#f0f0f0]/90 hover:text-[#e1de00]"
                   }`}
                 >
                   {filter}
-                  <span className={`absolute bottom-[-5px] left-0 h-px bg-white transition-all duration-300 ${isActive ? "w-full" : "w-0"}`} />
+                  {!isLightTheme && <span className={`absolute bottom-[-5px] left-0 h-px bg-white transition-all duration-300 ${isActive ? "w-full" : "w-0"}`} />}
                 </button>
               );
             })}
@@ -58,14 +75,14 @@ export const Portfolio = () => {
         </div>
       </section>
 
-      <section className="px-6 py-10 sm:px-10 sm:py-12 lg:px-[8.8%] lg:py-[34px]" aria-label="Selected portfolio work">
+      <section className={isLightTheme ? "bg-[#ffffe9] px-6 py-10 sm:px-10 sm:py-12 lg:px-[8.8%] lg:py-[34px]" : "bg-black px-6 py-10 sm:px-10 sm:py-12 lg:px-[8.8%] lg:py-[34px]"} aria-label="Selected portfolio work">
         <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-5">
           {visibleProjects.map((project) => {
             const isActive = activeProject === project.title + project.image;
             return (
               <article
                 key={project.title + project.image}
-                className="group relative aspect-[1.28] overflow-hidden bg-[#d5d5d5]"
+                className={`group relative aspect-[1.1] overflow-hidden ${isLightTheme ? "bg-[#d5d5d5]" : "bg-black"}`}
                 onMouseEnter={() => setActiveProject(project.title + project.image)}
                 onMouseLeave={() => setActiveProject(null)}
               >

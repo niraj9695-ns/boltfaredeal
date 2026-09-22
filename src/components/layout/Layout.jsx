@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import Lenis from "lenis";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { CursorSpotlight } from "./CursorSpotlight";
@@ -15,6 +16,33 @@ export const Layout = () => {
     document.documentElement.setAttribute("data-theme", theme);
     window.localStorage.setItem("faredeal-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (prefersReducedMotion.matches) {
+      return undefined;
+    }
+
+    const lenis = new Lenis({
+      duration: 1.15,
+      smoothWheel: true,
+      syncTouch: false,
+    });
+
+    let animationFrame;
+    const animate = (time) => {
+      lenis.raf(time);
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    animationFrame = window.requestAnimationFrame(animate);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      lenis.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
