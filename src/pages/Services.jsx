@@ -296,109 +296,123 @@ export const Services = () => {
         lg:grid-cols-3
       "
     >
-      {SERVICES.slice(0, 6).map((service, index) => (
-        <article
-          key={service.title}
-          onMouseEnter={() => setActiveService(index)}
-          onFocus={() => setActiveService(index)}
-          tabIndex={0}
-          data-reveal={index % 2 === 0 ? "left" : "right"}
-          className="
-            service-grid-card
-            group relative aspect-square
-            overflow-hidden
-            border border-current/10
-            bg-[#edf3f7]
-            outline-none
-            transition-all duration-500
-          "
-        >
-          {/* IMAGE */}
-          <img
-            src={service.image}
-            alt={service.title}
-            loading="lazy"
-            className={`
-              service-grid-image
-              absolute inset-0
-              h-full w-full
-              object-cover
-              transition-transform duration-700
-              ${
-                activeService === index
-                  ? "scale-105"
-                  : "scale-100"
-              }
-            `}
-          />
+      {SERVICES.slice(0, 6).map((service, index) => {
+        const serviceId = service.title
+          .toLowerCase()
+          .replace(/&/g, "and")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .trim();
 
-          {/* OVERLAY */}
-          <div
-            className="
-              service-grid-overlay
-              absolute inset-0
-              transition-all duration-500
-            "
-          />
+        const serviceSlug = serviceId;
 
-          <div className="absolute inset-x-0 bottom-0 z-[1] h-32 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-
-          {/* CONTENT */}
-          <div
-            className="
-              relative z-10
-              flex h-full
-              flex-col justify-end
-              p-5 sm:p-6
-            "
+        return (
+          <Link
+            key={service.title}
+            to={`/services/${serviceSlug}`}
+            className="block"
+            onMouseEnter={() => setActiveService(index)}
+            onFocus={() => setActiveService(index)}
+            onBlur={() => setActiveService(0)}
           >
-            <div
+            <article
+              id={serviceId}
+              tabIndex={0}
+              data-reveal={index % 2 === 0 ? "left" : "right"}
               className="
-                translate-y-2
+                service-grid-card
+                group relative aspect-square
+                overflow-hidden
+                border border-current/10
+                bg-[#edf3f7]
+                outline-none
                 transition-all duration-500
-                group-hover:translate-y-0
               "
             >
-              <div className="mb-2 flex items-center justify-between gap-3">
-                <h3 className="service-card-title text-base font-medium text-white sm:text-lg">
-                  {service.title}
-                </h3>
+              {/* IMAGE */}
+              <img
+                src={service.image}
+                alt={service.title}
+                loading="lazy"
+                className={`
+                  service-grid-image
+                  absolute inset-0
+                  h-full w-full
+                  object-cover
+                  transition-transform duration-700
+                  ${activeService === index ? "scale-105" : "scale-100"}
+                `}
+              />
 
-                <span
-                  className="
-                    flex h-8 w-8 shrink-0
-                    items-center justify-center
-                    rounded-full
-                    border border-white/30
-                    text-white
-                    opacity-100
-                    transition-all duration-500
-                    sm:opacity-0
-                    sm:group-hover:opacity-100
-                  "
-                >
-                  <ArrowUpRightIcon className="h-4 w-4" />
-                </span>
-              </div>
-
-              <p
+              {/* OVERLAY */}
+              <div
                 className="
-                  service-card-copy
-                  max-w-[300px]
-                  text-xs leading-5
-                  text-white
-                  opacity-100
+                  service-grid-overlay
+                  absolute inset-0
                   transition-all duration-500
-                  sm:opacity-0
-                  sm:group-hover:opacity-80
+                "
+              />
+
+              <div className="absolute inset-x-0 bottom-0 z-[1] h-32 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+
+              {/* CONTENT */}
+              <div
+                className="
+                  relative z-10
+                  flex h-full
+                  flex-col justify-end
+                  p-5 sm:p-6
                 "
               >
-                {service.description}
-              </p>
-            </div>
-          </div>
-        </article>
-      ))}
+                <div
+                  className="
+                    translate-y-2
+                    transition-all duration-500
+                    group-hover:translate-y-0
+                  "
+                >
+                  <div className="mb-2 flex items-center justify-between gap-3">
+                    <h3 className="service-card-title text-base font-medium text-white sm:text-lg">
+                      {service.title}
+                    </h3>
+
+                    <span
+                      className="
+                        flex h-8 w-8 shrink-0
+                        items-center justify-center
+                        rounded-full
+                        border border-white/30
+                        text-white
+                        opacity-100
+                        transition-all duration-500
+                        sm:opacity-0
+                        sm:group-hover:opacity-100
+                      "
+                    >
+                      <ArrowUpRightIcon className="h-4 w-4" />
+                    </span>
+                  </div>
+
+                  <p
+                    className="
+                      service-card-copy
+                      max-w-[300px]
+                      text-xs leading-5
+                      text-white
+                      opacity-100
+                      transition-all duration-500
+                      sm:opacity-0
+                      sm:group-hover:opacity-80
+                    "
+                  >
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </Link>
+        );
+      })}
     </div>
   </div>
 </section>
@@ -554,17 +568,18 @@ export const Services = () => {
                     />
 
                     <div
-                      className={`
-                        service-card-overlay absolute inset-0 rounded-[28px]
-                        bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]
-                        transition-all duration-700 ease-out
-                        ${
-                          activeTechnology === index || isCompactView
-                            ? "bg-[#0f1715]/15"
-                            : "bg-[#0f1715]/40"
-                        }
-                      `}
-                    />
+  className={`
+    service-card-overlay absolute inset-0 rounded-[28px]
+    bg-blend-screen
+    bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]
+    transition-opacity duration-700 ease-out
+    ${
+      activeTechnology === index || isCompactView
+        ? "opacity-0"
+        : "opacity-100"
+    }
+  `}
+/>
 
                     <div className="relative z-10 flex h-full flex-col justify-end p-0">
                       <div className="px-4 pb-4 pt-20 sm:px-5 sm:pb-5">

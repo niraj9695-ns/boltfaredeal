@@ -16,12 +16,12 @@ const services = [
 ];
 
 const serviceLinks = [
-  { label: "Flexo Printing", to: "/services" },
-  { label: "Offset Printing", to: "/services" },
-  { label: "Corrugated Packaging", to: "/services" },
-  { label: "BOPP Tapes", to: "/services" },
-  { label: "Screen Printing", to: "/services" },
-  { label: "Labels & Stickers", to: "/services" },
+  { label: "Flexo Printing", to: "/services/flexo-printing" },
+  { label: "Offset Printing", to: "/services/offset-printing" },
+  { label: "Corrugated Packaging", to: "/services/corrugated-packaging" },
+  { label: "BOPP Tapes", to: "/services/bopp-tapes" },
+  { label: "Screen Printing", to: "/services/screen-printing" },
+  { label: "Labels & Stickers", to: "/services/labels-and-stickers" },
 ];
 
 export const Footer = () => {
