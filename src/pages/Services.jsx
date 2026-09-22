@@ -1,5 +1,6 @@
-import { ArrowUpRightIcon, CheckCircleIcon } from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRightIcon, CheckCircleIcon,ChevronDownIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
@@ -52,8 +53,197 @@ const serviceDetails = [
   },
 ];
 
+const technologyImageEntries = Object.entries(
+  import.meta.glob("../assets/images/Technology/*.{png,jpg,jpeg,webp}", {
+    eager: true,
+    import: "default",
+  }),
+);
+
+const technologyImageMap = technologyImageEntries.reduce((acc, [path, imageUrl]) => {
+  const fileName = path.split("/").pop()?.replace(/\.[^/.]+$/, "") ?? "";
+  if (fileName) acc[fileName.toLowerCase()] = imageUrl;
+  return acc;
+}, {});
+
+const normalizeTechnologyText = (value) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const findTechnologyImage = (title) => {
+  const titleKey = normalizeTechnologyText(title);
+  let bestMatch = Object.values(technologyImageMap)[0] ?? "";
+  let bestScore = -1;
+
+  Object.entries(technologyImageMap).forEach(([fileKey, imageUrl]) => {
+    const normalizedFileKey = normalizeTechnologyText(fileKey);
+    const titleTokens = titleKey.split(" ").filter(Boolean);
+    const fileTokens = normalizedFileKey.split(" ").filter(Boolean);
+    const overlap = titleTokens.filter(
+      (token) =>
+        fileTokens.includes(token) ||
+        fileTokens.some((fileToken) => fileToken.includes(token) || token.includes(fileToken)),
+    );
+
+    const score = overlap.length * 3 + (titleKey.includes(normalizedFileKey) ? 18 : 0);
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = imageUrl;
+    }
+  });
+
+  return bestMatch;
+};
+
+export const TECHNOLOGY_ITEMS = [
+  {
+    title: "Flexo Rotary Label Printing Machine – RK-FMS-NICE-P-320",
+    features: [
+      "8 Colour Printing Machine",
+      "One UV Dryer Unit",
+      "Two Rotary Die Cutting Units",
+    ],
+  },
+  {
+    title: "Flexo Flatbed Punching Machine",
+    features: ["Flatbed Punching"],
+  },
+  {
+    title: "Flexo Cut To Length – CT-300 New",
+    features: ["Cut-to-Length"],
+  },
+  {
+    title: "Flexo Core Cutting Machine",
+    features: ["Core Cutting"],
+  },
+  {
+    title: "Flexo Gluing Machine – GT-300 HS",
+    features: ["Gluing"],
+  },
+  {
+    title: "Flexo Slitting Machine",
+    features: ["Flexo Slitting"],
+  },
+  {
+    title: "HEIDELBERG SM 74 P II",
+    features: [
+      "German Make",
+      "5 Colour Offset Printing",
+      "Size: 20\" × 30\"",
+    ],
+  },
+  {
+    title: "ALPNA-Retrofit Machine",
+    features: [
+      "MET PET Printing",
+      "Drip Off",
+      "UV",
+      "Blister Coating",
+      "Aqueous Varnish Setup",
+      "Size: 28\" × 40\"",
+    ],
+  },
+  {
+    title: "Automatic Sheet Folding Machine – Heidelberg Stahl",
+    features: ["Size: 25\" × 36\""],
+  },
+  {
+    title: "Corrugation Machine",
+    features: [
+      "E-Flute: 36\"",
+      "F-Flute: 52\"",
+      "C-Flute: 68\"",
+    ],
+  },
+  {
+    title: "Shinohara 66 II P Offset Printer",
+    features: [
+      "Perfecter",
+      "2 Colour",
+      "Size: 26\" × 19\"",
+      "2 Nos.",
+    ],
+  },
+  {
+    title: "Autoprint Offset Printing Machine",
+    features: [
+      "Single Colour",
+      "Size: 10\" × 15\"",
+      "2 Nos.",
+    ],
+  },
+  {
+    title: "Automatic Cutting Machine",
+    features: [
+      "Polar Mohr – German Make – 36\" – 3 Nos.",
+      "Horizon – Japan Make – 45\" – 1 No.",
+    ],
+  },
+  {
+    title: "Automatic Punching Machine",
+    features: [
+      "Size: 22\" × 32\" – 2 Nos.",
+      "Size: 36\" × 46\" – 1 No.",
+    ],
+  },
+  {
+    title: "Automatic Continuous Lamination Machine",
+    features: ["Capacity up to 850 mm"],
+  },
+  {
+    title: "Continuous Stationery Setup",
+    features: ["Continuous Stationery Production"],
+  },
+  {
+    title: "Sticker Half Cutting cum Creasing & Perforating Machine",
+    features: [
+      "Half Cutting",
+      "Creasing",
+      "Perforating",
+    ],
+  },
+  {
+    title: "Graphica Screen Printing Setup",
+    features: [
+      "Full-fledged Screen Printing Setup",
+      "2 Nos.",
+    ],
+  },
+  {
+    title: "2-in-1 Shrink Heat Packing Machine",
+    features: ["Shrink Heat Packing"],
+  },
+  {
+    title: "Laser Serial Numbering Machine",
+    features: ["Laser Serial Numbering"],
+  },
+  {
+    title: "Blister Coat Testing Machine",
+    features: ["Blister Coat Testing"],
+  },
+].map((item) => ({ ...item, image: findTechnologyImage(item.title) }));
+
 export const Services = () => {
   const [activeService, setActiveService] = useState(0);
+  const [activeTechnology, setActiveTechnology] = useState(0);
+  const [isCompactView, setIsCompactView] = useState(
+    typeof window !== "undefined" ? window.innerWidth < 768 : false,
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsCompactView(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -66,7 +256,7 @@ export const Services = () => {
     sm:px-8
     md:pt-32
     lg:px-10
-    lg:pt-32 lg:pb-16
+    lg:pt-[165px] lg:pb-28
   "
 >
   <div className="mx-auto max-w-[1180px]">
@@ -113,7 +303,6 @@ export const Services = () => {
           onFocus={() => setActiveService(index)}
           tabIndex={0}
           data-reveal={index % 2 === 0 ? "left" : "right"}
-          data-delay={index * 120}
           className="
             service-grid-card
             group relative aspect-square
@@ -142,20 +331,6 @@ export const Services = () => {
               }
             `}
           />
-
-          <div
-            className="service-paper-shell"
-            style={{
-              backgroundImage: `url(${service.image})`,
-              animationDelay: `${index * 140}ms`,
-            }}
-            aria-hidden="true"
-          >
-            <span className="service-paper-fold service-paper-fold-1" />
-            <span className="service-paper-fold service-paper-fold-2" />
-            <span className="service-paper-fold service-paper-fold-3" />
-            <span className="service-paper-fold service-paper-fold-4" />
-          </div>
 
           {/* OVERLAY */}
           <div
@@ -310,9 +485,118 @@ export const Services = () => {
         </div>
       </section>
 
-      
+      <section className="relative z-10 w-full px-6 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+        <div className="mx-auto max-w-[1180px]">
+          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div data-reveal="left">
+              <SectionLabel className="mb-3">
+                OUR TECHNOLOGY
+              </SectionLabel>
 
-      
+              <h1 className="max-w-[620px] text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">
+                Technology{" "}
+                <span className="italic font-normal text-[var(--theme-accent)]">
+                  &amp; Infrastructure
+                </span>
+              </h1>
+            </div>
+
+            <div className="flex w-full justify-center md:ml-auto md:w-auto md:justify-end">
+              <GradientButton
+                to="/technology"
+                className="h-[48px] px-[26px] text-sm font-medium tracking-[-0.2px] sm:text-[15px]"
+              >
+
+                Explore all equipments
+                <ChevronDownIcon className="h-3.5 w-3.5 -rotate-90" />
+              </GradientButton>
+            </div>
+          </div>
+
+          <div id="technology-slider" className="-mx-6 overflow-x-auto px-6 pb-3 md:mx-0 md:px-0 md:[&::-webkit-scrollbar]:hidden md:[scrollbar-width:none] md:[-ms-overflow-style:none]">
+            <div className="flex min-w-max gap-5 md:gap-6">
+              {TECHNOLOGY_ITEMS.map((item, index) => (
+                <Link
+                  key={item.title}
+                  to="/technology"
+                  className="block"
+                  onMouseEnter={() => setActiveTechnology(index)}
+                  onFocus={() => setActiveTechnology(index)}
+                  onMouseLeave={() => setActiveTechnology(0)}
+                  onBlur={() => setActiveTechnology(0)}
+                >
+                  <article
+                    tabIndex={0}
+                    className="
+                      service-card group relative
+                      h-[430px] w-[290px] shrink-0
+                      overflow-hidden rounded-[28px]
+                      border-0 bg-[#233a35]
+                      shadow-[0_18px_50px_rgba(0,0,0,0.12)]
+                      transition-all duration-500
+                      hover:-translate-y-1
+                      sm:h-[470px] sm:w-[320px]
+                    "
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      className={`
+                        absolute inset-0 h-full w-full object-contain
+                        scale-105 transition-all duration-700 ease-out
+                        ${
+                          activeTechnology === index || isCompactView
+                            ? "scale-100 opacity-100"
+                            : "scale-110 opacity-0"
+                        }
+                      `}
+                    />
+
+                    <div
+                      className={`
+                        service-card-overlay absolute inset-0 rounded-[28px]
+                        bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]
+                        transition-all duration-700 ease-out
+                        ${
+                          activeTechnology === index || isCompactView
+                            ? "bg-[#0f1715]/15"
+                            : "bg-[#0f1715]/40"
+                        }
+                      `}
+                    />
+
+                    <div className="relative z-10 flex h-full flex-col justify-end p-0">
+                      <div className="px-4 pb-4 pt-20 sm:px-5 sm:pb-5">
+                        <div
+                          className={`
+                            flex items-end justify-between gap-3
+                            transition-all duration-500
+                            ${
+                              activeTechnology === index || isCompactView
+                                ? "translate-y-0 "
+                                : "translate-y-3 opacity-95"
+                            }
+                          `}
+                        >
+                          <h3 className="max-w-[190px] text-left text-base font-medium leading-5 tracking-[-0.02em] text-white sm:text-lg">
+                            {item.title}
+                          </h3>
+
+                          <span className="service-card-action flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white opacity-100 shadow-lg backdrop-blur-sm transition-all duration-300 pointer-events-auto group-hover:translate-x-1 group-hover:border-[#e1de00]/60 group-hover:bg-[#e1de00] group-hover:text-[#0f1715] group-hover:shadow-[0_0_18px_rgba(225,222,0,0.35)]">
+                            <ArrowUpRightIcon className="h-5 w-5" />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
     </>
   );
 };
