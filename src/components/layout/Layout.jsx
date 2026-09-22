@@ -26,6 +26,10 @@ export const Layout = () => {
     );
 
     defaultTextTargets.forEach((element, index) => {
+      if (element.closest(".hero-copy")) {
+        return;
+      }
+
       if (!element.dataset.reveal) {
         element.dataset.reveal = index % 2 === 0 ? "left" : "right";
       }
@@ -59,6 +63,10 @@ export const Layout = () => {
     );
 
     revealElements.forEach((element, index) => {
+      if (element.closest(".hero-copy")) {
+        return;
+      }
+
       const direction = element.dataset.reveal || "up";
       element.dataset.reveal = direction;
       element.dataset.delay = String(Math.min(index * 45, 220));
