@@ -350,9 +350,9 @@ export const About = () => {
         <div className="mx-auto max-w-[1280px]">
 
           <div
-            className="overflow-hidden rounded-[24px] border p-4 sm:p-5 lg:p-7"
+            className="overflow-hidden rounded-[24px] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(225,222,0,0.11)_100%)] border p-4 sm:p-5 lg:p-7"
             style={{
-              background: "var(--theme-surface)",
+              // background: "var(--theme-surface)",
               borderColor: "var(--theme-border)",
             }}
           >

@@ -786,6 +786,7 @@ export const Home = () => {
 <PortfolioCard
   title={PORTFOLIO_CASES[2]?.title}
   image={PORTFOLIO_CASES[2]?.image}
+  showOverlay
   className="
     h-[220px]
     sm:h-[240px]
@@ -799,6 +800,7 @@ export const Home = () => {
 <PortfolioCard
   title={PORTFOLIO_CASES[3]?.title}
   image={PORTFOLIO_CASES[3]?.image}
+  showOverlay
   className="
     h-[220px]
     sm:h-[240px]

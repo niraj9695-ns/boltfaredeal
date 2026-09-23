@@ -419,7 +419,7 @@ export const Services = () => {
 
 
 
-      <section className="relative z-10 w-full px-6 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+      <section className="relative z-10 w-full px-6 pb-20 sm:px-8 lg:px-10 lg:pb-28 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(225,222,0,0.11)_100%)]">
         <div className="mx-auto max-w-[1180px]">
           <div
             className="grid overflow-hidden rounded-[26px] border border-[var(--theme-border)] bg-[var(--theme-surface)] shadow-[0_20px_50px_rgba(0,0,0,0.18)] lg:grid-cols-[0.88fr_1.12fr]"

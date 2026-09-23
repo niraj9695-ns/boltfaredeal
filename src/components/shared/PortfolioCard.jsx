@@ -46,10 +46,10 @@ export const PortfolioCard = ({
             loading="lazy"
           />
           <div className="portfolio-ink-overlay" aria-hidden="true" />
-          <div className="portfolio-view-pill" aria-hidden="true">
+          {/* <div className="portfolio-view-pill" aria-hidden="true">
             <span>View Project</span>
             <ArrowUpRightIcon className="h-3.5 w-3.5" />
-          </div>
+          </div> */}
         </div>
         {showOverlay && title && (
           <div className="portfolio-card-overlay absolute inset-0 flex items-end rounded-[clamp(0.5rem,1.7vw,1.25rem)] p-[clamp(0.5rem,1.5vw,1.25rem)]">
@@ -60,7 +60,7 @@ export const PortfolioCard = ({
               <span className="max-w-[calc(100%-3rem)] text-[clamp(0.55rem,1.5vw,1.125rem)] leading-tight">
                 {title}
               </span>
-              <ArrowUpRightIcon className="ml-2 h-[clamp(0.5rem,1.25vw,0.9375rem)] w-[clamp(0.5rem,1.25vw,0.9375rem)] shrink-0" />
+              {/* <ArrowUpRightIcon className="ml-2 h-[clamp(0.5rem,1.25vw,0.9375rem)] w-[clamp(0.5rem,1.25vw,0.9375rem)] shrink-0" /> */}
             </Link>
           </div>
         )}
