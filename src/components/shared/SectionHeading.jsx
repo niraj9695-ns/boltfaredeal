@@ -10,14 +10,14 @@ export const SectionHeading = ({
   return (
     <h2
       className={cn(
-        "[font-family:'Merriweather',Helvetica] text-[40px] font-normal leading-10 tracking-[0] text-white",
+        "text-[40px] font-normal leading-10 tracking-[0] text-white",
         className,
       )}
     >
       {primary && (
         <span
           data-reveal="left"
-          className={cn("italic leading-[64px]", primaryClassName)}
+          className={cn("leading-[64px]", primaryClassName)}
         >
           {primary}
           {secondary && <br />}
@@ -27,7 +27,7 @@ export const SectionHeading = ({
         <span
           data-reveal="right"
           className={cn(
-            "text-[55px] italic leading-[64px] text-[#92d1bc]",
+            "text-[55px] leading-[64px] text-[#92d1bc]",
             secondaryClassName,
           )}
         >

@@ -5,7 +5,7 @@ export const SectionLabel = ({ children, className }) => {
     <p
       data-reveal="left"
       className={cn(
-        "[font-family:'Merriweather',Helvetica] text-lg font-normal leading-[27.2px] tracking-[0.54px] text-[#e1de00]",
+        "text-lg font-normal leading-[27.2px] tracking-[0.54px] text-[#e1de00]",
         className,
       )}
     >

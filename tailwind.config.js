@@ -48,8 +48,8 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Georgia", "Times New Roman", "Times", "serif"],
-        serif: ["Georgia", "Times New Roman", "Times", "serif"],
+        sans: ["Lato", "sans-serif"],
+        serif: ["Lato", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

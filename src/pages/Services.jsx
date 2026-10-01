@@ -268,7 +268,7 @@ export const Services = () => {
 
         <h1 className="max-w-[620px] text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">
           We Offer{" "}
-          <span className="italic font-normal text-[var(--theme-accent)]">
+          <span className="font-normal text-[var(--theme-accent)]">
             The Best Services
           </span>
         </h1>
@@ -440,7 +440,7 @@ export const Services = () => {
                 </SectionLabel>
 
                 <h2 className="text-3xl font-medium tracking-[-0.04em] text-[var(--theme-text)] sm:text-4xl lg:text-[3.1rem]">
-                  Get A <span className="italic font-normal text-[var(--theme-accent)]">Free Consultation</span>
+                  Get A <span className="font-normal text-[var(--theme-accent)]">Free Consultation</span>
                  
                 </h2>
               </div>
@@ -509,7 +509,7 @@ export const Services = () => {
 
               <h1 className="max-w-[620px] text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">
                 Technology{" "}
-                <span className="italic font-normal text-[var(--theme-accent)]">
+                <span className="font-normal text-[var(--theme-accent)]">
                   &amp; Infrastructure
                 </span>
               </h1>

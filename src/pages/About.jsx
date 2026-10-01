@@ -263,7 +263,7 @@ export const About = () => {
               >
                 We are creative &amp;
                 <span
-                  className="block italic"
+                  className="block"
                   style={{
                     color: "var(--theme-accent-alt)",
                   }}
@@ -408,7 +408,7 @@ export const About = () => {
                 </div>
 
                 <h3
-                  className="[font-family:'Merriweather',Helvetica] text-[2rem] font-normal italic leading-[1.05] tracking-[-0.05em] sm:text-[2.8rem]"
+                  className="[font-family:'Merriweather',Helvetica] text-[2rem] font-normal leading-[1.05] tracking-[-0.05em] sm:text-[2.8rem]"
                   style={{
                     color: "var(--theme-text)",
                   }}

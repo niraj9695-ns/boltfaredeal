@@ -11,7 +11,7 @@ import serviceCorrugated from "../assets/images/Services/Corrugated.png";
 import serviceFlexo from "../assets/images/Services/Flexo.png";
 import serviceLabels from "../assets/images/Services/Labels.jpg";
 import serviceOffset from "../assets/images/Services/OffSet.png";
-import serviceScreen from "../assets/images/Services/Screen.jpg";
+import serviceScreen from "../assets/images/Services/copier.png";
 
 export const ASSETS = {
   heroBg: heroJewelry,
@@ -35,47 +35,39 @@ export const ASSETS = {
   teamImg: "https://images.pexels.com/photos/7495291/pexels-photo-7495291.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
   studioImg: "https://images.pexels.com/photos/6621009/pexels-photo-6621009.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
 };
-
 export const SERVICES = [
   {
-    title: "Flexo Printing",
-    description: "Efficient flexible packaging and label printing with consistent output.",
-    image: ASSETS.serviceColor,
-    radius: "rounded-[30px]",
-    overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
-  },
-  {
     title: "Offset Printing",
-    description: "Commercial printing for brands, marketing, and business communication.",
+    description: "High-quality offset printing solutions for brochures, books, labels, cartons, and business stationery.",
     image: ASSETS.servicePrint,
     radius: "rounded-[20px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
   },
   {
-    title: "Corrugated Packaging",
-    description: "Strong, durable packaging solutions for shipping and retail presentation.",
-    image: ASSETS.servicePackaging,
-    radius: "rounded-[30px]",
-    overlay: "bg-blend-screen bg-[linear-gradient(139deg,rgba(134,217,240,0.3)_0%,rgba(192,229,116,0.3)_100%)]",
-  },
-  {
-    title: "BOPP Tapes",
-    description: "Packaging adhesive solutions designed for secure sealing and finishing.",
-    image: ASSETS.serviceBopp,
+    title: "Flexo Printing",
+    description: "Flexible printing solutions for labels, tags, packaging, and shrink sleeves with consistent quality.",
+    image: ASSETS.serviceColor,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
   },
   {
-    title: "Screen Printing",
-    description: "High-impact custom graphics for retail, signage, and promotional products.",
+    title: "Copier Paper",
+    description: "Importer, distributor and dealer of copier, coated and sheet form papers.",
     image: ASSETS.servicePaper,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
   },
   {
-    title: "Labels & Stickers",
-    description: "Premium labels and stickers for products, promotions, and branding needs.",
-    image: ASSETS.serviceLabels,
+    title: "Corrugation",
+    description: "High-quality corrugated packaging solutions from standard transit boxes to bespoke packaging.",
+    image: ASSETS.servicePackaging,
+    radius: "rounded-[30px]",
+    overlay: "bg-blend-screen bg-[linear-gradient(139deg,rgba(134,217,240,0.3)_0%,rgba(192,229,116,0.3)_100%)]",
+  },
+  {
+    title: "Others",
+    description: "BOPP tapes, screen printing, labels, stickers, and specialized printing solutions.",
+    image: ASSETS.serviceBopp,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
   },

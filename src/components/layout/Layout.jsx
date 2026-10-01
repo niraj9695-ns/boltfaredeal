@@ -106,7 +106,7 @@ export const Layout = () => {
   return (
     <main
       data-theme={theme}
-      className="relative isolate w-full overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)]"
+      className="relative isolate w-full overflow-x-clip bg-[var(--theme-bg)] text-[var(--theme-text)]"
     >
       <CursorSpotlight />
 
