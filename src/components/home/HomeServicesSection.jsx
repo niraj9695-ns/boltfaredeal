@@ -87,8 +87,6 @@ export const HomeServicesSection = ({ activeServiceIndex, setActiveServiceIndex 
                 <SectionHeading
                   primary="We bring"
                   secondary="ideas to life."
-                  primaryClassName="leading-[59px] not-italic"
-                  secondaryClassName="not-italic"
                 />
               </div>
               <div className="flex max-w-full items-start gap-4 lg:max-w-[530px]">

@@ -24,9 +24,7 @@ export const HomeClientsSection = () => (
       <SectionHeading
         primary="Our"
         secondary="Clients"
-        className="whitespace-nowrap text-[clamp(2.2rem,4vw,3.5rem)] text-center"
-        primaryClassName="mr-3 inline-block whitespace-nowrap leading-[1.1] text-white"
-        secondaryClassName="inline-block whitespace-nowrap text-[clamp(2.2rem,4vw,3.5rem)] leading-[1.1] text-[#92d1bc]"
+        className="text-center"
       />
       {/* <div className="mx-auto mt-3 h-[2px] w-12 bg-[#92d1bc]" /> */}
     </div>

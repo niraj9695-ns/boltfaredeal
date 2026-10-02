@@ -16,9 +16,6 @@ export const HomeWhyChooseUsSection = () => (
               <SectionHeading
                 primary="Why"
                 secondary="Choose Us"
-              className="text-[36px] sm:text-[44px] sm:leading-[50px] lg:text-[55px] lg:leading-[60px]"
-              primaryClassName="leading-[1.1]"
-                secondaryClassName="text-[40px] sm:text-[50px] lg:text-[55px] leading-[1.1]"
               />
             </div>
             <div data-reveal="right" className="flex max-w-full flex-col gap-4">

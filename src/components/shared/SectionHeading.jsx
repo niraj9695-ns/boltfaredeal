@@ -10,26 +10,23 @@ export const SectionHeading = ({
   return (
     <h2
       className={cn(
-        "text-[40px] font-normal leading-10 tracking-[0] text-white",
+        "font-[Lato] text-[40px] font-extrabold leading-[1.05] tracking-tight text-white sm:text-[52px] lg:text-[58px]",
         className,
       )}
+      style={{ fontFamily: "'Lato', sans-serif" }}
     >
       {primary && (
         <span
           data-reveal="left"
-          className={cn("leading-[64px]", primaryClassName)}
+          className={cn("block", primaryClassName)}
         >
           {primary}
-          {secondary && <br />}
         </span>
       )}
       {secondary && (
         <span
           data-reveal="right"
-          className={cn(
-            "text-[55px] leading-[64px] text-[#92d1bc]",
-            secondaryClassName,
-          )}
+          className={cn("block text-[#92d1bc]", secondaryClassName)}
         >
           {secondary}
         </span>

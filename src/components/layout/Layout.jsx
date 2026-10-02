@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Outlet, useLocation } from "react-router-dom";
+import Lenis from "lenis";
 
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -8,6 +9,7 @@ import { CursorSpotlight } from "./CursorSpotlight";
 
 export const Layout = () => {
   const { pathname } = useLocation();
+  const lenisRef = useRef(null);
 
   const [theme, setTheme] = useState(() => {
     const saved = window.localStorage.getItem("faredeal-theme");
@@ -20,8 +22,24 @@ export const Layout = () => {
   }, [theme]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    lenisRef.current?.scrollTo(0, { duration: 0.8 });
   }, [pathname]);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+      lerp: 0.08,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+    });
+
+    lenisRef.current = lenis;
+
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     const defaultTextTargets = document.querySelectorAll(

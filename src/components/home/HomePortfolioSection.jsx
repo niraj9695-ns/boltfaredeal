@@ -38,8 +38,6 @@ export const HomePortfolioSection = () => (
   <SectionHeading
     primary="Our"
     secondary="Latest Cases"
-    className="text-[32px] sm:text-[40px]"
-    secondaryClassName="text-[40px] sm:text-[55px]"
   />
 </header>
 
