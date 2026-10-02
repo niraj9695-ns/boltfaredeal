@@ -45,7 +45,7 @@ export const PortfolioCard = ({
             src={image}
             loading="lazy"
           />
-          <div className="portfolio-ink-overlay" aria-hidden="true" />
+          {/* <div className="portfolio-ink-overlay" aria-hidden="true" /> */}
           {/* <div className="portfolio-view-pill" aria-hidden="true">
             <span>View Project</span>
             <ArrowUpRightIcon className="h-3.5 w-3.5" />
