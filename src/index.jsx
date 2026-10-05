@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import { Home } from "./pages/Home";
-import { About } from "./pages/About";
+// import { About } from "./pages/About";
+import AboutUsPage from "./pages/AboutUsPage";
 import { Services } from "./pages/Services";
 import { ServiceDetail } from "./pages/ServiceDetail";
 import { Portfolio } from "./pages/Portfolio";
@@ -22,7 +23,7 @@ createRoot(appElement).render(
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:serviceName" element={<ServiceDetail />} />
           <Route path="/technology" element={<Technology />} />
@@ -32,5 +33,5 @@ createRoot(appElement).render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 );
