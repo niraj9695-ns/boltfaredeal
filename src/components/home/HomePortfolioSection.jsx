@@ -14,7 +14,8 @@ const sliderCss = `
   .portfolio-carousel {
     position: relative;
     width: 100%;
-    padding: 30px 0;
+    /* padding: 30px 0; */
+    margin-bottom: -84px;
     perspective: 1200px;
     perspective-origin: 50% 50%;
   }
@@ -63,6 +64,9 @@ const sliderCss = `
   }
 
   @media (max-width: 1100px) {
+    .portfolio-carousel {
+      margin-bottom: -71px;
+    }
     .portfolio-carousel .splide__track {
       clip-path: var(--portfolio-clip-path-tablet);
     }
@@ -72,6 +76,9 @@ const sliderCss = `
   }
 
   @media (max-width: 700px) {
+    .portfolio-carousel {
+      margin-bottom: -34px;
+    }
     .portfolio-carousel .splide__track {
       clip-path: var(--portfolio-clip-path-mobile);
     }
@@ -104,20 +111,33 @@ export const HomePortfolioSection = () => {
             <path d="M0 0 Q.5 .22 1 0 L1 .86 Q.5 .70 0 .86Z" />
           </clipPath>
 
-          <clipPath id={`${clipPathId}-tablet`} clipPathUnits="objectBoundingBox">
-            <path d="M0 0 Q.5 .12 1 0 L1 .92 Q.5 .84 0 .92Z" />
-          </clipPath>
+           {/* Tablet — slightly deeper curve */}
+    <clipPath id={`${clipPathId}-tablet`} clipPathUnits="objectBoundingBox">
+      <path d="M0 0 Q.5 .17 1 0 L1 .92 Q.5 .75 0 .92Z" />
+    </clipPath>
 
-          <clipPath id={`${clipPathId}-mobile`} clipPathUnits="objectBoundingBox">
-            <path d="M0 0 Q.5 .06 1 0 L1 .96 Q.5 .92 0 .96Z" />
-          </clipPath>
+    {/* Mobile — more noticeable curve */}
+    <clipPath id={`${clipPathId}-mobile`} clipPathUnits="objectBoundingBox">
+      <path d="M0 0 Q.5 .10 1 0 L1 .96 Q.5 .86 0 .96Z" />
+    </clipPath>
         </defs>
       </svg>
 
       {/* Heading */}
-      <header className="mx-auto mb-12 flex max-w-[760px] flex-col items-center px-4 text-center sm:px-6 md:mb-16">
-        <SectionLabel>PORTFOLIO</SectionLabel>
-        <SectionHeading primary="Our" secondary="Latest Cases" />
+      <header className="mx-auto mb-1 flex max-w-[760px] flex-col items-center px-4 text-center sm:px-6 md:mb-1">
+        <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-[#f7d51d]" />
+                <span className="text-sm font-bold uppercase tracking-[0.25em] text-[#f7d51d]">
+                   Portfolio
+                </span>
+              </div>
+<h2
+  className="mt-2 whitespace-nowrap font-[Lato] text-[40px] font-extrabold leading-[1.05] tracking-tight sm:text-[52px] lg:text-[58px]"
+  style={{ fontFamily: "'Lato', sans-serif" }}
+>
+  <span className="text-white">Our</span>{" "}
+  <span className="text-[#92d1bc]">Latest Cases</span>
+</h2>
       </header>
 
       {/* Slider */}
@@ -136,7 +156,7 @@ export const HomePortfolioSection = () => {
           options={{
             type: "loop",
             autoScroll: {
-              speed: 0.7,
+              speed: 3.0,
               pauseOnHover: false,
               pauseOnFocus: false,
             },
@@ -144,7 +164,7 @@ export const HomePortfolioSection = () => {
             perMove: 1,
             focus: "center",
             fixedWidth: "430px",
-            gap: "-3.5rem",
+            gap: "-2.8rem",
             padding: {
               left: "calc((100% - 430px) / 2)",
               right: "calc((100% - 430px) / 2)",
@@ -179,7 +199,7 @@ export const HomePortfolioSection = () => {
                 title={item.title}
                 image={item.image}
                 showOverlay
-                className="h-[380px] w-full min-[701px]:h-[440px] min-[1101px]:h-[480px]"
+                className="h-[280px] w-full min-[701px]:h-[440px] min-[1101px]:h-[480px]"
               />
             </SplideSlide>
           ))}
@@ -187,15 +207,15 @@ export const HomePortfolioSection = () => {
       </div>
 
       {/* Controls */}
-      <div className="mx-auto mt-8 flex w-[min(100%-40px,1180px)] items-center justify-between">
+      {/* <div className="mx-auto mt-8 flex w-[min(100%-40px,1180px)] items-center justify-between">
         <p className="text-[11px] uppercase tracking-[0.08em] opacity-60">
           <span className="opacity-100">
             {String(PORTFOLIO_CASES.length).padStart(2, "0")}
           </span>{" "}
           cases
-        </p>
+        </p> */}
 
-        <div className="flex gap-2.5">
+        {/* <div className="flex gap-2.5">
           <button
             type="button"
             aria-label="Previous case"
@@ -203,9 +223,9 @@ export const HomePortfolioSection = () => {
             className="grid h-11 w-11 place-items-center rounded-sm border border-current/25 transition hover:border-current"
           >
             <ArrowLeft aria-hidden="true" size={18} strokeWidth={1.5} />
-          </button>
+          </button> */}
 
-          <button
+          {/* <button
             type="button"
             aria-label="Next case"
             onClick={() => goTo(">")}
@@ -214,15 +234,15 @@ export const HomePortfolioSection = () => {
             <ArrowRight aria-hidden="true" size={18} strokeWidth={1.5} />
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* View all */}
-      <div className="mt-8 flex justify-center sm:mt-10">
-        <GradientButton to="/portfolio" className="px-6 py-3 text-sm font-semibold">
-          View All Cases
-          <ChevronDownIcon className="h-4 w-4 -rotate-90" />
-        </GradientButton>
-      </div>
+      <div className="mt-10 flex justify-center sm:mt-12 min-[701px]:mt-14 min-[1101px]:mt-0">
+  <GradientButton to="/portfolio" className="px-6 py-3 text-sm font-semibold">
+    View All Cases
+    <ChevronDownIcon className="h-4 w-4 -rotate-90" />
+  </GradientButton>
+</div>
     </section>
   );
 };

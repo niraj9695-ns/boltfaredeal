@@ -2,7 +2,7 @@ import heroJewelry from "../assets/images/herohome.png";
 import heroLight from "../assets/images/herolight.png";
 import ownerImage from "../assets/images/Owner image.png";
 import whyChooseUsImage from "../assets/images/WhyChooseUs.png";
-import portfolioImage1 from "../assets/images/PortFolioImages/1.png";
+import portfolioImage1 from "../assets/images/PortFolioImages/5.png";
 import portfolioImage4 from "../assets/images/PortFolioImages/2.png";
 import portfolioImage3 from "../assets/images/PortFolioImages/3.png";
 import portfolioImage2 from "../assets/images/PortFolioImages/4.png";
