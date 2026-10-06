@@ -6,6 +6,7 @@ import { HomeServicesSection } from "../components/home/HomeServicesSection";
 import { HomeWhyChooseUsSection } from "../components/home/HomeWhyChooseUsSection";
 import { HomeClientsSection } from "../components/home/HomeClientsSection";
 import { HomePortfolioSection } from "../components/home/HomePortfolioSection";
+import { HomeHowWeWork } from "../components/home/HomeHowWeWork";
 
 export const Home = () => {
   const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
@@ -34,6 +35,7 @@ export const Home = () => {
         setActiveServiceIndex={setActiveServiceIndex}
       />
       <HomeWhyChooseUsSection />
+      <HomeHowWeWork/>
       <HomeClientsSection />
       <HomePortfolioSection />
     </>

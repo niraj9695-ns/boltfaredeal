@@ -78,12 +78,17 @@ export const HomeServicesSection = ({ activeServiceIndex, setActiveServiceIndex 
         style={{ height: `${100 + (total - 1) * SCROLL_PER_CARD_VH}vh` }}
         className="relative"
       >
-        <div className="sticky top-[52px] flex h-[calc(100dvh-52px)] w-full flex-col px-4 py-4 sm:px-6 sm:py-5 md:top-0 md:h-[100dvh] md:py-6 lg:px-8">
+        <div className="sticky top-[52px] flex h-[calc(100dvh-52px)] w-full flex-col px-4 py-4 max-[900px]:pt-[60px] sm:px-6 sm:py-5 md:top-0 md:h-[100dvh] md:py-6 lg:px-8">
           <div className="mx-auto flex min-h-0 w-full max-w-[1180px] flex-1 flex-col">
             {/* Section header (stays sticky with the cards) */}
             <header className="mb-4 flex flex-col gap-3 md:mb-5 md:gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
               <div className="flex flex-col gap-2">
-                <SectionLabel>OUR SERVICES</SectionLabel>
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-[#f7d51d]" />
+                  <SectionLabel className="text-sm font-bold uppercase leading-none tracking-[0.25em] text-[#f7d51d]">
+                    OUR SERVICES
+                  </SectionLabel>
+                </div>
                 <SectionHeading
                   primary="We bring"
                   secondary="ideas to life."
@@ -124,7 +129,7 @@ export const HomeServicesSection = ({ activeServiceIndex, setActiveServiceIndex 
                     transform: index === 0 ? "translate3d(0, -50%, 0)" : "translate3d(100%, -50%, 0) scale(0.97)",
                     willChange: "transform",
                   }}
-                  className="absolute inset-x-0 top-1/2 flex h-[min(100%,58vh,440px)] flex-col overflow-hidden shadow-[-24px_0_48px_-24px_rgba(0,0,0,0.45)] md:flex-row"
+                  className="absolute inset-x-0 top-1/2 max-[900px]:top-[44%] flex h-[min(100%,58vh,440px)] max-[900px]:h-[min(100%,54vh,480px)] flex-col overflow-hidden shadow-[-24px_0_48px_-24px_rgba(0,0,0,0.45)] md:flex-row"
                 >
                   {/* Image */}
                   <div className="relative min-h-0 flex-[1.1] md:flex-[1.9]">
@@ -137,7 +142,7 @@ export const HomeServicesSection = ({ activeServiceIndex, setActiveServiceIndex 
                   </div>
 
                   {/* Content panel */}
-                  <div className="relative flex min-h-0 flex-1 flex-col justify-between bg-[linear-gradient(138deg,rgba(134,217,240,1)_0%,rgba(192,229,116,1)_100%)] p-3 text-black sm:p-5 md:p-6 lg:p-8">
+                  <div className="relative flex min-h-0 flex-1 flex-col justify-between bg-[linear-gradient(138deg,rgba(134,217,240,1)_0%,rgba(192,229,116,1)_100%)] p-4 text-black sm:p-5 md:p-6 lg:p-8">
                     <div className="flex flex-col gap-1 sm:gap-2 md:gap-3">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.2em]">
                         {BRAND} / SERVICE {pad(index + 1)}
