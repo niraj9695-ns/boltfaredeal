@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { SERVICES } from "../lib/assets";
+import { FlexoPrintingPage } from "./FlexoPrintingPage";
+import { OffsetPrintingPage } from "./OffsetPrintingPage";
+import { CorrugatedPackagingPage } from "./CorrugatedPackagingPage";
 
 const slugifyServiceTitle = (value) =>
   value
@@ -45,6 +48,18 @@ export const ServiceDetail = () => {
     );
   }
 
+  if (service.title === "Flexo Printing") {
+    return <FlexoPrintingPage service={service} />;
+  }
+
+  if (service.title === "Offset Printing") {
+    return <OffsetPrintingPage service={service} />;
+  }
+
+  if (service.title === "Corrugation") {
+    return <CorrugatedPackagingPage service={service} />;
+  }
+
   const detailPoints = [
     "Precision-led execution and consistent production output",
     "Material-based customization for your exact requirement",
@@ -61,7 +76,7 @@ export const ServiceDetail = () => {
               OUR SERVICE
             </SectionLabel>
 
-            <h1 className="text-3xl font-medium tracking-[-0.04em] text-[var(--theme-text)] sm:text-4xl lg:text-[3.1rem]">
+            <h1 className="text-[clamp(52px,4vw,80px)] font-[650] leading-[0.98] tracking-[-0.055em] text-[var(--theme-text)] max-[600px]:text-[45px]">
               {service.title}
             </h1>
           </div>
