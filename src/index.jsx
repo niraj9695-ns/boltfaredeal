@@ -7,7 +7,7 @@ import { Home } from "./pages/Home";
 import AboutUsPage from "./pages/AboutUsPage";
 import { Services } from "./pages/Services";
 import { ServiceDetail } from "./pages/ServiceDetail";
-import { Portfolio } from "./pages/Portfolio";
+import  Portfolio  from "./pages/Portfolio";
 import { Contact } from "./pages/Contact";
 import { Technology } from "./pages/Technology";
 
