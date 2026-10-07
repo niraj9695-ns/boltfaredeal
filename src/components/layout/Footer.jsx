@@ -3,26 +3,18 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
+import { SERVICES } from "../../lib/assets";
 import { GradientButton } from "../shared/GradientButton";
 import logoImage from "../../assets/images/logo.png";
 
-const services = [
-  "Flexo Printing",
-  "Offset Printing",
-  "Corrugated Packaging",
-  "BOPP Tapes",
-  "Screen Printing",
-  "Labels & Stickers",
-];
-
-const serviceLinks = [
-  { label: "Flexo Printing", to: "/services/flexo-printing" },
-  { label: "Offset Printing", to: "/services/offset-printing" },
-  { label: "Corrugated Packaging", to: "/services/corrugated-packaging" },
-  { label: "BOPP Tapes", to: "/services/bopp-tapes" },
-  { label: "Screen Printing", to: "/services/screen-printing" },
-  { label: "Labels & Stickers", to: "/services/labels-and-stickers" },
-];
+const serviceLinks = SERVICES.map(({ title }) => ({
+  label: title,
+  to: `/services/${title
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")}`,
+}));
 
 export const Footer = () => {
   const [email, setEmail] = useState("");
@@ -213,11 +205,6 @@ export const Footer = () => {
                 Privacy Policy
               </Link>
             </nav>
-            <div className="flex gap-4">
-              {services.map((s) => (
-                <span key={s} className="sr-only">{s}</span>
-              ))}
-            </div>
           </div>
         </div>
       </div>
