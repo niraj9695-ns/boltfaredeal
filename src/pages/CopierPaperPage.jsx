@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRightIcon,
   ChevronLeftIcon,
@@ -94,12 +94,29 @@ const orbitRings = [
   { w: 58,  h: 22, rot: -12, color: "rgba(214,178,94,0.2)" },
 ];
 
+/*
+|--------------------------------------------------------------------------
+| Interaction tuning
+|--------------------------------------------------------------------------
+| DRAG_STEP_PX    - pixels of horizontal drag needed to move one product
+| WHEEL_STEP      - accumulated wheel delta needed to move one product
+| WHEEL_COOLDOWN  - minimum ms between wheel-triggered moves
+*/
+const DRAG_STEP_PX = 70;
+const WHEEL_STEP = 50;
+const WHEEL_COOLDOWN = 380;
+
 export const CopierPaperPage = ({ service }) => {
   const heroImage = service.image;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const stageRef = useRef(null);
+  const dragRef = useRef({ active: false, lastX: 0, pointerId: null });
+  const pausedRef = useRef(false);
+  const wheelRef = useRef({ acc: 0, last: 0 });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
@@ -119,13 +136,15 @@ export const CopierPaperPage = ({ service }) => {
 
   /*
   |--------------------------------------------------------------------------
-  | Automatic rotation
+  | Automatic rotation (pauses while the person is interacting)
   |--------------------------------------------------------------------------
   */
   useEffect(() => {
     if (copierImages.length < 2) return undefined;
 
     const intervalId = window.setInterval(() => {
+      if (pausedRef.current) return;
+
       setActiveIndex(
         (current) => (current + 1) % copierImages.length,
       );
@@ -144,6 +163,107 @@ export const CopierPaperPage = ({ service }) => {
 
   /*
   |--------------------------------------------------------------------------
+  | Wheel / trackpad scroll
+  |--------------------------------------------------------------------------
+  | Horizontal scroll (trackpad swipe, tilt wheel) or Shift + wheel rotates
+  | the orbit. Plain vertical scrolling is left alone so the page still
+  | scrolls normally. Needs a non-passive listener to block browser
+  | back/forward swipe, so it is attached manually instead of via onWheel.
+  */
+  useEffect(() => {
+    const stage = stageRef.current;
+
+    if (!stage) return undefined;
+
+    const handleWheel = (event) => {
+      const horizontal =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY);
+
+      if (!horizontal && !event.shiftKey) return;
+
+      event.preventDefault();
+
+      const delta = horizontal ? event.deltaX : event.deltaY;
+      const state = wheelRef.current;
+      const now = Date.now();
+
+      state.acc += delta;
+
+      if (
+        Math.abs(state.acc) >= WHEEL_STEP &&
+        now - state.last > WHEEL_COOLDOWN
+      ) {
+        moveOrbit(state.acc > 0 ? 1 : -1);
+        state.acc = 0;
+        state.last = now;
+      }
+    };
+
+    stage.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => stage.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Drag / swipe (mouse, touch and pen via pointer events)
+  |--------------------------------------------------------------------------
+  */
+  const handlePointerDown = (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    dragRef.current = {
+      active: true,
+      lastX: event.clientX,
+      pointerId: event.pointerId,
+    };
+
+    pausedRef.current = true;
+    setIsDragging(true);
+
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const handlePointerMove = (event) => {
+    const drag = dragRef.current;
+
+    if (!drag.active || drag.pointerId !== event.pointerId) return;
+
+    const diff = event.clientX - drag.lastX;
+
+    if (Math.abs(diff) >= DRAG_STEP_PX) {
+      moveOrbit(diff < 0 ? 1 : -1);
+      drag.lastX = event.clientX;
+    }
+  };
+
+  const endDrag = (event) => {
+    const drag = dragRef.current;
+
+    if (!drag.active || drag.pointerId !== event.pointerId) return;
+
+    dragRef.current = { active: false, lastX: 0, pointerId: null };
+
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+
+    setIsDragging(false);
+    pausedRef.current = false;
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      moveOrbit(1);
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      moveOrbit(-1);
+    }
+  };
+
+  /*
+  |--------------------------------------------------------------------------
   | Orbit slot lookup
   |--------------------------------------------------------------------------
   */
@@ -154,16 +274,6 @@ export const CopierPaperPage = ({ service }) => {
     const r = (imageIndex - activeIndex + total) % total;
     const key = r === total - 1 ? "-1" : r;
     return slots[key] ?? hiddenSlot;
-  };
-
-  const handleTouchEnd = (event) => {
-    if (touchStart === null) return;
-
-    const diff = event.changedTouches[0].clientX - touchStart;
-
-    if (Math.abs(diff) > 40) moveOrbit(diff < 0 ? 1 : -1);
-
-    setTouchStart(null);
   };
 
   return (
@@ -329,9 +439,15 @@ export const CopierPaperPage = ({ service }) => {
                 Copier paper range
               </SectionLabel>
 
-              <h2 className="max-w-3xl text-3xl font-medium leading-tight tracking-[-0.025em] sm:text-4xl lg:text-[48px]">
-                Explore our paper selection
-              </h2>
+              <h1
+                data-reveal="left"
+                className="text-[clamp(52px,4vw,80px)] font-[650] leading-[0.98] tracking-[-0.055em] max-[600px]:text-[45px]"
+              >
+                Explore our{" "}
+                <span className="text-[var(--theme-accent)]">
+                  paper selection
+                </span>
+              </h1>
             </div>
 
             {/* ------------------------------------------------------------ */}
@@ -344,7 +460,7 @@ export const CopierPaperPage = ({ service }) => {
                 className="border-b border-[var(--theme-accent-alt)] pb-2 text-xs font-medium tracking-[0.12em] text-[var(--theme-text-soft)] sm:text-sm"
               >
                 {String(copierImages.length).padStart(2, "0")}{" "}
-                PRODUCT IMAGES
+                PRODUCTS
               </span>
 
               <div className="flex gap-2">
@@ -378,18 +494,33 @@ export const CopierPaperPage = ({ service }) => {
           {/* ================================================================ */}
 
           <div
+            ref={stageRef}
             id="copier-orbit-stage"
+            role="region"
+            aria-roledescription="carousel"
             aria-label="Copier paper product images"
-            className="relative isolate mx-auto mt-8 w-full"
+            tabIndex={0}
+            className={`relative isolate mx-auto mt-8 w-full select-none outline-none focus-visible:ring-1 focus-visible:ring-[var(--theme-accent)]/40 ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
             style={{
               height: isMobile ? "430px" : "clamp(450px, 39vw, 560px)",
               perspective: "1400px",
               overflow: isMobile ? "hidden" : "visible",
+              touchAction: "pan-y",
             }}
-            onTouchStart={(event) =>
-              setTouchStart(event.touches[0].clientX)
-            }
-            onTouchEnd={handleTouchEnd}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            onPointerEnter={() => {
+              pausedRef.current = true;
+            }}
+            onPointerLeave={(event) => {
+              if (!dragRef.current.active) pausedRef.current = false;
+              if (event.pointerType !== "mouse") pausedRef.current = false;
+            }}
+            onKeyDown={handleKeyDown}
           >
             {/* ---------------- ORBIT RINGS ---------------- */}
 
@@ -414,8 +545,6 @@ export const CopierPaperPage = ({ service }) => {
 
             {copierImages.map(({ image, name }, imageIndex) => {
               const s = getSlot(imageIndex);
-              const isActive = s.z === 10;
-              const isFront = s.z >= 9;
 
               return (
                 <figure
@@ -428,7 +557,7 @@ export const CopierPaperPage = ({ service }) => {
                     aspectRatio: "0.78 / 1",
                     zIndex: s.z,
                     opacity: s.opacity,
-                    pointerEvents: s.opacity < 0.5 ? "none" : "auto",
+                    pointerEvents: "none",
                     transform: `translate(-50%, -50%) scale(${s.scale}) rotateY(${s.rotY}deg) rotateZ(${s.rotZ}deg)`,
                     filter: `brightness(${s.b})`,
                     transition:
@@ -445,24 +574,6 @@ export const CopierPaperPage = ({ service }) => {
                       filter: "drop-shadow(0 28px 30px rgba(0,0,0,0.55))",
                     }}
                   />
-
-                  {/* Floating label */}
-
-                  <figcaption
-                    className={`absolute whitespace-nowrap rounded-[13px] border border-white/15 bg-[#222725]/90 px-4 py-2 text-[11px] font-medium text-white shadow-[0_10px_30px_rgba(0,0,0,0.4)] backdrop-blur-md sm:text-[13px] ${
-                      isFront
-                        ? "bottom-[-14px] left-1/2"
-                        : "bottom-[-10px] right-[-20px]"
-                    }`}
-                    style={{
-                      transform: isFront
-                        ? "translateX(-50%) rotate(-8deg)"
-                        : "rotate(-4deg)",
-                      opacity: isActive || !isMobile ? 1 : 0,
-                    }}
-                  >
-                    {name}
-                  </figcaption>
                 </figure>
               );
             })}

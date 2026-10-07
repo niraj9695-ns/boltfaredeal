@@ -37,11 +37,11 @@ export const Footer = () => {
   return (
     <footer
       className={[
-        "w-full px-4 py-8 sm:px-10 lg:px-[130px]",
+        "w-full px-4 py-8 sm:px-10 lg:px-[80px]",
         isLightTheme ? "bg-[#FFFFE9] text-[#1b1b1b]" : "bg-[#05080a] text-white",
       ].join(" ")}
     >
-      <div className="mx-auto flex w-full max-w-[1180px] flex-col">
+      <div className="mx-auto flex w-full max-w-[1500px] flex-col">
         <div className={[
           "flex min-h-[102px] flex-col justify-between gap-8 border-b-[3px] pb-[25px] sm:flex-row sm:items-start",
           isLightTheme ? "border-[#1b1b1b]/10" : "border-white/10",
@@ -187,7 +187,7 @@ export const Footer = () => {
           <div className="mt-[25px] flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <nav className="flex flex-wrap items-center gap-6 sm:gap-10" aria-label="Legal information">
               <Link
-                to="/contact"
+                to="/terms-and-conditions"
                 className={[
                   "text-sm font-normal tracking-[-0.2px] transition-colors hover:text-[#92d1bc] sm:text-[15px]",
                   isLightTheme ? "text-[#1b1b1b]" : "text-white",
@@ -196,7 +196,7 @@ export const Footer = () => {
                 Terms &amp; Conditions
               </Link>
               <Link
-                to="/contact"
+                to="/privacy-policy"
                 className={[
                   "text-sm font-normal tracking-[-0.2px] transition-colors hover:text-[#92d1bc] sm:text-[15px]",
                   isLightTheme ? "text-[#1b1b1b]" : "text-white",

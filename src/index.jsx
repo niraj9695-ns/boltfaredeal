@@ -10,6 +10,8 @@ import { ServiceDetail } from "./pages/ServiceDetail";
 import  Portfolio  from "./pages/Portfolio";
 import { Contact } from "./pages/Contact";
 import { Technology } from "./pages/Technology";
+import { TermsAndConditions } from "./pages/TermsAndConditions";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 
 const appElement = document.getElementById("app");
 
@@ -29,6 +31,8 @@ createRoot(appElement).render(
           <Route path="/technology" element={<Technology />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>

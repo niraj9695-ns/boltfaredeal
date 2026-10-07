@@ -858,7 +858,7 @@ export const Services = () => {
               return (
                 <article
                   key={service.title}
-                  className="group relative border-b border-[var(--theme-border)] py-8 sm:py-10 lg:py-14"
+                  className="group relative border-b border-[var(--theme-border)] py-8 sm:py-10 lg:py-10"
                 >
                   {/* LARGE BACKGROUND NUMBER */}
 
@@ -988,7 +988,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative border-y border-[var(--theme-border)]">
-        <div className="mx-auto max-w-[1500px] px-6 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
+        <div className="mx-auto max-w-[1500px] px-6 py-0 sm:px-8 sm:py-28 lg:px-10 lg:py-10">
 
           <div className="grid gap-14 lg:grid-cols-[0.3fr_1.7fr]">
 
