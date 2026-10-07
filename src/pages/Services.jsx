@@ -807,7 +807,7 @@ export const Services = () => {
           NO PREVIOUS / NEXT
       ===================================================== */}
 
-      <section className="relative px-6 pb-24 sm:px-8 lg:px-10 lg:pb-36">
+      <section className="relative px-6 pb-2 sm:px-8 lg:px-10 lg:pb-3">
         <div className="mx-auto max-w-[1500px]">
 
           <div className="mb-10 flex items-end justify-between border-b border-[var(--theme-border)] pb-5">
@@ -1064,7 +1064,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative overflow-hidden border-b border-[var(--theme-border)]">
-        <div className="mx-auto max-w-[1500px] px-6 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1500px] px-6 py-2 sm:px-8 sm:py-28 lg:px-10 lg:py-3">
 
           <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 
@@ -1103,7 +1103,7 @@ export const Services = () => {
 
           {/* CONTACT FORM */}
 
-          <form className="mt-20 border-t border-[var(--theme-border)] pt-8 lg:mt-24">
+          <form className="mt-10 border-t border-[var(--theme-border)] pt-8 lg:mt-10">
             <div className="grid gap-10 lg:grid-cols-[0.7fr_0.7fr_1.6fr_auto] lg:items-end">
 
               {/* NAME */}
