@@ -526,9 +526,10 @@ const Portfolio = () => {
           </div>
 
           <h2>
-            Print That
-            <br />
-            <em>Speaks.</em>
+            <span>Print</span>{" "}
+            <span className="fd-title-accent-yellow">That</span>
+            {" "}
+            <span className="fd-title-accent-mint">Speaks.</span>
           </h2>
 
           <p>
@@ -683,7 +684,7 @@ const Portfolio = () => {
           overflow: hidden;
           background: var(--fd-bg);
           color: var(--fd-white);
-          padding: 110px 0 100px;
+          padding: 145px 0 100px;
         }
 
 
@@ -757,16 +758,20 @@ const Portfolio = () => {
 
         .fd-portfolio-header h2 {
           margin: 0;
-          font-family: Merriweather, serif;
-          font-size: clamp(48px, 6vw, 88px);
-          font-weight: 400;
+          font-family: Inter, "Segoe UI", Arial, sans-serif;
+          font-size: clamp(52px, 4vw, 80px);
+          font-weight: 650;
           line-height: 0.98;
-          letter-spacing: -0.045em;
+          letter-spacing: -0.055em;
+          white-space: nowrap;
         }
 
-        .fd-portfolio-header h2 em {
+        .fd-portfolio-header h2 .fd-title-accent-yellow {
           color: var(--fd-yellow);
-          font-style: italic;
+        }
+
+        .fd-portfolio-header h2 .fd-title-accent-mint {
+          color: var(--fd-mint);
         }
 
         .fd-portfolio-header p {
@@ -1508,7 +1513,8 @@ const Portfolio = () => {
           }
 
           .fd-portfolio-header h2 {
-            font-size: clamp(42px, 13vw, 62px);
+            font-size: 45px;
+            white-space: normal;
           }
 
           .fd-portfolio-header p {
@@ -1680,7 +1686,7 @@ const Portfolio = () => {
           }
 
           .fd-portfolio-header h2 {
-            font-size: 42px;
+            font-size: 45px;
           }
 
           .fd-portfolio-header p {
