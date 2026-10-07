@@ -29,3 +29,21 @@ If you are satisfied with the result, you can finally build the project for rele
 ```
 npm run build
 ```
+
+## Deploy to GitHub Pages
+
+The `main` branch is deployed automatically to
+[https://niraj9695-ns.github.io/boltfaredeal/](https://niraj9695-ns.github.io/boltfaredeal/)
+by the GitHub Actions workflow whenever changes are pushed.
+
+To enable publishing, open the repository's **Settings → Pages** and select
+**Deploy from a branch**, then choose the `gh-pages` branch and `/(root)` folder.
+The first deployment creates that branch. You can also publish manually after
+installing dependencies by running:
+
+```
+npm run deploy
+```
+
+The build includes a Pages fallback so client-side routes continue to work when
+opened directly or refreshed.
