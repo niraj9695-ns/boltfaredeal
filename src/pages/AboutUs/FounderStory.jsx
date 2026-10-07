@@ -1023,9 +1023,9 @@ const FromMyDesk = () => {
             </span>
 
             <h3>
-              To become the
+              To become the{" "}
               <span>
-                preferred printing
+                preferred printing{" "}
               </span>
               &amp; packaging partner.
             </h3>
