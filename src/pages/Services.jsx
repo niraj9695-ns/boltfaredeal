@@ -14,9 +14,6 @@ import { SERVICES } from "../lib/assets";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* =========================================================
-   SERVICE DETAILS
-========================================================= */
 
 const serviceDetails = [
   {
@@ -533,8 +530,8 @@ export const Services = () => {
           --services-panel: #FFFFFF;
           --services-panel-2: #EEF2F1;
 
-          --services-yellow: #C9AE00;
-          --services-mint: #128C68;
+          --services-yellow: #D5B900;
+          --services-mint: #15966F;
 
           --services-white: #101518;
           --services-gray: #56616D;
@@ -564,11 +561,11 @@ export const Services = () => {
           font-family: Inter, "Segoe UI", Arial, sans-serif;
         }
 
-        .services-page .services-hero-label p {
+        .services-page .services-hero-label {
           display: flex;
           align-items: center;
           gap: 12px;
-          margin: 0 0 28px;
+          margin-bottom: 28px;
 
           color: var(--services-yellow);
 
@@ -579,7 +576,7 @@ export const Services = () => {
           text-transform: uppercase;
         }
 
-        .services-page .services-hero-label p::before {
+        .services-page .services-hero-label::before {
           content: "";
 
           width: 35px;
@@ -678,7 +675,7 @@ export const Services = () => {
               ref={heroLabelRef}
               className="services-hero-label"
             >
-              <p>OUR SERVICES</p>
+              OUR SERVICES
             </div>
 
             <span className="services-hero-copy hidden text-xs tracking-[0.2em] md:block">

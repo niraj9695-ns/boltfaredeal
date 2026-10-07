@@ -5,6 +5,8 @@ import {
   XIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import diaryImage1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
 import diaryImage2 from "../assets/images/PortFolioImages/diaries/diaries02.png";
 import diaryImage3 from "../assets/images/PortFolioImages/diaries/diaries03.png";
@@ -104,6 +106,8 @@ const PROJECTS = [
 ];
 
 const ARTWORKS_PER_CHAPTER = 10;
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DESKTOP_LAYOUTS = [
   { x: 2, y: 8, rotation: -3, scale: 0.94, depth: 0.12, z: 2 },
@@ -261,6 +265,11 @@ const PortfolioArtwork = ({
 };
 
 export const Portfolio = () => {
+  const introRef = useRef(null);
+  const introLabelRef = useRef(null);
+  const introTitleRef = useRef(null);
+  const introDescriptionRef = useRef(null);
+  const introMetaRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState("All");
   const [renderedFilter, setRenderedFilter] = useState("All");
   const [isFilterExiting, setIsFilterExiting] = useState(false);
@@ -295,6 +304,68 @@ export const Portfolio = () => {
   const visibleProjectsRef = useRef(visibleProjects);
   visibleProjectsRef.current = visibleProjects;
   selectedProjectKeyRef.current = selectedProjectKey;
+
+  useEffect(() => {
+    const section = introRef.current;
+    if (!section) return undefined;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    if (reducedMotion.matches) return undefined;
+
+    const ctx = gsap.context(() => {
+      const words = introTitleRef.current?.querySelectorAll(
+        ".portfolio-title-word",
+      );
+      const supportingElements = [
+        introDescriptionRef.current,
+        introMetaRef.current,
+      ];
+
+      gsap.set(introLabelRef.current, { opacity: 0 });
+      gsap.set(words, { opacity: 0, y: 65, rotateX: -65 });
+      gsap.set(supportingElements, { opacity: 0, y: 28 });
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      })
+        .to(introLabelRef.current, {
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+        })
+        .to(
+          words,
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.85,
+            stagger: 0.055,
+            ease: "power4.out",
+          },
+          "-=0.25",
+        )
+        .to(
+          supportingElements,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.08,
+            ease: "power3.out",
+          },
+          "-=0.35",
+        );
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleFilterChange = (filter) => {
     if (filter === activeFilter) {
@@ -464,6 +535,7 @@ export const Portfolio = () => {
           position: relative;
           padding: 140px 6% 22px;
           overflow: hidden;
+          font-family: Inter, "Segoe UI", Arial, sans-serif;
         }
 
         .portfolio-intro-inner {
@@ -508,15 +580,42 @@ export const Portfolio = () => {
           text-transform: uppercase;
         }
 
+        .portfolio-eyebrow {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 0 0 28px;
+        }
+
+        .portfolio-eyebrow::before {
+          content: "";
+          width: 35px;
+          height: 1px;
+          flex: 0 0 auto;
+          background: linear-gradient(
+            90deg,
+            var(--theme-accent),
+            var(--theme-accent-alt)
+          );
+        }
+
         .portfolio-title {
           max-width: 600px;
           margin: 22px 0 0;
           color: var(--theme-text);
-          font-family: inherit;
+          font-family: Inter, "Segoe UI", Arial, sans-serif;
           font-size: clamp(52px, 4vw, 80px);
           font-weight: 650;
           line-height: 0.98;
           letter-spacing: -0.055em;
+          perspective: 1000px;
+        }
+
+        .portfolio-title-word {
+          display: inline-block;
+          margin-right: 0.18em;
+          transform-origin: center bottom;
+          will-change: transform, opacity;
         }
 
         .portfolio-title-accent {
@@ -1138,15 +1237,26 @@ export const Portfolio = () => {
 
           .portfolio-viewer-title {
             margin-top: 10px;
-            font-size: 26px;
           }
 
           .portfolio-viewer-count {
-            margin-top: 18px;
+            font-size: 10px;
           }
 
           .portfolio-viewer-actions {
             margin-top: 14px;
+          }
+        }
+
+        @media (max-width: 639px) {
+          .portfolio-title {
+            margin-top: 16px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .portfolio-title-word {
+            will-change: auto;
           }
         }
 
@@ -1179,18 +1289,22 @@ export const Portfolio = () => {
       `}</style>
 
       <main className="portfolio-page">
-        <section className="portfolio-intro" aria-labelledby="portfolio-title">
+        <section ref={introRef} className="portfolio-intro" aria-labelledby="portfolio-title">
           <div className="portfolio-intro-inner">
             <span className="portfolio-wordmark" aria-hidden="true">PORTFOLIO</span>
-            <div className="portfolio-intro-copy" data-reveal="left">
-              <p className="portfolio-eyebrow">Fairdeal / Selected works</p>
-              <h1 id="portfolio-title" className="portfolio-title">
-                An archive of <span className="portfolio-title-accent">things made.</span>
+            <div className="portfolio-intro-copy">
+              <p ref={introLabelRef} className="portfolio-eyebrow">Fairdeal / Selected works</p>
+              <h1 ref={introTitleRef} id="portfolio-title" className="portfolio-title">
+                <span className="portfolio-title-word">An</span>
+                <span className="portfolio-title-word">archive</span>
+                <span className="portfolio-title-word">of</span>
+                <span className="portfolio-title-word portfolio-title-accent">things</span>
+                <span className="portfolio-title-word portfolio-title-accent">made.</span>
               </h1>
-              <p className="portfolio-description">
+              <p ref={introDescriptionRef} className="portfolio-description">
                 Print, packaging, and objects from the Fairdeal archive. A collection of 46 works across material, form, and finish.
               </p>
-              <div className="portfolio-index-meta" aria-label={`${PROJECTS.length} projects across ${FILTERS.length - 1} categories`}>
+              <div ref={introMetaRef} className="portfolio-index-meta" aria-label={`${PROJECTS.length} projects across ${FILTERS.length - 1} categories`}>
                 <span>46 works</span>
                 <span>08 categories</span>
               </div>
