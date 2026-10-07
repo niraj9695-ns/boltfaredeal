@@ -60,7 +60,7 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
 
         <div className="flex items-center gap-3">
           {/* Desktop Theme Toggle */}
-          <button
+          {/* <button
             type="button"
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             onClick={onToggleTheme}
@@ -71,7 +71,7 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
             ) : (
               <MoonIcon className="h-4 w-4" />
             )}
-          </button>
+          </button> */}
 
           <GradientButton
             to="/contact"
@@ -108,10 +108,9 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
         <div className="ml-auto flex shrink-0 items-center gap-2">
 
           {/* =========================
-              MOBILE THEME TOGGLE
-              OUTSIDE MENU
+              
           ========================== */}
-          <button
+          {/* <button
             type="button"
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             onClick={onToggleTheme}
@@ -127,11 +126,10 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
             ) : (
               <MoonIcon className="h-4 w-4" />
             )}
-          </button>
+          </button> */}
 
           {/* =========================
-              HAMBURGER
-              ONLY CONTROLS MENU
+              
           ========================== */}
           <button
             type="button"

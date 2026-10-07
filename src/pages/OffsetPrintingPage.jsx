@@ -226,7 +226,7 @@ const CMYKPressVisualizer = () => {
 
 export const OffsetPrintingPage = ({ service }) => (
   <main className="relative z-10 w-full bg-[var(--theme-bg)] px-6 pb-20 pt-20 text-[var(--theme-text)] sm:px-8 md:pt-32 lg:px-10 lg:pt-[165px]">
-    <div className="mx-auto max-w-[1180px] space-y-16 sm:space-y-24">
+    <div className="mx-auto max-w-[1500px] space-y-16 sm:space-y-24">
       <section className="relative isolate overflow-hidden rounded-[30px] border border-[var(--theme-border)] bg-[linear-gradient(145deg,rgba(255,255,255,0.035),rgba(255,255,255,0.008))] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.2)] sm:p-10 lg:p-12">
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[var(--theme-accent)] opacity-[0.08] blur-[90px]" />
         <div className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-[var(--theme-accent-alt)] opacity-[0.06] blur-[90px]" />

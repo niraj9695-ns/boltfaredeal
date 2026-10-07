@@ -668,7 +668,7 @@ export const Services = () => {
         ref={heroRef}
         className="services-hero relative px-6 pb-20 pt-24 sm:px-8 md:pt-32 lg:px-10 lg:pb-28 lg:pt-[150px]"
       >
-        <div className="mx-auto max-w-[1380px]">
+        <div className="mx-auto max-w-[1500px]">
 
           <div className="mb-8 flex items-center justify-between">
             <div
@@ -808,7 +808,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative px-6 pb-24 sm:px-8 lg:px-10 lg:pb-36">
-        <div className="mx-auto max-w-[1380px]">
+        <div className="mx-auto max-w-[1500px]">
 
           <div className="mb-10 flex items-end justify-between border-b border-[var(--theme-border)] pb-5">
             <div>
@@ -988,7 +988,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative border-y border-[var(--theme-border)]">
-        <div className="mx-auto max-w-[1380px] px-6 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
 
           <div className="grid gap-14 lg:grid-cols-[0.3fr_1.7fr]">
 
@@ -1064,7 +1064,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative overflow-hidden border-b border-[var(--theme-border)]">
-        <div className="mx-auto max-w-[1380px] px-6 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-32">
 
           <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 

@@ -70,7 +70,7 @@ const panelClass =
 
 export const FlexoPrintingPage = ({ service }) => (
   <main className="relative z-10 w-full bg-[var(--theme-bg)] px-6 pb-20 pt-20 text-[var(--theme-text)] sm:px-8 md:pt-32 lg:px-10 lg:pt-[165px]">
-    <div className="mx-auto max-w-[1180px] space-y-16 sm:space-y-24">
+    <div className="mx-auto max-w-[1500px] space-y-16 sm:space-y-24">
       <section className={`${panelClass} relative isolate overflow-hidden rounded-[30px] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] sm:p-10 lg:p-12`}>
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--theme-accent)] opacity-[0.08] blur-[90px]" />
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">

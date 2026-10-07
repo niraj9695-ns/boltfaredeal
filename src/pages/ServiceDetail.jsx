@@ -7,6 +7,7 @@ import { SERVICES } from "../lib/assets";
 import { FlexoPrintingPage } from "./FlexoPrintingPage";
 import { OffsetPrintingPage } from "./OffsetPrintingPage";
 import { CorrugatedPackagingPage } from "./CorrugatedPackagingPage";
+import { CopierPaperPage } from "./CopierPaperPage";
 
 const slugifyServiceTitle = (value) =>
   value
@@ -26,7 +27,7 @@ export const ServiceDetail = () => {
   if (!service) {
     return (
       <main className="relative z-10 w-full bg-[var(--theme-bg)] px-6 pb-20 pt-20 text-[var(--theme-text)] sm:px-8 md:pt-32 lg:px-10 lg:pt-[165px]">
-        <div className="mx-auto max-w-[1180px]">
+        <div className="mx-auto max-w-[1500px]">
           <div className="rounded-[28px] border border-[var(--theme-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(225,222,0,0.11)_100%)] p-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.12)] sm:p-12">
             <SectionLabel className="mb-4 text-[var(--theme-accent-alt)]">
               Service not found
@@ -60,6 +61,10 @@ export const ServiceDetail = () => {
     return <CorrugatedPackagingPage service={service} />;
   }
 
+  if (service.title === "Copier Paper") {
+    return <CopierPaperPage service={service} />;
+  }
+
   const detailPoints = [
     "Precision-led execution and consistent production output",
     "Material-based customization for your exact requirement",
@@ -68,7 +73,7 @@ export const ServiceDetail = () => {
 
   return (
     <main className="relative z-10 w-full bg-[var(--theme-bg)] px-6 pb-20 pt-20 text-[var(--theme-text)] sm:px-8 md:pt-32 lg:px-10 lg:pt-[165px]">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-[1500px]">
         {/* PAGE HEADER */}
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[620px]">
