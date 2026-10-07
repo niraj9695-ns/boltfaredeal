@@ -1,82 +1,3 @@
-// // ============================================================
-// // DIARIES
-// // ============================================================
-// import diaryImage1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-// import diaryImage2 from "../assets/images/PortFolioImages/diaries/diaries02.png";
-// import diaryImage3 from "../assets/images/PortFolioImages/diaries/diaries03.png";
-// import diaryImage4 from "../assets/images/PortFolioImages/diaries/diaries04.png";
-
-// // ============================================================
-// // LABELS
-// // ============================================================
-// import labelImage1 from "../assets/images/PortFolioImages/labels/labels01.png";
-// import labelImage2 from "../assets/images/PortFolioImages/labels/labels02.png";
-// import labelImage3 from "../assets/images/PortFolioImages/labels/labels03.png";
-// import labelImage4 from "../assets/images/PortFolioImages/labels/labels04.png";
-// import labelImage5 from "../assets/images/PortFolioImages/labels/labels05.png";
-// import labelImage6 from "../assets/images/PortFolioImages/labels/labels06.png";
-// import labelImage7 from "../assets/images/PortFolioImages/labels/lables07.png";
-// import labelImage8 from "../assets/images/PortFolioImages/labels/lables08.png";
-// import labelImage9 from "../assets/images/PortFolioImages/labels/lables09.png";
-
-// // ============================================================
-// // PACKAGING
-// // ============================================================
-// import packagingImage1 from "../assets/images/PortFolioImages/packaging/packaging02.png";
-// import packagingImage2 from "../assets/images/PortFolioImages/packaging/packaging03.png";
-// import packagingImage3 from "../assets/images/PortFolioImages/packaging/packaging04.png";
-// import packagingImage4 from "../assets/images/PortFolioImages/packaging/packaging05.png";
-// import packagingImage5 from "../assets/images/PortFolioImages/packaging/packaging06.png";
-// import packagingImage6 from "../assets/images/PortFolioImages/packaging/packaging07.png";
-// import packagingImage7 from "../assets/images/PortFolioImages/packaging/packaging08.png";
-// import packagingImage8 from "../assets/images/PortFolioImages/packaging/packaging09.png";
-// import packagingImage9 from "../assets/images/PortFolioImages/packaging/saksham nation.png";
-
-// // ============================================================
-// // PRINT
-// // ============================================================
-// import printImage1 from "../assets/images/PortFolioImages/print/print01.png";
-// import printImage2 from "../assets/images/PortFolioImages/print/print02.png";
-// import printImage3 from "../assets/images/PortFolioImages/print/print03.png";
-// import printImage4 from "../assets/images/PortFolioImages/print/print04.png";
-// import printImage5 from "../assets/images/PortFolioImages/print/print05.png";
-// import printImage6 from "../assets/images/PortFolioImages/print/print06.png";
-// import printImage7 from "../assets/images/PortFolioImages/print/print07.png";
-// import printImage8 from "../assets/images/PortFolioImages/print/print08.png";
-// import printImage9 from "../assets/images/PortFolioImages/print/print09.png";
-// import printImage10 from "../assets/images/PortFolioImages/print/print10.png";
-// import printImage11 from "../assets/images/PortFolioImages/print/print11.png";
-// import printImage12 from "../assets/images/PortFolioImages/print/print12.png";
-
-// // ============================================================
-// // MANUALS
-// // ============================================================
-// import manualImage1 from "../assets/images/PortFolioImages/manuals/manuals01.png";
-// import manualImage2 from "../assets/images/PortFolioImages/manuals/manuals02.png";
-// import manualImage3 from "../assets/images/PortFolioImages/manuals/manuals03.png";
-
-// // ============================================================
-// // BOPP TAPES
-// // ============================================================
-// import boppImage1 from "../assets/images/PortFolioImages/bopptapes/bopp-tapes01.png";
-// import boppImage2 from "../assets/images/PortFolioImages/bopptapes/bopp-tapes02.png";
-// import boppImage3 from "../assets/images/PortFolioImages/bopptapes/bopp-tapes03.png";
-
-// // ============================================================
-// // MAILER BAGS
-// // ============================================================
-// import mailerBagImage1 from "../assets/images/PortFolioImages/mailerbag/mailer-bag01.png";
-// import mailerBagImage2 from "../assets/images/PortFolioImages/mailerbag/mailer-bag02.png";
-// import mailerBagImage3 from "../assets/images/PortFolioImages/mailerbag/mailer-bag03.png";
-
-// // ============================================================
-// // STRAPPING ROLLS
-// // ============================================================
-// import strappingRollImage1 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
-// import strappingRollImage2 from "../assets/images/PortFolioImages/strappingroll/roll02.png";
-// import strappingRollImage3 from "../assets/images/PortFolioImages/strappingroll/roll03.png";
-
-
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeftIcon,
@@ -86,36 +7,36 @@ import {
 import gsap from "gsap";
 
 import diaries1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import diaries2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import diaries3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import diaries2 from "../assets/images/PortFolioImages/diaries/diaries02.png";
+import diaries3 from "../assets/images/PortFolioImages/diaries/diaries03.png";
 
-import labels1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import labels2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import labels3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import labels1 from "../assets/images/PortFolioImages/diaries/diaries03.png";
+import labels2 from "../assets/images/PortFolioImages/labels/lables02.png";
+import labels3 from "../assets/images/PortFolioImages/labels/lables03.png";
 
-import packaging1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import packaging2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import packaging3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import packaging1 from "../assets/images/PortFolioImages/packaging/packaging02.png";
+import packaging2 from "../assets/images/PortFolioImages/packaging/packaging04.png";
+import packaging3 from "../assets/images/PortFolioImages/packaging/packaging02.png";
 
-import print1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import print2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import print3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import print1 from "../assets/images/PortFolioImages/print/print01.png";
+import print2 from "../assets/images/PortFolioImages/print/print02.png";
+import print3 from "../assets/images/PortFolioImages/print/print03.png";
 
-import manuals1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import manuals2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import manuals3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import manuals1 from "../assets/images/PortFolioImages/manuals/manuals01.png";
+import manuals2 from "../assets/images/PortFolioImages/manuals/manuals02.png";
+import manuals3 from "../assets/images/PortFolioImages/manuals/manuals03.png";
 
-import bopp1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import bopp2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import bopp3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import bopp1 from "../assets/images/PortFolioImages/bopptapes/bopp-tapes01.png";
+import bopp2 from "../assets/images/PortFolioImages/bopptapes/bopp-tapes02.png";
+import bopp3 from "../assets/images/PortFolioImages/bopptapes/bopp-tapes03.png";
 
-import mailer1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import mailer2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import mailer3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import mailer1 from "../assets/images/PortFolioImages/mailerbag/mailer-bag01.png";
+import mailer2 from "../assets/images/PortFolioImages/mailerbag/mailer-bag02.png";
+import mailer3 from "../assets/images/PortFolioImages/mailerbag/mailer-bag03.png";
 
-import strapping1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import strapping2 from "../assets/images/PortFolioImages/diaries/diaries01.png";
-import strapping3 from "../assets/images/PortFolioImages/diaries/diaries01.png";
+import strapping1 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
+import strapping2 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
+import strapping3 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
 
 const FILTERS = [
   "All",
