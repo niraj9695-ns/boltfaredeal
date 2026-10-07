@@ -218,6 +218,7 @@ const Portfolio = () => {
   const animationRef = useRef(null);
   const activeIndexRef = useRef(0);
   const isAnimatingRef = useRef(false);
+  const pointerStartXRef = useRef(null);
 
   const visibleProjects = useMemo(() => {
     if (activeFilter === "All") {
@@ -453,6 +454,32 @@ const Portfolio = () => {
 
     if (!stage) return;
 
+    const handlePointerDown = (event) => {
+      pointerStartXRef.current = event.clientX;
+      stage.setPointerCapture(event.pointerId);
+    };
+
+    const handlePointerMove = (event) => {
+      if (pointerStartXRef.current === null) return;
+
+      const distance = event.clientX - pointerStartXRef.current;
+
+      if (Math.abs(distance) > 8) {
+        event.preventDefault();
+      }
+    };
+
+    const handlePointerUp = (event) => {
+      if (pointerStartXRef.current === null) return;
+
+      const distance = event.clientX - pointerStartXRef.current;
+      pointerStartXRef.current = null;
+
+      if (Math.abs(distance) >= 40) {
+        navigate(distance < 0 ? 1 : -1);
+      }
+    };
+
     const handleMouseMove = (event) => {
       if (isAnimatingRef.current) return;
 
@@ -490,14 +517,22 @@ const Portfolio = () => {
       });
     };
 
+    stage.addEventListener("pointerdown", handlePointerDown);
+    stage.addEventListener("pointermove", handlePointerMove);
+    stage.addEventListener("pointerup", handlePointerUp);
+    stage.addEventListener("pointercancel", handlePointerUp);
     stage.addEventListener("mousemove", handleMouseMove);
     stage.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
+      stage.removeEventListener("pointerdown", handlePointerDown);
+      stage.removeEventListener("pointermove", handlePointerMove);
+      stage.removeEventListener("pointerup", handlePointerUp);
+      stage.removeEventListener("pointercancel", handlePointerUp);
       stage.removeEventListener("mousemove", handleMouseMove);
       stage.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     return () => {
@@ -858,6 +893,8 @@ const Portfolio = () => {
           width: 100%;
           height: 520px;
           isolation: isolate;
+          touch-action: pan-y;
+          user-select: none;
         }
 
         .fd-stage-number {
