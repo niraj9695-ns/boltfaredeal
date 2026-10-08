@@ -33,8 +33,10 @@ const contactInfo = [
     icon: MapPinIcon,
     title: "Address",
     lines: [
-      "Fairdeal Print Pack, Mohanagar,",
-      "Chinchwad 411033",
+      "128/2, Sanghvi Steel Compound,",
+      "Mohan Nagar, Telco Road,",
+      "Chinchwad, Pune 411019,",
+      "Maharashtra (India)."
     ],
   },
 ];
@@ -290,7 +292,7 @@ export const Contact = () => {
         </div>
       </section>
 
-      <section className="relative z-10 px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
+      {/* <section className="relative z-10 px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
         <div data-reveal="up" className="mx-auto max-w-[620px] text-center">
           <p className="text-[10px] font-medium uppercase tracking-[0.22em]" style={{ color: "var(--theme-accent-alt)" }}>
             Newsletter
@@ -321,7 +323,7 @@ export const Contact = () => {
             </GradientButton>
           </form>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 };

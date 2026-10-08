@@ -5,13 +5,74 @@ import {
   GemIcon,
   FlagIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ASSETS } from "../../lib/assets";
 
 const YELLOW = "#f7d51d";
 
 const ABOUT_TEXT =
   "Fairdeal Print Pack India Pvt. Ltd. has been established as full - fledge document solution in India & Pune city. Our traditional business model is based on the accomplishment of expertise into print media. We began our journey in 1990 & today we have emerged with a reputation for its quality product & prompt service.";
+
+const ExperienceCounter = () => {
+  const [count, setCount] = useState(0);
+  const counterRef = useRef(null);
+
+  useEffect(() => {
+    const node = counterRef.current;
+    if (!node) return undefined;
+
+    let animationFrame = 0;
+    let hasStarted = false;
+
+    const animate = () => {
+      if (hasStarted) return;
+      hasStarted = true;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setCount(36);
+        return;
+      }
+
+      const startTime = performance.now();
+      const duration = 1400;
+      const updateCount = (timestamp) => {
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const easedProgress = 1 - (1 - progress) ** 3;
+        setCount(Math.round(36 * easedProgress));
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(updateCount);
+        }
+      };
+
+      animationFrame = window.requestAnimationFrame(updateCount);
+    };
+
+    if (typeof IntersectionObserver === "undefined") {
+      animate();
+      return () => window.cancelAnimationFrame(animationFrame);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          observer.disconnect();
+          animate();
+        }
+      },
+      { threshold: 0.5 },
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
+  return <span ref={counterRef}>{count}</span>;
+};
 
 const ACCORDION_ITEMS = [
   {
@@ -234,7 +295,7 @@ export const HomeAboutSection = ({ isLightTheme }) => {
               {/* Yellow dot + vertical line on the far left */}
               <span
                 aria-hidden="true"
-                className="absolute -left-[22px] top-[40px] z-20 h-3 w-3 rounded-full bg-[#f7d51d]"
+                className="absolute -left-[22px] top-[40px] z-20 hidden h-3 w-3 rounded-full bg-[#f7d51d] sm:block"
               />
               <span
                 aria-hidden="true"
@@ -244,13 +305,17 @@ export const HomeAboutSection = ({ isLightTheme }) => {
               {/* Offset gold outline arc (fades out toward top-right) */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -inset-4 rounded-bl-[110px] rounded-br-[40px] rounded-tl-[44px] rounded-tr-[120px] border border-[#f7d51d]/50"
+                className="pointer-events-none absolute -inset-4 hidden rounded-bl-[110px] rounded-br-[40px] rounded-tl-[44px] rounded-tr-[120px] border border-[#f7d51d]/50 sm:block"
                 style={{
                   WebkitMaskImage:
                     "linear-gradient(210deg, transparent 25%, black 80%)",
                   maskImage:
                     "linear-gradient(210deg, transparent 25%, black 80%)",
                 }}
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-4 rounded-bl-[110px] rounded-br-[40px] rounded-tl-[44px] rounded-tr-[120px] border border-[#f7d51d]/50 sm:hidden"
               />
 
               {/* Photo (rounded asymmetric card) */}
@@ -364,7 +429,7 @@ export const HomeAboutSection = ({ isLightTheme }) => {
                 <div>
                   <div className="flex items-start leading-none">
                     <span className="text-[72px] font-extrabold text-white sm:text-[80px]">
-                      36
+                      <ExperienceCounter />
                     </span>
                     <span className="ml-1 mt-3 text-[40px] font-extrabold text-[#f7d51d]">
                       +

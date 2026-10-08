@@ -145,7 +145,7 @@ export const HomeServicesSection = ({ activeServiceIndex, setActiveServiceIndex 
                   <div className="relative flex min-h-0 flex-1 flex-col justify-between bg-[linear-gradient(138deg,rgba(134,217,240,1)_0%,rgba(192,229,116,1)_100%)] p-4 text-black sm:p-5 md:p-6 lg:p-8">
                     <div className="flex flex-col gap-1 sm:gap-2 md:gap-3">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.2em]">
-                        {BRAND} / SERVICE {pad(index + 1)}
+                         SERVICE {pad(index + 1)}
                       </span>
                       <h3 className="text-2xl font-medium leading-tight tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
                         {service.title}
