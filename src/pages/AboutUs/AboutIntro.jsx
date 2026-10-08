@@ -519,11 +519,7 @@ const AboutHero = () => {
             690px;
 
           font-size:
-            clamp(
-              52px,
-              4vw,
-              80px
-            );
+            clamp(2.25rem, 4.7vw, 4.4rem);
 
           line-height:
             0.98;

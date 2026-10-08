@@ -728,6 +728,12 @@ const FromMyDesk = () => {
 
               <span>THE REAL SUCCESS</span>
 
+              <h3>
+                Fairdeal
+                <br />
+                Family
+              </h3>
+
               <p>
                 Seeing team members who have been with us from
                 the beginning settled and happy in their lives
@@ -818,7 +824,7 @@ const FromMyDesk = () => {
 
               <div className="fd-founder-image-label">
 
-                <span>FOUNDER</span>
+                <span>FOUNDER & MD</span>
                 <span>FAIRDEAL</span>
 
               </div>
@@ -914,8 +920,9 @@ const FromMyDesk = () => {
 
           <blockquote>
             “You take care of the organisation,
+            <br/>
             <span>
-              the organisation will take care of you.
+                   the organisation will take care of you.
             </span>”
           </blockquote>
 
@@ -1023,12 +1030,12 @@ const FromMyDesk = () => {
             </span>
 
             <h3>
-              To become the{" "}
-              <span>
-                preferred printing{" "}
-              </span>
-              &amp; packaging partner.
-            </h3>
+  To become the{" "}
+  <span>
+    preferred printing{" "}
+  </span>
+  &amp; packaging partner.
+</h3>
 
             <p>
               We will continue to focus on quality,
@@ -1292,7 +1299,7 @@ const FromMyDesk = () => {
           max-width: 750px;
 
           font-size:
-            clamp(45px, 6vw, 82px);
+            clamp(2.25rem, 4.7vw, 4.4rem);
 
           line-height: 0.95;
 
@@ -2062,6 +2069,12 @@ const FromMyDesk = () => {
           font-size: 16px;
 
           line-height: 1.8;
+        }
+
+        .fd-team-text h3 {
+
+          font-size: clamp(44px, 5vw, 78px);;
+
         }
 
 

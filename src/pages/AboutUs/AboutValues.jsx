@@ -634,11 +634,7 @@ const AboutValues = () => {
             0.18em;
 
           font-size:
-            clamp(
-              65px,
-              8vw,
-              120px
-            );
+            clamp(2.25rem, 4.7vw, 4.4rem);
 
           line-height:
             0.88;

@@ -10,13 +10,13 @@ import diaries1 from "../assets/images/PortFolioImages/diaries/diaries01.png";
 import diaries2 from "../assets/images/PortFolioImages/diaries/diaries02.png";
 import diaries3 from "../assets/images/PortFolioImages/diaries/diaries03.png";
 
-import labels1 from "../assets/images/PortFolioImages/diaries/diaries03.png";
-import labels2 from "../assets/images/PortFolioImages/labels/lables02.png";
-import labels3 from "../assets/images/PortFolioImages/labels/lables03.png";
+import labels1 from "../assets/images/PortFolioImages/labels/lables01.png";
+import labels2 from "../assets/images/PortFolioImages/labels/lables04.png";
+import labels3 from "../assets/images/PortFolioImages/labels/lables07.png";
 
 import packaging1 from "../assets/images/PortFolioImages/packaging/packaging02.png";
-import packaging2 from "../assets/images/PortFolioImages/packaging/packaging04.png";
-import packaging3 from "../assets/images/PortFolioImages/packaging/packaging02.png";
+import packaging2 from "../assets/images/PortFolioImages/packaging/packaging03.png";
+import packaging3 from "../assets/images/PortFolioImages/packaging/packaging04.png";
 
 import print1 from "../assets/images/PortFolioImages/print/print01.png";
 import print2 from "../assets/images/PortFolioImages/print/print02.png";
@@ -35,8 +35,8 @@ import mailer2 from "../assets/images/PortFolioImages/mailerbag/mailer-bag02.png
 import mailer3 from "../assets/images/PortFolioImages/mailerbag/mailer-bag03.png";
 
 import strapping1 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
-import strapping2 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
-import strapping3 from "../assets/images/PortFolioImages/strappingroll/roll01.png";
+import strapping2 from "../assets/images/PortFolioImages/strappingroll/roll02.png";
+import strapping3 from "../assets/images/PortFolioImages/strappingroll/roll03.png";
 
 const FILTERS = [
   "All",

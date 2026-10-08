@@ -559,11 +559,7 @@ const AboutGoal = () => {
             0.18em;
 
           font-size:
-            clamp(
-              70px,
-              8vw,
-              125px
-            );
+            clamp(2.25rem, 4.7vw, 4.4rem);
 
           line-height:
             0.86;
@@ -1734,8 +1730,8 @@ const AboutGoal = () => {
                 <div className="goal-badge-small">Our Goal</div>
 
                 <div className="goal-badge-title">
-                  Experience
-                  <span>Quality</span>
+                  Experience <br/>
+                  <span>Quality</span><br/>
                   Commitment
                 </div>
               </div>
@@ -1750,36 +1746,3 @@ const AboutGoal = () => {
 };
 
 export default AboutGoal;
-// import React from "react";
-
-// const AboutGoal = () => {
-//   return (
-//     <section className="about-goal">
-//       <span className="section-label">04 — THE GOAL</span>
-
-//       <h2>Our Goal</h2>
-
-//       <p>
-//         Delighted customers are key to our success, and we strive to achieve
-//         this key every second.
-//       </p>
-
-//       <p>
-//         Printing is our passion. No matter what your print need is,
-//         <strong> Fairdeal Print Pack India Pvt. Ltd.</strong> has the most
-//         effective print solutions.
-//       </p>
-
-//       <div className="about-closing">
-//         <strong>Experience. Quality. Commitment.</strong>
-
-//         <p>
-//           From our journey since 1990 to today, we continue to transform
-//           printing needs into reliable solutions for our customers.
-//         </p>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default AboutGoal;
