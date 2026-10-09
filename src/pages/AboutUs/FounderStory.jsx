@@ -1,4 +1,3 @@
-//import founderImage from "../../assets/images/Technology/Owner image.png";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -966,9 +965,9 @@ const FromMyDesk = () => {
             <h3>
               A company
               <br />
-              is only as
+              is only as strong
               <br />
-              <span>strong as its people.</span>
+              <span>as its people.</span>
             </h3>
 
           </div>
