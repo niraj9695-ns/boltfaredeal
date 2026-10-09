@@ -124,7 +124,7 @@ export const Layout = () => {
   return (
     <main
       data-theme={theme}
-      className="relative isolate mx-auto w-full max-w-[1440px] overflow-x-clip bg-[var(--theme-bg)] text-[var(--theme-text)]"
+      className="relative isolate w-full overflow-x-clip bg-[var(--theme-bg)] text-[var(--theme-text)]"
     >
       <CursorSpotlight />
 
