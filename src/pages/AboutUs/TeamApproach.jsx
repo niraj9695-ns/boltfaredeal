@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import teamImage from "../../assets/images/about/fairdeal-team.png";
+import Factory from "../../assets/images/about/factory.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -730,7 +730,7 @@ const TeamSection = () => {
         <div className="team-image-box">
 
           <img
-            src={teamImage}
+            src={Factory}
             alt="Fairdeal Print Pack Team"
             className="team-main-image"
           />

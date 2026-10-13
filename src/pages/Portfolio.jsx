@@ -574,11 +574,11 @@ const Portfolio = () => {
             </span>
           </div>
 
-          <div className="fd-stage-hint">
+          {/* <div className="fd-stage-hint">
             <span className="fd-hint-line" />
             <span>DRAG / USE ARROWS</span>
             <ArrowUpRightIcon size={14} />
-          </div>
+          </div> */}
 
           {visibleProjects.map((project, index) => (
             <article

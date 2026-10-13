@@ -728,9 +728,7 @@ const FromMyDesk = () => {
               <span>THE REAL SUCCESS</span>
 
               <h3>
-                Fairdeal
-                <br />
-                Family
+                Fairdeal Family
               </h3>
 
               <p>
@@ -824,7 +822,7 @@ const FromMyDesk = () => {
               <div className="fd-founder-image-label">
 
                 <span>FOUNDER & MD</span>
-                <span>FAIRDEAL</span>
+                <span>RAJESH YEWALE</span>
 
               </div>
 
@@ -2072,8 +2070,17 @@ const FromMyDesk = () => {
 
         .fd-team-text h3 {
 
-          font-size: clamp(44px, 5vw, 78px);;
+          margin:
+            0 0 28px;
 
+          font-size:
+            clamp(44px,5vw,78px);
+
+          line-height: 0.95;
+
+          letter-spacing: -0.045em;
+
+          font-weight: 500;
         }
 
 
