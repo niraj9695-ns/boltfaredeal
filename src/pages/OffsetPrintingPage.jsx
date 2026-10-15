@@ -21,6 +21,7 @@ import {
 
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
+import { ServiceFeatures } from "../components/shared/ServiceFeatures";
 
 const advantages = [
   [ZapIcon, "Save on time", "Streamlined offset workflow ensures rapid turnaround for high-volume press runs."],
@@ -239,6 +240,7 @@ export const OffsetPrintingPage = ({ service }) => (
             <p data-reveal="left" className="max-w-2xl text-sm leading-7 text-[var(--theme-text-soft)] sm:text-base">
               Our printing setup brings together the processes vital to completing an offset printing job, giving clients distinct advantages in quality, consistency, and production planning. {service.description}
             </p>
+            <ServiceFeatures features={service.features} />
             <div data-reveal="up" className="flex flex-wrap gap-2 pt-1">
               {[["HIGH PRECISION", "var(--theme-accent)"], ["GLOBAL STANDARDS", "#A4EC62"], ["FULL SPECTRUM", "var(--theme-accent-alt)"]].map(([label, color]) => (
                 <span key={label} className="inline-flex items-center gap-2 rounded-md border border-[var(--theme-border)] bg-black/10 px-3 py-2 text-[10px] font-semibold tracking-[0.08em] text-[var(--theme-text)]">

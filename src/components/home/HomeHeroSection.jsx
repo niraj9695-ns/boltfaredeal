@@ -4,6 +4,10 @@ import { ArrowRight, Play } from "lucide-react";
  * Fairdeal hero section
  * - Full screen height (100vh, with 100svh for mobile browsers)
  * - Font: Lato (loaded below via Google Fonts)
+ * - Headline layout:
+ *     Your Vision.
+ *     Our Printing & Packaging   (single line on tablet/desktop)
+ *     Expertise.
  * - Animations: image slow zoom, eyebrow tracking, masked line reveals,
  *   gradient sheen on the headline, soft pulse on the play button.
  * - All animations are disabled when the user prefers reduced motion.
@@ -54,7 +58,7 @@ const heroStyles = `
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: -0.01em;
-  font-size: clamp(2.25rem, 4.7vw, 4.4rem);
+  font-size: clamp(2rem, 4.4vw, 4.25rem);
 }
 /* each line sits in a clipping mask; the inner span slides up into view */
 .hero-line {
@@ -71,6 +75,11 @@ const heroStyles = `
 .hero-line:nth-child(2) > span { animation-delay: 0.45s; }
 .hero-line:nth-child(3) > span { animation-delay: 0.65s; }
 
+/* keep "Our Printing & Packaging" on one line on tablets and desktops */
+@media (min-width: 768px) {
+  .hero-line { white-space: nowrap; }
+}
+
 .grad-a,
 .grad-b {
   color: transparent;
@@ -86,13 +95,13 @@ const heroStyles = `
 .hero-line:nth-child(2) > .grad-a {
   background-image:
     linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%),
-    linear-gradient(90deg, #35d4ff 0%, #5fe0d0 40%, #a4ec62 100%);
+    linear-gradient(90deg, #1fc8ff 0%, #4fe3c1 35%, #8fe86a 70%, #f7e83a 100%);
   animation-delay: 0.45s, 1.8s;
 }
 .hero-line:nth-child(3) > .grad-b {
   background-image:
     linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%),
-    linear-gradient(90deg, #35d4ff 0%, #8fe86a 38%, #f7e83a 85%);
+    linear-gradient(90deg, #4fe3c1 0%, #a4ec62 50%, #f7e83a 100%);
   animation-delay: 0.65s, 2.1s;
 }
 
@@ -209,7 +218,7 @@ export const HomeHeroSection = ({ heroImage, onWatchStory }) => (
 
     {/* Hero content (top padding leaves room for the fixed header) */}
     <div className="relative z-10 flex h-full flex-col justify-center px-6 pb-12 pt-[110px] md:px-[6.7%] md:pt-[90px]">
-      <div className="flex max-w-[680px] flex-col gap-5">
+      <div className="flex max-w-[960px] flex-col gap-5">
         {/* Eyebrow */}
         <p className="hero-eyebrow">
           <span>Printing</span>
@@ -225,10 +234,10 @@ export const HomeHeroSection = ({ heroImage, onWatchStory }) => (
             <span>Your Vision.</span>
           </span>
           <span className="hero-line">
-            <span className="grad-a">Our Print &amp;</span>
+            <span className="grad-a">Our Printing &amp; Packaging</span>
           </span>
           <span className="hero-line">
-            <span className="grad-b">Packaging Expertise.</span>
+            <span className="grad-b">Expertise.</span>
           </span>
         </h1>
 
@@ -246,12 +255,12 @@ export const HomeHeroSection = ({ heroImage, onWatchStory }) => (
             <ArrowRight className="h-4 w-4" />
           </a>
 
-          <button type="button" className="btn-story" onClick={onWatchStory}>
+          {/* <button type="button" className="btn-story" onClick={onWatchStory}>
             <span className="play-dot">
               <Play className="h-4 w-4" fill="currentColor" />
             </span>
             Watch Our Story
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

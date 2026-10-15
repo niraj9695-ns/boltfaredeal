@@ -10,6 +10,7 @@ import {
 
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
+import { ServiceFeatures } from "../components/shared/ServiceFeatures";
 
 const copierImages = Object.entries(
   import.meta.glob("../assets/images/Services/CopierImages/*.{png,jpg,jpeg,webp}", {
@@ -310,6 +311,8 @@ export const CopierPaperPage = ({ service }) => {
               >
                 {service.description}
               </p>
+
+              <ServiceFeatures features={service.features} />
 
               <div
                 data-reveal="up"

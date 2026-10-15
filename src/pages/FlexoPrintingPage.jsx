@@ -21,6 +21,7 @@ import {
 
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
+import { ServiceFeatures } from "../components/shared/ServiceFeatures";
 
 const advantages = [
   ["01", "VERSATILITY", "Versatile printing", "A range of inks and coatings helps achieve the appearance and protection different products require.", ShuffleIcon],
@@ -84,6 +85,7 @@ export const FlexoPrintingPage = ({ service }) => (
             <p data-reveal="left" className="max-w-[650px] text-sm leading-7 text-[var(--theme-text-soft)] sm:text-base">
               {service.description} Flexography uses flexible raised-image plates to transfer ink onto a wide range of substrates with speed, consistency, and precision.
             </p>
+            <ServiceFeatures features={service.features} />
             <div data-reveal="up" className="flex flex-wrap gap-2">
               {[[Layers3Icon, "FLEXIBLE PLATES"], [CircleGaugeIcon, "HIGH PRESS SPEEDS"], [PaletteIcon, "COLOR CONTROL"], [RecycleIcon, "MULTI-SUBSTRATE"]].map(([Icon, text]) => (
                 <span key={text} className="inline-flex items-center gap-2 rounded-md border border-[var(--theme-border)] bg-white/[0.025] px-3 py-2 text-[10px] font-medium tracking-[0.12em] text-[var(--theme-text-soft)]">

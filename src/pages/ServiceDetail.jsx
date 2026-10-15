@@ -1,8 +1,8 @@
-import { ArrowUpRightIcon } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
+import { ServiceFeatures } from "../components/shared/ServiceFeatures";
 import { SERVICES } from "../lib/assets";
 import { FlexoPrintingPage } from "./FlexoPrintingPage";
 import { OffsetPrintingPage } from "./OffsetPrintingPage";
@@ -65,12 +65,6 @@ export const ServiceDetail = () => {
     return <CopierPaperPage service={service} />;
   }
 
-  const detailPoints = [
-    "Precision-led execution and consistent production output",
-    "Material-based customization for your exact requirement",
-    "Consultation, setup, and finishing support from our team",
-  ];
-
   return (
     <main className="relative z-10 w-full bg-[var(--theme-bg)] px-6 pb-20 pt-20 text-[var(--theme-text)] sm:px-8 md:pt-32 lg:px-10 lg:pt-[165px]">
       <div className="mx-auto max-w-[1500px]">
@@ -132,18 +126,7 @@ export const ServiceDetail = () => {
                 {service.description}
               </p>
 
-              <ul className="space-y-3">
-                {detailPoints.map((point) => (
-                  <li
-                    key={point}
-                    className="flex items-start gap-3 text-sm leading-6 text-[var(--theme-text)] sm:text-base"
-                  >
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--theme-accent)]" />
-
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
+              <ServiceFeatures features={service.features} />
 
               <div className="mt-10">
                 <GradientButton

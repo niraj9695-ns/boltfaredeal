@@ -1,9 +1,4 @@
-
-import {
-  ChevronDownIcon,
-  MoonIcon,
-  SunMediumIcon,
-} from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -13,6 +8,7 @@ import { cn } from "../../lib/utils";
 import logoImage from "../../assets/images/logo.png";
 
 const navLinks = [
+  { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Services", to: "/services" },
   { label: "Portfolio", to: "/portfolio" },
@@ -27,60 +23,64 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
     <>
       {/* =========================
           DESKTOP HEADER
+          One row, 3 columns: logo | glass menu pill | button.
+          The middle column is always truly centered, and all three
+          items share the same vertical center.
       ========================== */}
-      <header className="absolute left-1/2 top-[41px] z-30 hidden w-[min(90%,841px)] -translate-x-1/2 items-center rounded-[100px] bg-white py-2.5 pl-[26px] pr-2.5 text-[#1e1e1e] md:flex dark:border-transparent dark:shadow-none border border-black/10 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+      <div className="absolute inset-x-0 top-5 z-30 hidden grid-cols-[1fr_auto_1fr] items-center pl-[6.7%] pr-8 md:grid">
+        {/* Logo (left) - bigger */}
         <Link
           to="/"
           aria-label="Fairdeal Print Pack home"
-          className="flex shrink-0 items-center gap-2 transition-transform duration-300 hover:scale-[1.02]"
+          className="justify-self-start transition-transform duration-300 hover:scale-[1.03]"
         >
           <img
             src={logoImage}
             alt="Fairdeal Print Pack"
-            className="h-10 w-auto object-contain"
+            className="h-[92px] w-auto object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.35)] lg:h-[104px]"
           />
         </Link>
 
-        <nav className="mx-auto flex items-center gap-[25px]">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                cn(
-                  "nav-item inline-flex items-center justify-center py-2.5 font-normal text-base leading-normal transition-all duration-300 hover:text-[#92d1bc]",
-                  isActive && "active text-[#92d1bc]",
-                )
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
+        {/* Glass menu pill (center) */}
+        <header
+          className={cn(
+            "flex h-[56px] items-center justify-center rounded-[100px] border px-3 backdrop-blur-xl backdrop-saturate-150 lg:px-4",
+            isDark
+              ? "border-white/25 bg-gradient-to-b from-white/[0.18] to-white/[0.06] text-white shadow-[0_8px_32px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.35)]"
+              : "border-white/60 bg-gradient-to-b from-white/70 to-white/45 text-[#1e1e1e] shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.8)]",
+          )}
+        >
+          <nav className="flex items-center gap-1 lg:gap-2">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  cn(
+                    "nav-item inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-normal leading-normal transition-all duration-300 hover:text-[#92d1bc] lg:px-5 lg:text-base",
+                    isDark ? "hover:bg-white/10" : "hover:bg-black/5",
+                    isActive &&
+                      cn(
+                        "active text-[#92d1bc]",
+                        isDark ? "bg-white/15" : "bg-black/5",
+                      ),
+                  )
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+        </header>
 
-        <div className="flex items-center gap-3">
-          {/* Desktop Theme Toggle */}
-          {/* <button
-            type="button"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            onClick={onToggleTheme}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#1e1e1e]/10 bg-[#f4f1eb] text-[#1e1e1e] transition-transform duration-300 hover:scale-105"
-          >
-            {isDark ? (
-              <SunMediumIcon className="h-4 w-4" />
-            ) : (
-              <MoonIcon className="h-4 w-4" />
-            )}
-          </button> */}
-
-          <GradientButton
-            to="/contact"
-            className="w-[136px] p-2.5 text-sm font-normal"
-          >
-            Contact us
-          </GradientButton>
-        </div>
-      </header>
+        {/* Quote button (right) - grows to fit its text */}
+        <GradientButton
+          to="/contact"
+          className="inline-flex h-12 items-center justify-center justify-self-end whitespace-nowrap px-6 text-sm font-normal"
+        >
+          Request a Quote
+        </GradientButton>
+      </div>
 
       {/* =========================
           MOBILE HEADER
@@ -101,36 +101,12 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
           <img
             src={logoImage}
             alt="Fairdeal Print Pack"
-            className="h-8 w-auto object-contain"
+            className="h-9 w-auto object-contain"
           />
         </Link>
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
-
-          {/* =========================
-              
-          ========================== */}
-          {/* <button
-            type="button"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            onClick={onToggleTheme}
-            className={cn(
-              "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border shadow-sm transition-transform duration-300 hover:scale-105",
-              isDark
-                ? "border-white/10 bg-white/10 text-white"
-                : "border-[#1e1e1e]/10 bg-[#f4f1eb] text-[#1e1e1e]",
-            )}
-          >
-            {isDark ? (
-              <SunMediumIcon className="h-4 w-4" />
-            ) : (
-              <MoonIcon className="h-4 w-4" />
-            )}
-          </button> */}
-
-          {/* =========================
-              
-          ========================== */}
+          {/* Menu toggle */}
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
@@ -148,13 +124,9 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
               <span
                 className={cn(
                   "absolute block h-[2px] w-5 rounded-full transition-all duration-300 ease-out",
-                  mobileOpen
-                    ? "translate-y-0 rotate-45"
-                    : "-translate-y-1.5",
+                  mobileOpen ? "translate-y-0 rotate-45" : "-translate-y-1.5",
                 )}
-                style={{
-                  backgroundColor: isDark ? "#ffffff" : "#1e1e1e",
-                }}
+                style={{ backgroundColor: isDark ? "#ffffff" : "#1e1e1e" }}
               />
 
               {/* Middle line */}
@@ -163,22 +135,16 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
                   "absolute block h-[2px] w-5 rounded-full transition-all duration-300 ease-out",
                   mobileOpen ? "opacity-0" : "opacity-100",
                 )}
-                style={{
-                  backgroundColor: isDark ? "#ffffff" : "#1e1e1e",
-                }}
+                style={{ backgroundColor: isDark ? "#ffffff" : "#1e1e1e" }}
               />
 
               {/* Bottom line */}
               <span
                 className={cn(
                   "absolute block h-[2px] w-5 rounded-full transition-all duration-300 ease-out",
-                  mobileOpen
-                    ? "translate-y-0 -rotate-45"
-                    : "translate-y-1.5",
+                  mobileOpen ? "translate-y-0 -rotate-45" : "translate-y-1.5",
                 )}
-                style={{
-                  backgroundColor: isDark ? "#ffffff" : "#1e1e1e",
-                }}
+                style={{ backgroundColor: isDark ? "#ffffff" : "#1e1e1e" }}
               />
             </span>
           </button>
@@ -217,14 +183,14 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
               </NavLink>
             ))}
 
-            {/* Contact button only */}
+            {/* Quote button only */}
             <div className="mt-6">
               <GradientButton
                 to="/contact"
                 className="w-full p-3 text-base font-semibold"
                 onClick={() => setMobileOpen(false)}
               >
-                Contact us
+                Request a Quote
                 <ChevronDownIcon className="h-4 w-4 -rotate-90" />
               </GradientButton>
             </div>
@@ -234,4 +200,3 @@ export const Header = ({ theme = "dark", onToggleTheme }) => {
     </>
   );
 };
-

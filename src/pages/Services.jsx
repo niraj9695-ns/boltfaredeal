@@ -2,7 +2,6 @@
 import {
   ArrowDownRightIcon,
   ArrowUpRightIcon,
-  CheckCircleIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -11,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { SERVICES } from "../lib/assets";
+import serviceHeroImage from "../assets/images/servicehero.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,12 +22,6 @@ const serviceDetails = [
       "High-quality offset production for brand, business, and publishing needs. Precise registration and dependable color reproduction bring brochures, catalogues, books, labels, cartons, and stationery to life at scale.",
     applications:
       "Brochures / Catalogues / Books / Labels / Cartons / Stationery",
-    features: [
-      "Brochures & Catalogues",
-      "Books & Company Profiles",
-      "Labels & Cartons",
-      "Business Stationery",
-    ],
   },
   {
     title: "Flexo Printing",
@@ -35,12 +29,6 @@ const serviceDetails = [
       "Flexible, high-volume printing for labels, tags, packaging, and shrink sleeves. Multi-colour rotary production helps maintain crisp detail and consistent output across long runs and repeat orders.",
     applications:
       "Product Labels / Packaging / Tags / Shrink Sleeves",
-    features: [
-      "Multi-Colour Label Printing",
-      "Rotary Die Cutting",
-      "Tags & Shrink Sleeves",
-      "Consistent Long Runs",
-    ],
   },
   {
     title: "Copier Paper",
@@ -48,12 +36,6 @@ const serviceDetails = [
       "Reliable sourcing and distribution of copier, coated, and sheet-form paper for offices, print rooms, and production partners. Choose the right grade and format for everyday printing or specialist finishing.",
     applications:
       "Offices / Commercial Printers / Production Houses",
-    features: [
-      "Copier Paper",
-      "Coated Paper Grades",
-      "Sheet-Form Supply",
-      "Bulk Distribution",
-    ],
   },
   {
     title: "Corrugation",
@@ -61,12 +43,6 @@ const serviceDetails = [
       "Protective corrugated packaging developed around the product, journey, and presentation. From everyday transit cartons to custom-fit packaging, flute and board options balance strength with practical handling.",
     applications:
       "Transit Cartons / Custom Boxes / Product Protection",
-    features: [
-      "E, F & C Flute Options",
-      "Custom Box Formats",
-      "Transit Protection",
-      "Retail-Ready Packaging",
-    ],
   },
   {
     title: "Others",
@@ -74,12 +50,6 @@ const serviceDetails = [
       "Specialist print and finishing options for the details that make a project distinct. Combine tapes, labels, stickers, and screen printing to complete packaging and promotional requirements.",
     applications:
       "Packaging Details / Product Identification / Promotions",
-    features: [
-      "BOPP Tapes",
-      "Labels & Stickers",
-      "Screen Printing",
-      "Specialist Finishing",
-    ],
   },
 ];
 
@@ -313,8 +283,6 @@ export const Services = () => {
   const heroRef = useRef(null);
   const heroLabelRef = useRef(null);
   const heroTitleRef = useRef(null);
-  const heroLeadRef = useRef(null);
-  const heroFieldRef = useRef(null);
   const heroCopyRef = useRef(null);
   const heroVisualRef = useRef(null);
   const heroMetaRef = useRef(null);
@@ -364,8 +332,6 @@ export const Services = () => {
         );
 
       const supportingElements = [
-        heroLeadRef.current,
-        heroFieldRef.current,
         heroCopyRef.current,
         heroMetaRef.current,
         heroExploreRef.current,
@@ -421,28 +387,6 @@ export const Services = () => {
             ease: "power4.out",
           },
           "-=0.25",
-        )
-
-        .to(
-          heroLeadRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            ease: "power3.out",
-          },
-          "-=0.35",
-        )
-
-        .to(
-          heroFieldRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            ease: "power3.out",
-          },
-          "-=0.3",
         )
 
         .to(
@@ -551,6 +495,21 @@ export const Services = () => {
           letter-spacing: var(--services-display-tracking);
         }
 
+        .services-page .service-title {
+          background-image: linear-gradient(
+            90deg,
+            #1fc8ff 0%,
+            #4fe3c1 35%,
+            #8fe86a 70%,
+            #f7e83a 100%
+          );
+          background-clip: text;
+          font-size: clamp(3.25rem, 4.7vw, 5rem);
+          font-weight: 650;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
         /* =====================================================
            HERO
         ===================================================== */
@@ -598,7 +557,7 @@ export const Services = () => {
         .services-page .services-hero h1 {
           font-family: Inter, "Segoe UI", Arial, sans-serif;
 
-          font-size: var(--services-display-size);
+          font-size: clamp(2.25rem, 4.7vw, 4.4rem);
           font-weight: 650;
           line-height: 0.98;
           letter-spacing: -0.055em;
@@ -668,34 +627,30 @@ export const Services = () => {
         ref={heroRef}
         className="services-hero relative px-6 pb-20 pt-24 sm:px-8 md:pt-32 lg:px-10 lg:pb-28 lg:pt-[150px]"
       >
-        <div className="mx-auto max-w-[1500px]">
+        <div className="mx-auto max-w-[1240px]">
 
-          <div className="mb-8 flex items-center justify-between">
-            <div
-              ref={heroLabelRef}
-              className="services-hero-label"
-            >
-              OUR SERVICES
-            </div>
-
+          {/* <div className="flex justify-end">
             <span className="services-hero-copy hidden text-xs tracking-[0.2em] md:block">
               01 / SERVICES
             </span>
-          </div>
+          </div> */}
 
-          <div className="grid gap-12 lg:grid-cols-[1.35fr_0.65fr] lg:items-start">
+          <div className="mt-8 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div className="lg:pl-8">
+              <div
+                ref={heroLabelRef}
+                className="services-hero-label"
+              >
+                OUR SERVICES
+              </div>
 
-            {/* LEFT */}
-            <div>
               <h1
                 ref={heroTitleRef}
-                className="max-w-[1100px] text-[var(--services-white)]"
+                className="mt-6 pl-4 text-[var(--services-white)] sm:mt-8 sm:pl-6 lg:mt-0 lg:pl-0"
               >
                 <span className="services-hero-word">
                   Print.
-                </span>
-
-                <br />
+                </span>{" "}
 
                 <span className="services-hero-word services-hero-accent">
                   Pack.
@@ -707,68 +662,29 @@ export const Services = () => {
               </h1>
 
               <p
-                ref={heroLeadRef}
-                className="services-hero-copy mt-7 max-w-[560px] text-base leading-7 sm:text-lg"
+                ref={heroCopyRef}
+                className="services-hero-copy mt-[34px] max-w-[560px] text-base leading-[1.8] tracking-[-0.01em]"
               >
-                From first proof to final delivery, we make print work
-                hard for your brand.
+             From offset and flexographic printing to copier papers and corrugated boxes, Fairdeal offers complete printing and packaging solutions under one roof. Our pre-press and post-press services ensure quality, consistency, and reliable execution from design preparation to final delivery.
               </p>
-
-              <div
-                ref={heroFieldRef}
-                className="mt-10 grid max-w-[650px] grid-cols-3 gap-3"
-              >
-                {SERVICES.slice(1, 4).map((service, index) => (
-                  <div
-                    key={service.title}
-                    className="relative aspect-[1.55/1] overflow-hidden bg-[var(--services-panel-2)]"
-                  >
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                    />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
-
-                    <div
-                      className={`absolute inset-x-0 bottom-0 h-[2px] ${
-                        index === 1
-                          ? "bg-[var(--services-mint)]"
-                          : "bg-[var(--services-yellow)]"
-                      }`}
-                    />
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* RIGHT */}
-            <div className="max-w-[400px] lg:pb-3">
-              <p
-                ref={heroCopyRef}
-                className="services-hero-copy text-sm leading-7 sm:text-base"
-              >
-                Offset and flexographic printing, paper supply, and
-                corrugated production come together for dependable
-                end-to-end output.
-              </p>
-
+            <div className="lg:pb-3">
               <div
                 ref={heroVisualRef}
-                className="relative mt-8 aspect-[1.45/1] overflow-hidden bg-[var(--services-panel-2)]"
+                className="relative aspect-[1.45/1] overflow-hidden bg-[var(--services-panel-2)]"
               >
                 <img
-                  src={SERVICES[0].image}
-                  alt="Offset printing production"
+                  src={serviceHeroImage}
+                  alt="Fairdeal printing and packaging production"
                   className="services-hero-image"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/5 to-transparent" />
 
                 <span className="services-hero-image-caption absolute bottom-4 left-4 text-[9px] font-semibold uppercase tracking-[0.2em]">
-                  Offset production / 01
+                  Print & Packaging / 01
                 </span>
 
                 <ArrowUpRightIcon
@@ -808,7 +724,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative px-6 pb-2 sm:px-8 lg:px-10 lg:pb-3">
-        <div className="mx-auto max-w-[1500px]">
+        <div className="mx-auto max-w-[1240px]">
 
           <div className="mb-10 flex items-end justify-between border-b border-[var(--theme-border)] pb-5">
             <div>
@@ -844,7 +760,6 @@ export const Services = () => {
                   description: service.description,
                   applications:
                     "Print / Packaging / Distribution",
-                  features: [],
                 };
 
               const serviceId = service.title
@@ -858,7 +773,7 @@ export const Services = () => {
               return (
                 <article
                   key={service.title}
-                  className="group relative border-b border-[var(--theme-border)] py-8 sm:py-10 lg:py-10"
+                  className="group relative border-b border-[var(--theme-border)] py-12 sm:py-14 lg:py-16"
                 >
                   {/* LARGE BACKGROUND NUMBER */}
 
@@ -871,7 +786,7 @@ export const Services = () => {
                     {/* NUMBER */}
 
                     <div className="flex items-start gap-4 lg:block">
-                      <span className="text-[11px] tracking-[0.18em] text-[var(--theme-accent)]">
+                      <span className="text-5xl font-semibold leading-none tracking-[-0.06em] text-[var(--services-yellow)] lg:text-7xl">
                         {String(index + 1).padStart(2, "0")}
                       </span>
 
@@ -885,10 +800,10 @@ export const Services = () => {
                     {/* CONTENT */}
 
                     <div
-                      className={`grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center ${
-                        !isEven
-                          ? "lg:[&>*:first-child]:order-2"
-                          : ""
+                      className={`grid gap-8 lg:items-center ${
+                        isEven
+                          ? "lg:grid-cols-[1.25fr_0.75fr]"
+                          : "lg:grid-cols-[0.75fr_1.25fr] lg:[&>*:first-child]:order-2"
                       }`}
                     >
 
@@ -906,7 +821,7 @@ export const Services = () => {
 
                         {/* SAME SIZE AS HERO */}
 
-                        <h3 className="services-display-heading max-w-[720px] text-[var(--theme-text)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
+                        <h3 className="service-title services-display-heading max-w-[720px] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
                           {service.title}
                         </h3>
 
@@ -953,29 +868,10 @@ export const Services = () => {
                           </div>
                         </div>
 
-                        {/* FEATURE STRIP */}
-
-                        <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                          {detail?.features.map((feature) => (
-                            <div
-                              key={feature}
-                              className="flex items-center gap-2 border-b border-[var(--theme-border)] pb-2"
-                            >
-                              <CheckCircleIcon className="h-3.5 w-3.5 shrink-0 text-[var(--theme-accent)]" />
-
-                              <span className="text-[11px] leading-5 text-[var(--theme-text-soft)]">
-                                {feature}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* HOVER LINE */}
-
-                  <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[var(--theme-accent)] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-full" />
                 </article>
               );
             })}
@@ -988,7 +884,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative border-y border-[var(--theme-border)]">
-        <div className="mx-auto max-w-[1500px] px-6 py-0 sm:px-8 sm:py-28 lg:px-10 lg:py-10">
+        <div className="mx-auto max-w-[1240px] px-6 py-0 sm:px-8 sm:py-28 lg:px-10 lg:py-10">
 
           <div className="grid gap-14 lg:grid-cols-[0.3fr_1.7fr]">
 
@@ -1064,7 +960,7 @@ export const Services = () => {
       ===================================================== */}
 
       <section className="relative overflow-hidden border-b border-[var(--theme-border)]">
-        <div className="mx-auto max-w-[1500px] px-6 py-2 sm:px-8 sm:py-28 lg:px-10 lg:py-3">
+        <div className="mx-auto max-w-[1240px] px-6 py-2 sm:px-8 sm:py-28 lg:px-10 lg:py-3">
 
           <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 
@@ -1168,4 +1064,3 @@ export const Services = () => {
     </main>
   );
 };
-

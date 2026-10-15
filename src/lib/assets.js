@@ -39,6 +39,12 @@ export const SERVICES = [
   {
     title: "Offset Printing",
     description: "High-quality offset printing solutions for brochures, books, labels, cartons, and business stationery.",
+    features: [
+      "Brochures & Catalogues",
+      "Books & Company Profiles",
+      "Labels & Cartons",
+      "Business Stationery",
+    ],
     image: ASSETS.servicePrint,
     radius: "rounded-[20px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
@@ -46,6 +52,12 @@ export const SERVICES = [
   {
     title: "Flexo Printing",
     description: "Flexible printing solutions for labels, tags, packaging, and shrink sleeves with consistent quality.",
+    features: [
+      "Multi-Colour Label Printing",
+      "Rotary Die Cutting",
+      "Tags & Shrink Sleeves",
+      "Consistent Long Runs",
+    ],
     image: ASSETS.serviceColor,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
@@ -53,6 +65,12 @@ export const SERVICES = [
   {
     title: "Copier Paper",
     description: "Importer, distributor and dealer of copier, coated and sheet form papers.",
+    features: [
+      "Copier Paper",
+      "Coated Paper Grades",
+      "Sheet-Form Supply",
+      "Bulk Distribution",
+    ],
     image: ASSETS.servicePaper,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",
@@ -60,6 +78,12 @@ export const SERVICES = [
   {
     title: "Corrugation",
     description: "High-quality corrugated packaging solutions from standard transit boxes to bespoke packaging.",
+    features: [
+      "E, F & C Flute Options",
+      "Custom Box Formats",
+      "Transit Protection",
+      "Retail-Ready Packaging",
+    ],
     image: ASSETS.servicePackaging,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(139deg,rgba(134,217,240,0.3)_0%,rgba(192,229,116,0.3)_100%)]",
@@ -67,6 +91,12 @@ export const SERVICES = [
   {
     title: "Others",
     description: "BOPP tapes, screen printing, labels, stickers, and specialized printing solutions.",
+    features: [
+      "BOPP Tapes",
+      "Labels & Stickers",
+      "Screen Printing",
+      "Specialist Finishing",
+    ],
     image: ASSETS.serviceBopp,
     radius: "rounded-[30px]",
     overlay: "bg-blend-screen bg-[linear-gradient(138deg,rgba(134,217,240,0.23)_0%,rgba(192,229,116,0.3)_100%)]",

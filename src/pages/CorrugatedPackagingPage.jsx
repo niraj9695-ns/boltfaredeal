@@ -16,6 +16,7 @@ import {
 
 import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
+import { ServiceFeatures } from "../components/shared/ServiceFeatures";
 
 const capabilities = [
   [Layers3Icon, "Multiple flute options", "E-Flute, F-Flute, and Narrow Flute"],
@@ -74,6 +75,7 @@ export const CorrugatedPackagingPage = ({ service }) => (
             <p data-reveal="left" className="max-w-[560px] text-sm leading-7 text-[var(--theme-text-soft)] sm:text-base">
               From transit boxes to bespoke printed corrugated packaging, Fairdeal develops solutions around your product and packaging requirements. Our corrugated production combines paper and coating materials with a commitment to consistent quality. {service.description}
             </p>
+            <ServiceFeatures features={service.features} />
             <div data-reveal="up" className="flex flex-wrap gap-2">
               {["E-FLUTE", "F-FLUTE", "NARROW FLUTE", "2-7 PLY BOXES"].map((tag) => (
                 <span key={tag} className="rounded-md border border-[var(--theme-border)] bg-[var(--theme-accent)]/[0.06] px-3 py-2 text-[10px] font-semibold tracking-[0.1em] text-[var(--theme-text-soft)]">{tag}</span>

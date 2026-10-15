@@ -146,9 +146,9 @@ export const Footer = () => {
                     "mt-[9px] text-sm font-normal leading-[25px] tracking-[-0.3px]",
                     isLightTheme ? "text-[#1b1b1b]" : "text-white",
                   ].join(" ")}>
-                    Mon - Sun: 9 am - 5 pm
+                    Mon - Sun: 9 am - 5.30 pm
                     <br />
-                    Weekly Off: Thursday
+                    Weekly Off: Sunday
                   </p>
                 </section>
                 <section>
