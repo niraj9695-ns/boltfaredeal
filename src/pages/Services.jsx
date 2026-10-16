@@ -693,7 +693,7 @@ export const Services = () => {
                 {/* image */}
                 <div
                   ref={heroVisualRef}
-                  className="relative aspect-[1.45/1] overflow-hidden bg-[var(--services-panel-2)] ring-1 ring-white/10"
+                  className="relative aspect-[1.45/1] overflow-hidden rounded-xl bg-[var(--services-panel-2)] ring-1 ring-white/10"
                 >
                   <img
                     src={serviceHeroImage}
@@ -892,7 +892,7 @@ export const Services = () => {
                       {/* IMAGE + FEATURES */}
 
                       <div className="relative">
-                        <div className="relative aspect-[1.35/1] overflow-hidden bg-[var(--theme-bg)]">
+                        <div className="relative aspect-[1.35/1] overflow-hidden rounded-xl bg-[var(--theme-bg)]">
                           <img
                             src={service.image}
                             alt={service.title}

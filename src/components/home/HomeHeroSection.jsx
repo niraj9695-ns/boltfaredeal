@@ -80,6 +80,18 @@ const heroStyles = `
   .hero-line { white-space: nowrap; }
 }
 
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero-section .hero-content {
+    justify-content: flex-start;
+    padding-top: 164px;
+    padding-bottom: 2rem;
+  }
+
+  .hero-section .hero-title {
+    font-size: clamp(1.875rem, 4vw, 3rem);
+  }
+}
+
 .grad-a,
 .grad-b {
   color: transparent;
@@ -217,7 +229,7 @@ export const HomeHeroSection = ({ heroImage, onWatchStory }) => (
     />
 
     {/* Hero content (top padding leaves room for the fixed header) */}
-    <div className="relative z-10 flex h-full flex-col justify-center px-6 pb-12 pt-[110px] md:px-[6.7%] md:pt-[90px]">
+    <div className="hero-content relative z-10 flex h-full flex-col justify-center px-6 pb-12 pt-[110px] md:px-[6.7%] md:pt-[90px]">
       <div className="flex max-w-[960px] flex-col gap-5">
         {/* Eyebrow */}
         <p className="hero-eyebrow">

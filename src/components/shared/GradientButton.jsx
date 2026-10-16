@@ -9,6 +9,7 @@ export const GradientButton = ({
   onClick,
   className,
   type = "button",
+  disabled = false,
 }) => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -65,7 +66,8 @@ export const GradientButton = ({
   return (
     <button
       type={type}
-      className={combined}
+      disabled={disabled}
+      className={cn(combined, disabled && "cursor-not-allowed opacity-60")}
       onClick={onClick}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}

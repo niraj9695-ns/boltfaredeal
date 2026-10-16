@@ -13,6 +13,8 @@ import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { Input } from "../components/ui/input";
 
+const WEB3FORMS_ACCESS_KEY = "fcf560d2-8ccb-4b07-ab0a-f20a098d7c3c";
+
 const contactInfo = [
   {
     icon: ClockIcon,
@@ -42,7 +44,7 @@ const contactInfo = [
 ];
 
 export const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState("idle");
   const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
 
   useEffect(() => {
@@ -64,6 +66,15 @@ export const Contact = () => {
     message: "",
   });
 
+  const handleFieldChange = (event) => {
+    const { name, value } = event.target;
+    setForm((currentForm) => ({ ...currentForm, [name]: value }));
+
+    if (submissionStatus !== "sending") {
+      setSubmissionStatus("idle");
+    }
+  };
+
   const panelBackground = isLightTheme
     ? "linear-gradient(135deg, rgba(26,125,106,0.13), rgba(255,255,255,0.88))"
     : "linear-gradient(135deg, rgba(146,209,188,0.12), rgba(11,16,20,0.97))";
@@ -76,19 +87,36 @@ export const Contact = () => {
     ? "rgba(199,183,25,0.12)"
     : "rgba(225,222,0,0.08)";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    setSubmitted(true);
+    if (submissionStatus === "sending") return;
+    setSubmissionStatus("sending");
 
-    setForm({
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: new FormData(event.currentTarget),
+      });
+      const result = await response.json();
 
-    setTimeout(() => setSubmitted(false), 5000);
+      if (!response.ok || !result.success) {
+        console.error("Contact form submission failed:", result.message || response.statusText);
+        setSubmissionStatus("error");
+        return;
+      }
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+      setSubmissionStatus("success");
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
+      setSubmissionStatus("error");
+    }
   };
 
   return (
@@ -184,6 +212,16 @@ export const Contact = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value={WEB3FORMS_ACCESS_KEY}
+                />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value="New contact form message - Fairdeal Print Pack"
+                />
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-xs font-medium" style={{ color: "var(--theme-text)" }}>
@@ -192,10 +230,11 @@ export const Contact = () => {
 
                     <Input
                       id="name"
+                      name="name"
                       type="text"
                       required
                       value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      onChange={handleFieldChange}
                       placeholder="Your full name"
                       className="h-11 rounded-md border-[var(--theme-border)] bg-[var(--theme-bg)] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus-visible:ring-[var(--theme-accent)]"
                     />
@@ -208,10 +247,11 @@ export const Contact = () => {
 
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       required
                       value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      onChange={handleFieldChange}
                       placeholder="your@email.com"
                       className="h-11 rounded-md border-[var(--theme-border)] bg-[var(--theme-bg)] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus-visible:ring-[var(--theme-accent)]"
                     />
@@ -225,9 +265,10 @@ export const Contact = () => {
 
                   <Input
                     id="phone"
+                    name="phone"
                     type="tel"
                     value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    onChange={handleFieldChange}
                     placeholder="Your phone number"
                     className="h-11 rounded-md border-[var(--theme-border)] bg-[var(--theme-bg)] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus-visible:ring-[var(--theme-accent)]"
                   />
@@ -240,30 +281,46 @@ export const Contact = () => {
 
                   <textarea
                     id="message"
+                    name="message"
                     required
                     rows={5}
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={handleFieldChange}
                     placeholder="Tell us about your project..."
                     className="w-full resize-none rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-3 text-sm text-[var(--theme-text)] outline-none placeholder:text-[var(--theme-text-muted)] transition-colors duration-300 focus:border-[var(--theme-accent)] focus:ring-1 focus:ring-[var(--theme-accent)]"
                   />
                 </div>
 
                 <div className="flex flex-col items-start gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
-                  <p
-                    className={`text-xs transition-opacity duration-300 ${submitted ? "opacity-100" : "opacity-0"}`}
-                    style={{ color: "var(--theme-text-soft)" }}
-                  >
-                    Thank you. We'll get back to you soon.
-                  </p>
+                  {submissionStatus !== "idle" && (
+                    <p
+                      aria-live="polite"
+                      role={submissionStatus === "error" ? "alert" : "status"}
+                      className="text-xs"
+                      style={{
+                        color: submissionStatus === "error"
+                          ? "#ef4444"
+                          : "var(--theme-text-soft)",
+                      }}
+                    >
+                      {submissionStatus === "sending" && "Sending your message..."}
+                      {submissionStatus === "success" && "Thank you. We'll get back to you soon."}
+                      {submissionStatus === "error" && "We couldn't send your message. Please try again."}
+                    </p>
+                  )}
 
                   <GradientButton
                     type="submit"
+                    disabled={submissionStatus === "sending"}
                     className="h-11 px-6 text-sm font-semibold"
                   >
-                    {submitted ? "Message Sent" : "Send Message"}
+                    {submissionStatus === "sending"
+                      ? "Sending..."
+                      : submissionStatus === "success"
+                        ? "Message Sent"
+                        : "Send Message"}
 
-                    {!submitted && (
+                    {submissionStatus !== "sending" && submissionStatus !== "success" && (
                       <SendIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     )}
                   </GradientButton>
