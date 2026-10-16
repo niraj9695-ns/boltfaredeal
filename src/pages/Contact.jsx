@@ -13,7 +13,7 @@ import { GradientButton } from "../components/shared/GradientButton";
 import { SectionLabel } from "../components/shared/SectionLabel";
 import { Input } from "../components/ui/input";
 
-const WEB3FORMS_ACCESS_KEY = "fcf560d2-8ccb-4b07-ab0a-f20a098d7c3c";
+const WEB3FORMS_ACCESS_KEY = "06284836-95a7-48fa-aa0c-d85c26d822a8";
 
 const contactInfo = [
   {
@@ -94,9 +94,12 @@ export const Contact = () => {
     setSubmissionStatus("sending");
 
     try {
+      const formData = new FormData(event.currentTarget);
+      formData.set("access_key", WEB3FORMS_ACCESS_KEY);
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: new FormData(event.currentTarget),
+        body: formData,
       });
       const result = await response.json();
 
@@ -212,11 +215,6 @@ export const Contact = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <input
-                  type="hidden"
-                  name="access_key"
-                  value={WEB3FORMS_ACCESS_KEY}
-                />
                 <input
                   type="hidden"
                   name="subject"
