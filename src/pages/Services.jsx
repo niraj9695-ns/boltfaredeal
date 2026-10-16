@@ -671,26 +671,70 @@ export const Services = () => {
 
             {/* RIGHT */}
             <div className="lg:pb-3">
-              <div
-                ref={heroVisualRef}
-                className="relative aspect-[1.45/1] overflow-hidden bg-[var(--services-panel-2)]"
-              >
-                <img
-                  src={serviceHeroImage}
-                  alt="Fairdeal printing and packaging production"
-                  className="services-hero-image"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/5 to-transparent" />
-
-                <span className="services-hero-image-caption absolute bottom-4 left-4 text-[9px] font-semibold uppercase tracking-[0.2em]">
-                  Print & Packaging / 01
-                </span>
-
-                <ArrowUpRightIcon
-                  className="absolute bottom-4 right-4 h-4 w-4 text-[#8FE7C8]"
+              <div className="group relative">
+                {/* soft mint glow behind image */}
+                <div
                   aria-hidden="true"
+                  className="pointer-events-none absolute -inset-8 -z-10 bg-[radial-gradient(60%_60%_at_70%_40%,rgba(143,231,200,0.18),transparent_70%)] blur-2xl"
                 />
+
+                {/* offset yellow frame */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-3 -top-3 h-full w-full border border-[#FFE600]/40 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 sm:-right-4 sm:-top-4"
+                />
+
+                {/* dot pattern */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -bottom-5 -left-5 h-24 w-24 opacity-40 [background-image:radial-gradient(#8FE7C8_1px,transparent_1px)] [background-size:10px_10px]"
+                />
+
+                {/* image */}
+                <div
+                  ref={heroVisualRef}
+                  className="relative aspect-[1.45/1] overflow-hidden bg-[var(--services-panel-2)] ring-1 ring-white/10"
+                >
+                  <img
+                    src={serviceHeroImage}
+                    alt="Fairdeal printing and packaging production"
+                    className="services-hero-image transition-transform duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/5 to-transparent" />
+
+                  {/* corner brackets */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-3 top-3 h-4 w-4 border-l border-t border-[#8FE7C8]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute right-3 top-3 h-4 w-4 border-r border-t border-[#8FE7C8]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-3 left-3 h-4 w-4 border-b border-l border-[#8FE7C8]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-3 right-3 h-4 w-4 border-b border-r border-[#8FE7C8]"
+                  />
+
+                  <span className="services-hero-image-caption absolute bottom-7 left-7 text-[9px] font-semibold uppercase tracking-[0.2em]">
+                    Print & Packaging / 01
+                  </span>
+
+                  <ArrowUpRightIcon
+                    className="absolute bottom-7 right-7 h-4 w-4 text-[#8FE7C8]"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {/* floating tag */}
+                <div className="absolute -left-3 top-8 bg-[#FFE600] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-black shadow-lg sm:-left-5">
+                  Offset · Flexo · Corrugated
+                </div>
               </div>
 
               <div className="services-hero-rule mt-5 h-px w-full" />
@@ -965,10 +1009,10 @@ export const Services = () => {
           <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 
             <div>
-              <SectionLabel className="mb-5 text-left text-[var(--theme-accent-alt)]">
+              {/* <SectionLabel className="mb-5 text-left text-[var(--theme-accent-alt)]">
                 LET&apos;S GET STARTED
-              </SectionLabel>
-
+              </SectionLabel> */}
+{/* 
               <div className="relative">
                 <span className="absolute -left-1 -top-7 text-xs text-[var(--theme-accent)]">
                   +
@@ -979,13 +1023,13 @@ export const Services = () => {
                   highest level. Tell us about your project and we will
                   make it work.
                 </p>
-              </div>
+              </div> */}
             </div>
 
             <div>
 
               {/* SAME SIZE AS HERO */}
-
+{/* 
               <h2 className="services-display-heading max-w-[1000px] text-[var(--theme-text)]">
                 Have a project
                 <br />
@@ -993,18 +1037,18 @@ export const Services = () => {
                 <span className="font-normal text-[var(--theme-accent)]">
                   in mind?
                 </span>
-              </h2>
+              </h2> */}
             </div>
           </div>
 
           {/* CONTACT FORM */}
 
-          <form className="mt-10 border-t border-[var(--theme-border)] pt-8 lg:mt-10">
-            <div className="grid gap-10 lg:grid-cols-[0.7fr_0.7fr_1.6fr_auto] lg:items-end">
+          {/* <form className="mt-10 border-t border-[var(--theme-border)] pt-8 lg:mt-10"> */}
+            {/* <div className="grid gap-10 lg:grid-cols-[0.7fr_0.7fr_1.6fr_auto] lg:items-end"> */}
 
               {/* NAME */}
 
-              <label className="block">
+              {/* <label className="block">
                 <span className="mb-3 block text-[10px] uppercase tracking-[0.2em] text-[var(--theme-text-soft)]">
                   Name
                 </span>
@@ -1013,11 +1057,11 @@ export const Services = () => {
                   type="text"
                   className="w-full border-0 border-b border-[var(--theme-border)] bg-transparent pb-3 text-sm text-[var(--theme-text)] outline-none transition-colors focus:border-[var(--theme-accent)]"
                 />
-              </label>
+              </label> */}
 
               {/* EMAIL */}
 
-              <label className="block">
+              {/* <label className="block">
                 <span className="mb-3 block text-[10px] uppercase tracking-[0.2em] text-[var(--theme-text-soft)]">
                   Email
                 </span>
@@ -1026,10 +1070,10 @@ export const Services = () => {
                   type="email"
                   className="w-full border-0 border-b border-[var(--theme-border)] bg-transparent pb-3 text-sm text-[var(--theme-text)] outline-none transition-colors focus:border-[var(--theme-accent)]"
                 />
-              </label>
+              </label> */}
 
               {/* PROJECT */}
-
+{/* 
               <label className="block">
                 <span className="mb-3 block text-[10px] uppercase tracking-[0.2em] text-[var(--theme-text-soft)]">
                   Tell us about the project
@@ -1039,20 +1083,20 @@ export const Services = () => {
                   rows={1}
                   className="w-full resize-none border-0 border-b border-[var(--theme-border)] bg-transparent pb-3 text-sm text-[var(--theme-text)] outline-none transition-colors focus:border-[var(--theme-accent)]"
                 />
-              </label>
+              </label> */}
 
               {/* CTA */}
 
-              <GradientButton
+              {/* <GradientButton
                 type="submit"
                 className="h-[52px] whitespace-nowrap px-7 text-sm"
               >
                 Start a conversation
 
                 <ArrowUpRightIcon className="h-4 w-4" />
-              </GradientButton>
-            </div>
-          </form>
+              </GradientButton> */}
+            {/* </div>
+          </form> */}
         </div>
 
         {/* BACKGROUND NUMBER */}
