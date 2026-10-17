@@ -19,7 +19,7 @@ const contactInfo = [
   {
     icon: ClockIcon,
     title: "Working Hours",
-    lines: ["Mon - Sat: 9 am - 5.30 pm", "Weekly Off: Sunday"],
+    lines: ["Mon - Sat: 9.00 am - 5.30 pm", "Weekly Off: Sunday"],
   },
   {
     icon: PhoneIcon,

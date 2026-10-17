@@ -281,6 +281,8 @@ const AboutHero = () => {
 
           min-height: 100vh;
 
+          min-height: 100svh;
+
           width: 100%;
 
           overflow: hidden;
@@ -417,6 +419,9 @@ const AboutHero = () => {
 
           min-height:
             100vh;
+
+          min-height:
+            100svh;
 
           margin:
             0 auto;
@@ -1460,6 +1465,24 @@ const AboutHero = () => {
 
             bottom:
               10px;
+
+          }
+
+        }
+
+
+        @media (min-width: 768px) and (max-height: 800px) {
+
+          .about-inner {
+
+            align-items:
+              start;
+
+            padding-top:
+              9rem;
+
+            padding-bottom:
+              2rem;
 
           }
 

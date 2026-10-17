@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, CircleArrowOutUpRight } from "lucide-react";
 
 // Adjust this path if your folder depth is different.
-import globeAsset from "../../assets/images/Halftone Globe Handshake Emblem.png";
+import globeAsset from "../../assets/images/Halftone Globe Handshake Emblem.webp";
 
 const steps = [
   {

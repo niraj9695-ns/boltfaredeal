@@ -2,7 +2,8 @@ import { ArrowRight, Play } from "lucide-react";
 
 /**
  * Fairdeal hero section
- * - Full screen height (100vh, with 100svh for mobile browsers)
+ * - At least full screen height (min-height 100vh, with 100svh for mobile browsers).
+ *   The section can grow taller on short screens so content never overlaps the header/logo.
  * - Font: Lato (loaded below via Google Fonts)
  * - Headline layout:
  *     Your Vision.
@@ -18,9 +19,8 @@ const heroStyles = `
 
 .hero-section {
   font-family: "Lato", system-ui, sans-serif;
-  height: 100vh;
-  height: 100svh;
-  min-height: 600px;
+  min-height: 100vh;
+  min-height: 100svh;
 }
 
 /* ---------- Background ---------- */
@@ -202,6 +202,18 @@ const heroStyles = `
 /* final eyebrow tracking (after animation ends) */
 .hero-eyebrow { letter-spacing: 0.3em; }
 
+/* ---------- Short-height laptops (e.g. 1366x768 and below) ----------
+   Content starts below the logo/nav instead of being centred, so it
+   never overlaps the header. Font sizes are left untouched; only the
+   space above the content is set (in rem). */
+@media (min-width: 768px) and (max-height: 800px) {
+  .hero-section .hero-content {
+    justify-content: flex-start;
+    padding-top: 11rem;
+    padding-bottom: 2rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-section *,
   .hero-section *::after {
@@ -229,7 +241,7 @@ export const HomeHeroSection = ({ heroImage, onWatchStory }) => (
     />
 
     {/* Hero content (top padding leaves room for the fixed header) */}
-    <div className="hero-content relative z-10 flex h-full flex-col justify-center px-6 pb-12 pt-[110px] md:px-[6.7%] md:pt-[90px]">
+    <div className="hero-content relative z-10 flex min-h-[inherit] translate-y-3 flex-col justify-center px-6 pb-12 pt-[110px] md:px-[6.7%] md:pt-[90px]">
       <div className="flex max-w-[960px] flex-col gap-5">
         {/* Eyebrow */}
         <p className="hero-eyebrow">

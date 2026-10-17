@@ -156,7 +156,7 @@ export const HomePortfolioSection = () => {
           options={{
             type: "loop",
             autoScroll: {
-              speed: 3.0,
+              speed: 1.5,
               pauseOnHover: false,
               pauseOnFocus: false,
             },
@@ -198,7 +198,8 @@ export const HomePortfolioSection = () => {
               <PortfolioCard
                 title={item.title}
                 image={item.image}
-                showOverlay
+                loading="eager"
+                fetchPriority="high"
                 className="h-[280px] w-full min-[701px]:h-[440px] min-[1101px]:h-[480px]"
               />
             </SplideSlide>

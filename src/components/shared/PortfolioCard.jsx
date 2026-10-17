@@ -8,6 +8,8 @@ export const PortfolioCard = ({
   image,
   className,
   showOverlay = false,
+  loading = "lazy",
+  fetchPriority = "auto",
 }) => {
   const handlePointerMove = (event) => {
     const card = event.currentTarget;
@@ -43,7 +45,8 @@ export const PortfolioCard = ({
             className="portfolio-image"
             alt={title || "Portfolio case"}
             src={image}
-            loading="lazy"
+            loading={loading}
+            fetchPriority={fetchPriority}
           />
           <div className="portfolio-ink-overlay" aria-hidden="true" />
           

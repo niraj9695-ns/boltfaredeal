@@ -186,7 +186,7 @@ export const Footer = () => {
               </FooterHeading>
               <div className={["mt-6", textMain].join(" ")}>
                 <InfoRow icon={<ClockIcon />} accent={accent}>
-                  Mon - Sat: 9 am - 5.30 pm
+                  Mon - Sat: 9.00 am - 5.30 pm
                   <br />
                   Weekly Off: Sunday
                 </InfoRow>
@@ -209,7 +209,7 @@ export const Footer = () => {
                   >
                     Fairdeal Print Pack, Mohanagar,
                     <br />
-                    Chinchwad 411033
+                    Chinchwad 411019
                   </a>
                 </InfoRow>
               </div>
