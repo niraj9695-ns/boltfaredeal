@@ -13,7 +13,7 @@ import { SectionLabel } from "../components/shared/SectionLabel";
 import { ServiceFeatures } from "../components/shared/ServiceFeatures";
 
 const copierImages = Object.entries(
-  import.meta.glob("../assets/images/Services/CopierImages/*.{png,jpg,jpeg,webp}", {
+  import.meta.glob("../assets/images/Services/copierimages2/*.{png,jpg,jpeg,webp}", {
     eager: true,
     import: "default",
   }),

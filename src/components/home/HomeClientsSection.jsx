@@ -25,6 +25,8 @@ export const HomeClientsSection = () => (
         primary="Our"
         secondary="Clients"
         className="text-center"
+        primaryClassName="mr-3 inline-block"
+        secondaryClassName="inline-block"
       />
       {/* <div className="mx-auto mt-3 h-[2px] w-12 bg-[#92d1bc]" /> */}
     </div>

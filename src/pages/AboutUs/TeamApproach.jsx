@@ -719,7 +719,7 @@ const TeamSection = () => {
         ========================================== */}
 
         <div className="team-section-title">
-          People Behind The Process
+           A Facility Built for Excellence
         </div>
 
 

@@ -436,7 +436,7 @@ export const HomeAboutSection = ({ isLightTheme }) => {
                     </span>
                   </div>
 
-                  <p className="mt-3 max-w-[110px] text-xs font-semibold uppercase leading-snug tracking-[0.22em] text-white/60">
+                  <p className="mt-3 w-max whitespace-nowrap text-xs font-semibold uppercase leading-snug tracking-[0.22em] text-white/60">
                     Years of Trust
                   </p>
                 </div>

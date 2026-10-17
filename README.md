@@ -30,20 +30,20 @@ If you are satisfied with the result, you can finally build the project for rele
 npm run build
 ```
 
-## Deploy to GitHub Pages
+## Deploy to your hosting
 
-The `main` branch is deployed automatically to
-[https://niraj9695-ns.github.io/boltfaredeal/](https://niraj9695-ns.github.io/boltfaredeal/)
-by the GitHub Actions workflow whenever changes are pushed.
-
-To enable publishing, open the repository's **Settings → Pages** and select
-**Deploy from a branch**, then choose the `gh-pages` branch and `/(root)` folder.
-The first deployment creates that branch. You can also publish manually after
-installing dependencies by running:
+Build the production site:
 
 ```
-npm run deploy
+npm install
+npm run build
 ```
 
-The build includes a Pages fallback so client-side routes continue to work when
-opened directly or refreshed.
+Upload the **contents** of the generated `dist` directory to your hosting
+account's document root (commonly `public_html`). The Vite build uses
+root-relative asset paths for `https://fairdealprintpack.com/`.
+
+The `public/.htaccess` file is copied into `dist` and configures Apache/LiteSpeed
+to serve the React app for client-side routes, including direct visits and page
+refreshes. If your hosting uses Nginx or another server, configure its
+equivalent single-page-app fallback to serve `index.html` for unknown routes.

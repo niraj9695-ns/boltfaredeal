@@ -1,4 +1,4 @@
-import heroJewelry from "../assets/images/herohome.png";
+import heroJewelry from "../assets/images/herohome.webp";
 import heroLight from "../assets/images/herolight.png";
 import ownerImage from "../assets/images/Owner image.png";
 import whyChooseUsImage from "../assets/images/WhyChooseUs.png";
