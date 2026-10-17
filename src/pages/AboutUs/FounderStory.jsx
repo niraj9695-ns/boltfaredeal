@@ -728,7 +728,9 @@ const FromMyDesk = () => {
               <span>THE REAL SUCCESS</span>
 
               <h3>
-                Fairdeal Family
+                Fairdeal 
+                <br/>
+                Family
               </h3>
 
               <p>
