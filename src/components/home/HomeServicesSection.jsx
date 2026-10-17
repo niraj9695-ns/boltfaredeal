@@ -129,7 +129,15 @@ export const HomeServicesSection = ({ activeServiceIndex, setActiveServiceIndex 
               ))}
             </div>
 
-            <div className="mt-5 flex items-center justify-end">
+            <div className="mt-5 flex items-center justify-between gap-4">
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 rounded-full border border-white px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                View all services
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+
               <div
                 className="flex items-center gap-2 rounded-full bg-[#0b0d12]/80 p-1.5 backdrop-blur-sm"
                 aria-label="Service navigation"

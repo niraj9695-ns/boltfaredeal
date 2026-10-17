@@ -186,7 +186,7 @@ export const Footer = () => {
               </FooterHeading>
               <div className={["mt-6", textMain].join(" ")}>
                 <InfoRow icon={<ClockIcon />} accent={accent}>
-                  Mon - Sun: 9 am - 5.30 pm
+                  Mon - Sat: 9 am - 5.30 pm
                   <br />
                   Weekly Off: Sunday
                 </InfoRow>
