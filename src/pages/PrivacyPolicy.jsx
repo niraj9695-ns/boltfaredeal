@@ -56,7 +56,7 @@ const content = [
   {
     title: "11. Contact Us",
     body:
-      "If you have questions, concerns, or requests regarding this Privacy Policy or the handling of your information, please contact Fairdeal Print Pack at info@fairdealprintpack.com or 020 2747 4888. You may also contact us at Fairdeal Print Pack, Mohanagar, Chinchwad 411033.",
+      "If you have questions, concerns, or requests regarding this Privacy Policy or the handling of your information, please contact Fairdeal Print Pack at info@fairdealprintpack.com or 020 2747 4888. You may also contact us at Fairdeal Print Pack, Mohanagar, Chinchwad 411019.",
   },
 ];
 

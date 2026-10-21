@@ -6,12 +6,12 @@ import portfolioImage1 from "../assets/images/PortFolioImages/5.webp";
 import portfolioImage4 from "../assets/images/PortFolioImages/2.webp";
 import portfolioImage3 from "../assets/images/PortFolioImages/3.webp";
 import portfolioImage2 from "../assets/images/PortFolioImages/4.webp";
-import serviceBopp from "../assets/images/Services/Bopp.png";
-import serviceCorrugated from "../assets/images/Services/Corrugated.png  ";
+import serviceBopp from "../assets/images/Services/Otherservices.webp";
+import serviceCorrugated from "../assets/images/Services/Corrugated.png";
 import serviceFlexo from "../assets/images/Services/Flexo.png";
 import serviceLabels from "../assets/images/Services/Labels.jpg";
 import serviceOffset from "../assets/images/Services/OffSet.png";
-import serviceScreen from "../assets/images/Services/copier.png";
+import serviceScreen from "../assets/images/Services/CopierPaper.webp";
 
 export const ASSETS = {
   heroBg: heroJewelry,

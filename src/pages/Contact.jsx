@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   ClockIcon,
@@ -14,6 +14,137 @@ import { SectionLabel } from "../components/shared/SectionLabel";
 import { Input } from "../components/ui/input";
 
 const WEB3FORMS_ACCESS_KEY = "06284836-95a7-48fa-aa0c-d85c26d822a8";
+
+// Anti-spam settings
+const COOLDOWN_SECONDS = 30; // wait time after a successful send
+const MIN_FILL_TIME_MS = 3000; // bots submit instantly, humans do not
+const LAST_SENT_KEY = "contactFormLastSent";
+
+// Stricter than before: needs a domain with a 2+ letter ending, no spaces,
+// no double dots, and no dot at the start or end of the domain parts.
+const EMAIL_REGEX =
+  /^[^\s@.]+(?:\.[^\s@.]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
+
+// Catches common typing mistakes that still look like a valid email.
+// Only well-known typos are listed, so real domains are never blocked by mistake.
+const TYPO_DOMAINS = {
+  "gmail.comm": "gmail.com",
+  "gmail.con": "gmail.com",
+  "gmail.cmo": "gmail.com",
+  "gmail.coom": "gmail.com",
+  "gmail.vom": "gmail.com",
+  "gmail.cm": "gmail.com",
+  "gmail.om": "gmail.com",
+  "gmail.co": "gmail.com",
+  "gmial.com": "gmail.com",
+  "gmal.com": "gmail.com",
+  "gamil.com": "gmail.com",
+  "gmaill.com": "gmail.com",
+  "yahoo.con": "yahoo.com",
+  "yahoo.comm": "yahoo.com",
+  "yaho.com": "yahoo.com",
+  "yahooo.com": "yahoo.com",
+  "hotmail.con": "hotmail.com",
+  "hotmail.comm": "hotmail.com",
+  "hotmial.com": "hotmail.com",
+  "outlook.con": "outlook.com",
+  "outlook.comm": "outlook.com",
+  "rediffmail.con": "rediffmail.com",
+  "rediffmail.comm": "rediffmail.com",
+  "icloud.con": "icloud.com",
+  "icloud.comm": "icloud.com",
+};
+
+// Endings that are almost always a typo of ".com"
+const TYPO_ENDINGS = new Set(["comm", "con", "cmo", "vom", "coom", "xom"]);
+
+const getEmailTypoHint = (email) => {
+  const [localPart, domain = ""] = email.toLowerCase().split("@");
+  const ending = domain.split(".").pop();
+
+  if (TYPO_DOMAINS[domain]) {
+    return `Did you mean ${localPart}@${TYPO_DOMAINS[domain]}?`;
+  }
+
+  if (TYPO_ENDINGS.has(ending)) {
+    return `Please check the email ending ".${ending}". Did you mean ".com"?`;
+  }
+
+  return "";
+};
+
+const validateField = (field, rawValue) => {
+  const value = (rawValue || "").trim();
+
+  switch (field) {
+    case "name":
+      if (!value) return "Please enter your name.";
+      if (value.length > 100) return "Name must be 100 characters or fewer.";
+      return "";
+
+    case "email":
+      if (!value) return "Please enter your email address.";
+      if (value.length > 254 || !EMAIL_REGEX.test(value)) {
+        return "Please enter a valid email address.";
+      }
+      return getEmailTypoHint(value);
+
+    case "phone": {
+      if (!value) return ""; // phone is optional
+      const phoneDigits = value.replace(/\D/g, "");
+      if (
+        !/^\+?[0-9\s().-]+$/.test(value) ||
+        phoneDigits.length < 7 ||
+        phoneDigits.length > 15
+      ) {
+        return "Enter a valid phone number with 7 to 15 digits.";
+      }
+      return "";
+    }
+
+    case "message":
+      if (!value) return "Please enter a message.";
+      if (value.length > 2000) return "Message must be 2,000 characters or fewer.";
+      return "";
+
+    default:
+      return "";
+  }
+};
+
+const validateContactForm = ({ name, email, phone, message }) => {
+  const errors = {};
+  const values = { name, email, phone, message };
+
+  Object.keys(values).forEach((field) => {
+    const error = validateField(field, values[field]);
+    if (error) errors[field] = error;
+  });
+
+  return errors;
+};
+
+// Safe helpers: localStorage can be blocked (private mode, strict settings)
+const readLastSent = () => {
+  try {
+    return Number(window.localStorage.getItem(LAST_SENT_KEY)) || 0;
+  } catch {
+    return 0;
+  }
+};
+
+const writeLastSent = (timestamp) => {
+  try {
+    window.localStorage.setItem(LAST_SENT_KEY, String(timestamp));
+  } catch {
+    // ignore, the in-memory cooldown still works
+  }
+};
+
+const getCooldownLeft = () => {
+  const elapsed = Math.floor((Date.now() - readLastSent()) / 1000);
+  return Math.max(0, COOLDOWN_SECONDS - elapsed);
+};
 
 const contactInfo = [
   {
@@ -45,7 +176,12 @@ const contactInfo = [
 
 export const Contact = () => {
   const [submissionStatus, setSubmissionStatus] = useState("idle");
+  const [errors, setErrors] = useState({});
+  const [cooldownLeft, setCooldownLeft] = useState(() => getCooldownLeft());
   const [isLightTheme, setIsLightTheme] = useState(() => document.documentElement.getAttribute("data-theme") === "light");
+
+  // Time when the form was shown. Used to catch bots that submit instantly.
+  const formShownAt = useRef(Date.now());
 
   useEffect(() => {
     const syncTheme = () => {
@@ -59,6 +195,17 @@ export const Contact = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Count the cooldown down once per second
+  useEffect(() => {
+    if (cooldownLeft <= 0) return undefined;
+
+    const timer = setInterval(() => {
+      setCooldownLeft(getCooldownLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldownLeft]);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -69,10 +216,20 @@ export const Contact = () => {
   const handleFieldChange = (event) => {
     const { name, value } = event.target;
     setForm((currentForm) => ({ ...currentForm, [name]: value }));
+    setErrors((currentErrors) => ({ ...currentErrors, [name]: "" }));
 
     if (submissionStatus !== "sending") {
       setSubmissionStatus("idle");
     }
+  };
+
+  // Validate one field when the user leaves it
+  const handleFieldBlur = (event) => {
+    const { name, value } = event.target;
+    setErrors((currentErrors) => ({
+      ...currentErrors,
+      [name]: validateField(name, value),
+    }));
   };
 
   const panelBackground = isLightTheme
@@ -87,15 +244,63 @@ export const Contact = () => {
     ? "rgba(199,183,25,0.12)"
     : "rgba(225,222,0,0.08)";
 
+  const resetFormAfterSuccess = () => {
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+    setErrors({});
+    setSubmissionStatus("success");
+    formShownAt.current = Date.now();
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (submissionStatus === "sending") return;
+
+    // Rate limit: block repeat submissions for a short time
+    const secondsLeft = getCooldownLeft();
+    if (secondsLeft > 0) {
+      setCooldownLeft(secondsLeft);
+      setSubmissionStatus("cooldown");
+      return;
+    }
+
+    const validationErrors = validateContactForm(form);
+    setErrors(validationErrors);
+    const firstInvalidField = Object.keys(validationErrors)[0];
+    if (firstInvalidField) {
+      document.getElementById(firstInvalidField)?.focus();
+      setSubmissionStatus("idle");
+      return;
+    }
+
+    // Submitted too fast to be a human
+    if (Date.now() - formShownAt.current < MIN_FILL_TIME_MS) {
+      setSubmissionStatus("tooFast");
+      return;
+    }
+
+    const formData = new FormData(event.currentTarget);
+
+    // Honeypot: real users never tick this hidden box. Pretend it worked
+    // so the bot does not learn anything, but do not send the message.
+    if (formData.get("botcheck")) {
+      resetFormAfterSuccess();
+      return;
+    }
+
     setSubmissionStatus("sending");
 
     try {
-      const formData = new FormData(event.currentTarget);
       formData.set("access_key", WEB3FORMS_ACCESS_KEY);
+      formData.set("name", form.name.trim());
+      formData.set("email", form.email.trim());
+      formData.set("phone", form.phone.trim());
+      formData.set("message", form.message.trim());
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -109,18 +314,16 @@ export const Contact = () => {
         return;
       }
 
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
-      setSubmissionStatus("success");
+      writeLastSent(Date.now());
+      setCooldownLeft(COOLDOWN_SECONDS);
+      resetFormAfterSuccess();
     } catch (error) {
       console.error("Contact form submission failed:", error);
       setSubmissionStatus("error");
     }
   };
+
+  const isCoolingDown = cooldownLeft > 0;
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)]">
@@ -214,12 +417,24 @@ export const Contact = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <input
                   type="hidden"
                   name="subject"
                   value="New contact form message - Fairdeal Print Pack"
                 />
+
+                {/* Honeypot spam trap: hidden from people, bots tend to tick it.
+                    Web3Forms also reads the field named "botcheck". */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ display: "none" }}
+                />
+
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-xs font-medium" style={{ color: "var(--theme-text)" }}>
@@ -231,11 +446,16 @@ export const Contact = () => {
                       name="name"
                       type="text"
                       required
+                      maxLength={100}
                       value={form.name}
                       onChange={handleFieldChange}
+                      onBlur={handleFieldBlur}
                       placeholder="Your full name"
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "name-error" : undefined}
                       className="h-11 rounded-md border-[var(--theme-border)] bg-[var(--theme-bg)] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus-visible:ring-[var(--theme-accent)]"
                     />
+                    {errors.name && <p id="name-error" className="text-xs text-red-500">{errors.name}</p>}
                   </div>
 
                   <div className="flex flex-col gap-2">
@@ -248,11 +468,16 @@ export const Contact = () => {
                       name="email"
                       type="email"
                       required
+                      maxLength={254}
                       value={form.email}
                       onChange={handleFieldChange}
+                      onBlur={handleFieldBlur}
                       placeholder="your@email.com"
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "email-error" : undefined}
                       className="h-11 rounded-md border-[var(--theme-border)] bg-[var(--theme-bg)] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus-visible:ring-[var(--theme-accent)]"
                     />
+                    {errors.email && <p id="email-error" className="text-xs text-red-500">{errors.email}</p>}
                   </div>
                 </div>
 
@@ -265,11 +490,16 @@ export const Contact = () => {
                     id="phone"
                     name="phone"
                     type="tel"
+                    maxLength={25}
                     value={form.phone}
                     onChange={handleFieldChange}
+                    onBlur={handleFieldBlur}
                     placeholder="Your phone number"
+                    aria-invalid={Boolean(errors.phone)}
+                    aria-describedby={errors.phone ? "phone-error" : undefined}
                     className="h-11 rounded-md border-[var(--theme-border)] bg-[var(--theme-bg)] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus-visible:ring-[var(--theme-accent)]"
                   />
+                  {errors.phone && <p id="phone-error" className="text-xs text-red-500">{errors.phone}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -281,44 +511,63 @@ export const Contact = () => {
                     id="message"
                     name="message"
                     required
+                    maxLength={2000}
                     rows={5}
                     value={form.message}
                     onChange={handleFieldChange}
+                    onBlur={handleFieldBlur}
                     placeholder="Tell us about your project..."
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     className="w-full resize-none rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-3 text-sm text-[var(--theme-text)] outline-none placeholder:text-[var(--theme-text-muted)] transition-colors duration-300 focus:border-[var(--theme-accent)] focus:ring-1 focus:ring-[var(--theme-accent)]"
                   />
+                  {errors.message && <p id="message-error" className="text-xs text-red-500">{errors.message}</p>}
                 </div>
 
                 <div className="flex flex-col items-start gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
                   {submissionStatus !== "idle" && (
                     <p
                       aria-live="polite"
-                      role={submissionStatus === "error" ? "alert" : "status"}
+                      role={
+                        submissionStatus === "error" ||
+                        submissionStatus === "cooldown" ||
+                        submissionStatus === "tooFast"
+                          ? "alert"
+                          : "status"
+                      }
                       className="text-xs"
                       style={{
-                        color: submissionStatus === "error"
-                          ? "#ef4444"
-                          : "var(--theme-text-soft)",
+                        color:
+                          submissionStatus === "error" ||
+                          submissionStatus === "cooldown" ||
+                          submissionStatus === "tooFast"
+                            ? "#ef4444"
+                            : "var(--theme-text-soft)",
                       }}
                     >
                       {submissionStatus === "sending" && "Sending your message..."}
                       {submissionStatus === "success" && "Thank you. We'll get back to you soon."}
                       {submissionStatus === "error" && "We couldn't send your message. Please try again."}
+                      {submissionStatus === "cooldown" &&
+                        `Please wait ${cooldownLeft} second${cooldownLeft === 1 ? "" : "s"} before sending another message.`}
+                      {submissionStatus === "tooFast" && "That was very quick. Please check your details and try again."}
                     </p>
                   )}
 
                   <GradientButton
                     type="submit"
-                    disabled={submissionStatus === "sending"}
+                    disabled={submissionStatus === "sending" || isCoolingDown}
                     className="h-11 px-6 text-sm font-semibold"
                   >
                     {submissionStatus === "sending"
                       ? "Sending..."
-                      : submissionStatus === "success"
-                        ? "Message Sent"
-                        : "Send Message"}
+                      : isCoolingDown
+                        ? `Message Sent (${cooldownLeft}s)`
+                        : submissionStatus === "success"
+                          ? "Message Sent"
+                          : "Send Message"}
 
-                    {submissionStatus !== "sending" && submissionStatus !== "success" && (
+                    {submissionStatus !== "sending" && !isCoolingDown && submissionStatus !== "success" && (
                       <SendIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     )}
                   </GradientButton>
